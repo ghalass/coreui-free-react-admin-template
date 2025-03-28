@@ -11,6 +11,7 @@ import {
   cilNotes,
   cilPencil,
   cilPuzzle,
+  cilSettings,
   cilSpeedometer,
   cilStar,
 } from '@coreui/icons'
@@ -47,6 +48,24 @@ const _nav = [
     component: CNavTitle,
     name: 'Components',
   },
+  // 
+  // 
+  // 
+  // 
+  {
+    component: CNavGroup,
+    name: 'Configs',
+    icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Sites',
+        to: '/configs/sites',
+      },
+    ],
+  },
+
+
   {
     component: CNavGroup,
     name: 'Base',

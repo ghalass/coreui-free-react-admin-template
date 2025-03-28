@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
 import {
+  CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -12,11 +12,47 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CSpinner,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { loginQuery } from '../../../hooks/useUsers'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../../context/Auth'
 
 const Login = () => {
+  const loginMutation = loginQuery();
+
+
+  const [user, setUser] = useState({
+    // email: "med@email.com",
+    // password: "123456",
+    email: "ghalass@gmail.com",
+    password: "gh@l@ss@dmin",
+  });
+
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const redirectPath = location.state?.path || "/";
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const loginData = { email: user.email, password: user.password };
+
+    loginMutation.mutate(loginData, {
+      onSuccess: (response) => {
+        const token = response.token;
+
+        auth.login(response?.user);
+        auth.setToken(token);
+        navigate(redirectPath, { replace: true });
+
+        toast.success("Connecté avec succès.");
+      },
+    });
+  };
+
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -25,16 +61,20 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
-                    <h1>Login</h1>
+                  <CForm onSubmit={onSubmit}>
+                    <h1>Se connecter</h1>
                     <p className="text-body-secondary">Sign In to your account</p>
-                    <CInputGroup className="mb-3">
+
+                    <CInputGroup className="mb-3" >
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput type="email" placeholder="Email" value={user?.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
                     </CInputGroup>
-                    <CInputGroup className="mb-4">
+
+
+
+                    <CInputGroup className="mb-4 ">
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
@@ -42,41 +82,45 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+
+                        value={user.password}
+                        onChange={(e) =>
+                          setUser({ ...user, password: e.target.value })
+                        }
+
                       />
                     </CInputGroup>
+
+
+
                     <CRow>
-                      <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
-                          Login
+                      <CCol >
+                        <CButton disabled={loginMutation.isPending} color="primary" className="px-4" type="submit">
+
+                          <div className="d-flex gap-1 align-items-center justify-content-end">
+                            {loginMutation.isPending && <CSpinner size="sm" />}{" "}
+                            <span>Se connecter</span>
+                          </div>
+
                         </CButton>
+
+
+
                       </CCol>
-                      <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0">
-                          Forgot password?
-                        </CButton>
-                      </CCol>
+
                     </CRow>
+
+
                   </CForm>
+                  {loginMutation.isError && <CAlert color="danger" className='mb-0 mt-2'>{loginMutation.error.message}</CAlert>}
+
+
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard>
+
             </CCardGroup>
           </CCol>
+
         </CRow>
       </CContainer>
     </div>

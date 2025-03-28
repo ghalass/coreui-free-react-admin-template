@@ -51,7 +51,15 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
+// MY PAGES
+const Sites = React.lazy(() => import('./views/configs/Sites'))
+
 const routes = [
+
+  // MY ROUTES
+
+  { path: '/configs/sites', name: 'Sites', element: Sites },
+  // 
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
