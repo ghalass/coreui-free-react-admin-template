@@ -27,21 +27,23 @@ const Parcs = () => {
   const [visible, setVisible] = useState(false)
   const [operation, setOperation] = useState('')
 
-  const [site, setSite] = useState({ id: '', name: '' })
-  const createSiteMutation = useCreateParc()
-  const deleteSiteMutation = useDeleteTypeparc()
-  const updateSiteMutation = useUpdateTypeparc()
+  const initialVal = { id: '', name: '' }
+
+  const [entity, setEntity] = useState(initialVal)
+  const createMutation = useCreateParc()
+  const deleteMutation = useDeleteTypeparc()
+  const updateMutation = useUpdateTypeparc()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = {
-      id: site.id,
-      name: site.name,
+      id: entity.id,
+      name: entity.name,
     }
 
     switch (operation) {
       case 'create':
-        createSiteMutation.mutate(data, {
+        createMutation.mutate(data, {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
@@ -50,7 +52,7 @@ const Parcs = () => {
         })
         break
       case 'delete':
-        deleteSiteMutation.mutate(data, {
+        deleteMutation.mutate(data, {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
@@ -58,7 +60,7 @@ const Parcs = () => {
         })
         break
       case 'update':
-        updateSiteMutation.mutate(data, {
+        updateMutation.mutate(data, {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
@@ -71,10 +73,10 @@ const Parcs = () => {
   }
 
   const handleResetAll = () => {
-    setSite({ id: '', name: '' })
-    createSiteMutation.reset()
-    deleteSiteMutation.reset()
-    updateSiteMutation.reset()
+    setEntity(initialVal)
+    createMutation.reset()
+    deleteMutation.reset()
+    updateMutation.reset()
     setOperation('create')
   }
 
@@ -86,30 +88,30 @@ const Parcs = () => {
       setSearch(newSearchValue)
     }
   }
-  // Filter the sites based on the search query
-  const filteredSites = getAllQuery.data?.filter((site) =>
-    site.name.toLowerCase().includes(search.toLowerCase()),
+  // Filter the entitys based on the search query
+  const filteredEntitys = getAllQuery.data?.filter((parc) =>
+    parc.name.toLowerCase().includes(search.toLowerCase()),
   )
 
   // Pagination States
   const [currentPage, setCurrentPage] = useState(1)
-  const [sitesPerPage, setSitesPerPage] = useState(10)
-  // Calculate current sites to display
-  const indexOfLastSite = currentPage * sitesPerPage
-  const indexOfFirstSite = indexOfLastSite - sitesPerPage
-  const currentSites = filteredSites?.slice(indexOfFirstSite, indexOfLastSite)
+  const [entitysPerPage, setEntitysPerPage] = useState(10)
+  // Calculate current entitys to display
+  const indexOfLastEntity = currentPage * entitysPerPage
+  const indexOfFirstEntity = indexOfLastEntity - entitysPerPage
+  const currentEntitys = filteredEntitys?.slice(indexOfFirstEntity, indexOfLastEntity)
   // Handle page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
   // Calculate total pages
-  const totalPages = Math.ceil(filteredSites?.length / sitesPerPage)
+  const totalPages = Math.ceil(filteredEntitys?.length / entitysPerPage)
 
   return (
     <div>
       <div className="my-1 d-flex justify-content-between ">
         <div className="d-flex align-items-center gap-1 text-uppercase">
-          Liste des sites
+          Liste des parcs
           <div>
             <CBadge textBgColor="primary"> {getAllQuery.data?.length || 0}</CBadge>
           </div>
@@ -133,7 +135,7 @@ const Parcs = () => {
             variant="outline"
             className="rounded-pill"
             onClick={() => {
-              setSite({ id: '', name: '' })
+              setEntity(initialVal)
               setVisible(!visible)
               setOperation('create')
             }}
@@ -149,7 +151,7 @@ const Parcs = () => {
             size="sm"
             color="success"
             variant="outline"
-            onClick={() => exportExcel('myTable', 'Liste des sites')}
+            onClick={() => exportExcel('myTable', 'Liste des parcs')}
             className="rounded-pill"
           >
             Excel <CIcon icon={cilCloudDownload} />
@@ -160,13 +162,13 @@ const Parcs = () => {
           <div style={{ width: '50px' }}>
             <select
               className="form-control form-control-sm"
-              defaultValue={sitesPerPage}
+              defaultValue={entitysPerPage}
               onChange={(e) => {
-                setSitesPerPage(e.target.value)
+                setEntitysPerPage(e.target.value)
                 setCurrentPage(1)
               }}
             >
-              {getMultiplesOf(filteredSites?.length, 5)?.map((item, i) => (
+              {getMultiplesOf(filteredEntitys?.length, 5)?.map((item, i) => (
                 <option key={i} value={item}>
                   {item}
                 </option>
@@ -215,8 +217,8 @@ const Parcs = () => {
           </CTableRow>
         </CTableHead>
         <CTableBody>
-          {currentSites && currentSites?.length > 0 ? (
-            currentSites?.map((item, index) => (
+          {currentEntitys && currentEntitys?.length > 0 ? (
+            currentEntitys?.map((item, index) => (
               <CTableRow key={index}>
                 <CTableDataCell>
                   <CButton
@@ -225,7 +227,7 @@ const Parcs = () => {
                     variant="outline"
                     className="rounded-pill"
                     onClick={() => {
-                      setSite(item)
+                      setEntity(item)
                       setOperation('delete')
                       setVisible(!visible)
                     }}
@@ -238,7 +240,7 @@ const Parcs = () => {
                     variant="outline"
                     className="rounded-pill"
                     onClick={() => {
-                      setSite(item)
+                      setEntity(item)
                       setOperation('update')
                       setVisible(!visible)
                     }}
@@ -270,40 +272,40 @@ const Parcs = () => {
         aria-labelledby="StaticBackdropExampleLabel"
       >
         <CModalHeader>
-          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un site</CModalTitle>
+          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un parc</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormInput
             type="text"
             id="floatingInput"
             floatingClassName="mb-3"
-            floatingLabel="Nom du site"
+            floatingLabel="Nom du parc"
             placeholder="pg11"
-            value={site.name}
-            onChange={(e) => setSite({ ...site, name: e.target.value })}
+            value={entity.name}
+            onChange={(e) => setEntity({ ...entity, name: e.target.value })}
             disabled={
-              createSiteMutation.isPending ||
-              updateSiteMutation.isPending ||
-              deleteSiteMutation.isPending ||
+              createMutation.isPending ||
+              updateMutation.isPending ||
+              deleteMutation.isPending ||
               operation === 'delete'
             }
           />
 
-          {createSiteMutation.isError && (
+          {createMutation.isError && (
             <CAlert color="danger" className="mb-0 mt-2 py-2">
-              {createSiteMutation.error.message}
+              {createMutation.error.message}
             </CAlert>
           )}
 
-          {updateSiteMutation.isError && (
+          {updateMutation.isError && (
             <CAlert color="danger" className="mb-0 mt-2 py-2">
-              {updateSiteMutation.error.message}
+              {updateMutation.error.message}
             </CAlert>
           )}
 
-          {deleteSiteMutation.isError && (
+          {deleteMutation.isError && (
             <CAlert color="danger" className="mb-0 mt-2 py-2">
-              {deleteSiteMutation.error.message}
+              {deleteMutation.error.message}
             </CAlert>
           )}
         </CModalBody>
@@ -311,9 +313,7 @@ const Parcs = () => {
           {operation === 'delete' && (
             <CButton
               disabled={
-                createSiteMutation.isPending ||
-                updateSiteMutation.isPending ||
-                deleteSiteMutation.isPending
+                createMutation.isPending || updateMutation.isPending || deleteMutation.isPending
               }
               onClick={handleSubmit}
               size="sm"
@@ -321,7 +321,7 @@ const Parcs = () => {
               variant="outline"
             >
               <div className="d-flex gap-1 align-items-center justify-content-end">
-                {deleteSiteMutation.isPending && <CSpinner size="sm" />} <span>Supprimer</span>
+                {deleteMutation.isPending && <CSpinner size="sm" />} <span>Supprimer</span>
               </div>
             </CButton>
           )}
@@ -329,9 +329,7 @@ const Parcs = () => {
           {operation !== 'delete' && (
             <CButton
               disabled={
-                deleteSiteMutation.isPending ||
-                createSiteMutation.isPending ||
-                updateSiteMutation.isPending
+                deleteMutation.isPending || createMutation.isPending || updateMutation.isPending
               }
               onClick={handleSubmit}
               size="sm"
@@ -339,9 +337,7 @@ const Parcs = () => {
               variant="outline"
             >
               <div className="d-flex gap-1 align-items-center justify-content-end">
-                {(createSiteMutation.isPending || updateSiteMutation.isPending) && (
-                  <CSpinner size="sm" />
-                )}{' '}
+                {(createMutation.isPending || updateMutation.isPending) && <CSpinner size="sm" />}{' '}
                 <span>Sauvegarder</span>
               </div>
             </CButton>

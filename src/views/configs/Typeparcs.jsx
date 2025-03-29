@@ -34,7 +34,7 @@ const Typeparcs = () => {
 
   const initialVal = { id: '', name: '' }
 
-  const [site, setSite] = useState(initialVal)
+  const [entity, setEntity] = useState(initialVal)
   const createMutation = useCreateTypeparc()
   const deleteMutation = useDeleteTypeparc()
   const updateMutation = useUpdateTypeparc()
@@ -42,8 +42,8 @@ const Typeparcs = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = {
-      id: site.id,
-      name: site.name,
+      id: entity.id,
+      name: entity.name,
     }
 
     switch (operation) {
@@ -78,7 +78,7 @@ const Typeparcs = () => {
   }
 
   const handleResetAll = () => {
-    setSite(initialVal)
+    setEntity(initialVal)
     createMutation.reset()
     deleteMutation.reset()
     updateMutation.reset()
@@ -93,30 +93,30 @@ const Typeparcs = () => {
       setSearch(newSearchValue)
     }
   }
-  // Filter the sites based on the search query
-  const filteredSites = getAllQuery.data?.filter((site) =>
-    site.name.toLowerCase().includes(search.toLowerCase()),
+  // Filter the entitys based on the search query
+  const filteredEntitys = getAllQuery.data?.filter((typeparc) =>
+    typeparc.name.toLowerCase().includes(search.toLowerCase()),
   )
 
   // Pagination States
   const [currentPage, setCurrentPage] = useState(1)
-  const [sitesPerPage, setSitesPerPage] = useState(10)
-  // Calculate current sites to display
-  const indexOfLastSite = currentPage * sitesPerPage
-  const indexOfFirstSite = indexOfLastSite - sitesPerPage
-  const currentSites = filteredSites?.slice(indexOfFirstSite, indexOfLastSite)
+  const [entitysPerPage, setEntitysPerPage] = useState(10)
+  // Calculate current entitys to display
+  const indexOfLastEntity = currentPage * entitysPerPage
+  const indexOfFirstEntity = indexOfLastEntity - entitysPerPage
+  const currentEntitys = filteredEntitys?.slice(indexOfFirstEntity, indexOfLastEntity)
   // Handle page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
   // Calculate total pages
-  const totalPages = Math.ceil(filteredSites?.length / sitesPerPage)
+  const totalPages = Math.ceil(filteredEntitys?.length / entitysPerPage)
 
   return (
     <div>
       <div className="my-1 d-flex justify-content-between ">
         <div className="d-flex align-items-center gap-1 text-uppercase">
-          Liste des sites
+          Liste des typeparcs
           <div>
             <CBadge textBgColor="primary"> {getAllQuery.data?.length || 0}</CBadge>
           </div>
@@ -140,7 +140,7 @@ const Typeparcs = () => {
             variant="outline"
             className="rounded-pill"
             onClick={() => {
-              setSite({ id: '', name: '' })
+              setEntity(initialVal)
               setVisible(!visible)
               setOperation('create')
             }}
@@ -156,7 +156,7 @@ const Typeparcs = () => {
             size="sm"
             color="success"
             variant="outline"
-            onClick={() => exportExcel('myTable', 'Liste des sites')}
+            onClick={() => exportExcel('myTable', 'Liste des typeparcs')}
             className="rounded-pill"
           >
             Excel <CIcon icon={cilCloudDownload} />
@@ -167,13 +167,13 @@ const Typeparcs = () => {
           <div style={{ width: '50px' }}>
             <select
               className="form-control form-control-sm"
-              defaultValue={sitesPerPage}
+              defaultValue={entitysPerPage}
               onChange={(e) => {
-                setSitesPerPage(e.target.value)
+                setEntitysPerPage(e.target.value)
                 setCurrentPage(1)
               }}
             >
-              {getMultiplesOf(filteredSites?.length, 5)?.map((item, i) => (
+              {getMultiplesOf(filteredEntitys?.length, 5)?.map((item, i) => (
                 <option key={i} value={item}>
                   {item}
                 </option>
@@ -217,12 +217,12 @@ const Typeparcs = () => {
       <CTable striped hover id="myTable">
         <CTableHead>
           <CTableRow>
-            <CTableHeaderCell scope="col">Nom du site</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Nom du typeparc</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
-          {currentSites && currentSites?.length > 0 ? (
-            currentSites?.map((item, index) => (
+          {currentEntitys && currentEntitys?.length > 0 ? (
+            currentEntitys?.map((item, index) => (
               <CTableRow key={index}>
                 <CTableDataCell>
                   <CButton
@@ -231,7 +231,7 @@ const Typeparcs = () => {
                     variant="outline"
                     className="rounded-pill"
                     onClick={() => {
-                      setSite(item)
+                      setEntity(item)
                       setOperation('delete')
                       setVisible(!visible)
                     }}
@@ -244,7 +244,7 @@ const Typeparcs = () => {
                     variant="outline"
                     className="rounded-pill"
                     onClick={() => {
-                      setSite(item)
+                      setEntity(item)
                       setOperation('update')
                       setVisible(!visible)
                     }}
@@ -274,17 +274,17 @@ const Typeparcs = () => {
         aria-labelledby="StaticBackdropExampleLabel"
       >
         <CModalHeader>
-          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un site</CModalTitle>
+          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un typeparc</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormInput
             type="text"
             id="floatingInput"
             floatingClassName="mb-3"
-            floatingLabel="Nom du site"
+            floatingLabel="Nom du typeparc"
             placeholder="pg11"
-            value={site.name}
-            onChange={(e) => setSite({ ...site, name: e.target.value })}
+            value={entity.name}
+            onChange={(e) => setEntity({ ...entity, name: e.target.value })}
             disabled={
               createMutation.isPending ||
               updateMutation.isPending ||
