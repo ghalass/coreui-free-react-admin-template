@@ -17,3 +17,7 @@ export const updateEngin = async (updatedEngin) => {
 export const deleteEngin = async (enginToDelete) => {
     return apiRequest(API_PATHS.ENGINS.DELETE_ENGIN(enginToDelete.id), "DELETE");
 };
+
+export const fetchEnginsByParcBySite = async (parcId, siteId) => {
+    return await apiRequest(API_PATHS.ENGINS.GET_ALL_ENGINS_BY_PARCID_SITEID(parcId, siteId), "GET");
+};

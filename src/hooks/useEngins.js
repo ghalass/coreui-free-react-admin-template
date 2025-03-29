@@ -1,6 +1,6 @@
 // hooks/useEngins.js
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createEngin, deleteEngin, fetchEngins, updateEngin } from '../api/enginApi';
+import { createEngin, deleteEngin, fetchEngins, fetchEnginsByParcBySite, updateEngin } from '../api/enginApi';
 
 export const fecthEnginsQuery = () => {
     return queryOptions({
@@ -8,6 +8,14 @@ export const fecthEnginsQuery = () => {
         queryFn: fetchEngins
     });
 };
+
+export default function fecthEnginsQueryByParcBySite(parcId, siteId) {
+    return queryOptions({
+        queryKey: ["enginsList", parcId, siteId],
+        queryFn: () => fetchEnginsByParcBySite(parcId, siteId), // ✅ Fix 1: Pass function reference
+        enabled: !!(parcId !== "" && siteId !== "") // ✅ Fix 2: Ensure boolean
+    })
+}
 
 export const useCreateEngin = () => {
     const queryClient = useQueryClient();

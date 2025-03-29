@@ -1,7 +1,15 @@
 // hooks/useSaisieRje.js
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createSaisieHrm, deleteSaisiePanne, getSaisieHrmDay, updateSaisiePanne } from '../api/saisieRjeApi';
+import { createSaisieHrm, deleteSaisiePanne, fecthSaisieRjeQuery, getSaisieHrmDay, updateSaisiePanne } from '../api/saisieRjeApi';
 import { toast } from 'react-toastify';
+
+export default function fecthSaisieRjeQueryOptions(du, enginId) {
+    return queryOptions({
+        queryKey: ["saisieRjeList", du, enginId],
+        queryFn: () => fecthSaisieRjeQuery(du, enginId), // ✅ Fix 1: Pass function reference
+        enabled: !!(du !== "" && enginId !== "") // ✅ Fix 2: Ensure boolean
+    })
+}
 
 export const useCreateSaisieHrm = () => {
     const queryClient = useQueryClient();
