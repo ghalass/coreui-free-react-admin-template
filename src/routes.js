@@ -53,14 +53,19 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 // MY PAGES
 const Sites = React.lazy(() => import('./views/configs/Sites'))
+const Home = React.lazy(() => import('./views/home/Home'))
+const SaisieRje = React.lazy(() => import('./views/saisies/SaisieRje'))
 
 const routes = [
 
   // MY ROUTES
 
   { path: '/configs/sites', name: 'Sites', element: Sites },
+  { path: '/', name: 'Home', element: Home },
+  { path: '/saisie/rje', name: 'SaisieRje', element: SaisieRje },
+
   // 
-  { path: '/', exact: true, name: 'Home' },
+  // { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
