@@ -61,13 +61,25 @@ const _nav = [
   // 
   {
     component: CNavGroup,
-    name: 'Bases',
+    name: 'Données de base',
     icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'Sites',
         to: '/configs/sites',
+      }, {
+        component: CNavItem,
+        name: 'Typeparcs',
+        to: '/configs/typeparcs',
+      }, {
+        component: CNavItem,
+        name: 'Parcs',
+        to: '/configs/parcs',
+      }, , {
+        component: CNavItem,
+        name: 'Engins',
+        to: '/configs/engins',
       },
     ],
   },

@@ -15,7 +15,8 @@ import {
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
-import avatar8 from './../../assets/images/avatars/8.jpg'
+// import avatar8 from './../../assets/images/avatars/8.jpg'
+import avatar8 from './../../assets/images/avatars/icons8-user-80.png'
 import { useNavigate } from 'react-router-dom'
 
 // import Cookies from "universal-cookie";
@@ -58,7 +59,7 @@ const AppHeaderDropdown = () => {
             {auth.user && auth.user?.role.replace("_", " ")}
           </CBadge>
 
-          <CAvatar src={avatar8} size="md" />
+          <CAvatar className='border border-secondary' src={avatar8} size="md" />
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">

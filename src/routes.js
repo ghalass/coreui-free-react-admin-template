@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -52,16 +53,27 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 // MY PAGES
-const Sites = React.lazy(() => import('./views/configs/Sites'))
 const Home = React.lazy(() => import('./views/home/Home'))
+
+const Sites = React.lazy(() => import('./views/configs/Sites'))
+const Typeparcs = React.lazy(() => import('./views/configs/Typeparcs'))
+const Parcs = React.lazy(() => import('./views/configs/Parcs'))
+const Engins = React.lazy(() => import('./views/configs/Engins'))
+
 const SaisieRje = React.lazy(() => import('./views/saisies/SaisieRje'))
 
 const routes = [
 
   // MY ROUTES
 
-  { path: '/configs/sites', name: 'Sites', element: Sites },
   { path: '/', name: 'Home', element: Home },
+
+  { path: '/configs/sites', name: 'Sites', element: Sites },
+  { path: '/configs/typeparcs', name: 'Typeparcs', element: Typeparcs },
+  { path: '/configs/parcs', name: 'Parcs', element: Parcs },
+  { path: '/configs/engins', name: 'Engins', element: Engins },
+
+
   { path: '/saisie/rje', name: 'SaisieRje', element: SaisieRje },
 
   // 
