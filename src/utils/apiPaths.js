@@ -38,7 +38,7 @@ export const API_PATHS = {
     },
     ENGINS: {
         GET_ALL_ENGINS: "/engins",
-        ADD_ENGIN: "/engins/add",
+        ADD_ENGIN: "/engins",
         GET_ALL_ENGINS_BY_PARCID_SITEID: (parcId, siteId) => `/engins/parc/${parcId}/site/${siteId}`,
         UPDATE_ENGIN: (enginId) => `/engins/${enginId}`,
         DELETE_ENGIN: (enginId) => `/engins/${enginId}`,

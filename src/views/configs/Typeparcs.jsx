@@ -32,7 +32,9 @@ const Typeparcs = () => {
   const [visible, setVisible] = useState(false)
   const [operation, setOperation] = useState('')
 
-  const [site, setSite] = useState({ id: '', name: '' })
+  const initialVal = { id: '', name: '' }
+
+  const [site, setSite] = useState(initialVal)
   const createMutation = useCreateTypeparc()
   const deleteMutation = useDeleteTypeparc()
   const updateMutation = useUpdateTypeparc()
@@ -76,7 +78,7 @@ const Typeparcs = () => {
   }
 
   const handleResetAll = () => {
-    setSite({ id: '', name: '' })
+    setSite(initialVal)
     createMutation.reset()
     deleteMutation.reset()
     updateMutation.reset()

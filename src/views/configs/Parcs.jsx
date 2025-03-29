@@ -17,20 +17,20 @@ import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } 
 import { cilCloudDownload, cilPenNib, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { useQuery } from '@tanstack/react-query'
-import { fecthSitesQuery, useCreateSite, useDeleteSite, useUpdateSite } from '../../hooks/useSites'
 import { toast } from 'react-toastify'
 import { exportExcel, getMultiplesOf } from '../../utils/func'
+import { useCreateParc, useDeleteTypeparc, useParcs, useUpdateTypeparc } from '../../hooks/useParcs'
 
 const Parcs = () => {
-  const getAllQuery = useQuery(fecthSitesQuery())
+  const getAllQuery = useQuery(useParcs())
 
   const [visible, setVisible] = useState(false)
   const [operation, setOperation] = useState('')
 
   const [site, setSite] = useState({ id: '', name: '' })
-  const createSiteMutation = useCreateSite()
-  const deleteSiteMutation = useDeleteSite()
-  const updateSiteMutation = useUpdateSite()
+  const createSiteMutation = useCreateParc()
+  const deleteSiteMutation = useDeleteTypeparc()
+  const updateSiteMutation = useUpdateTypeparc()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -210,7 +210,8 @@ const Parcs = () => {
       <CTable striped hover id="myTable">
         <CTableHead>
           <CTableRow>
-            <CTableHeaderCell scope="col">Nom du site</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Nom du parc</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Type de parc</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
@@ -246,6 +247,8 @@ const Parcs = () => {
                   </CButton>{' '}
                   {item?.name}
                 </CTableDataCell>
+
+                <CTableDataCell> {item?.Typeparc?.name}</CTableDataCell>
               </CTableRow>
             ))
           ) : (
