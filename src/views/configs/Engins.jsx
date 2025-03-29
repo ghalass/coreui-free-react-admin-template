@@ -122,8 +122,12 @@ const Engins = () => {
     }
   }
   // Filter the entitys based on the search query
-  const filteredEntitys = getAllQuery.data?.filter((entity) =>
-    entity.name.toLowerCase().includes(search.toLowerCase()),
+  const filteredEntitys = getAllQuery.data?.filter(
+    (el) =>
+      el?.name.toLowerCase().includes(search.toLowerCase()) ||
+      el?.Parc?.Typeparc?.name.toLowerCase().includes(search.toLowerCase()) ||
+      el?.Parc?.name.toLowerCase().includes(search.toLowerCase()) ||
+      el?.Site?.name.toLowerCase().includes(search.toLowerCase()),
   )
 
   // Pagination States

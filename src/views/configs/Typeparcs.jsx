@@ -94,8 +94,8 @@ const Typeparcs = () => {
     }
   }
   // Filter the entitys based on the search query
-  const filteredEntitys = getAllQuery.data?.filter((typeparc) =>
-    typeparc.name.toLowerCase().includes(search.toLowerCase()),
+  const filteredEntitys = getAllQuery.data?.filter((el) =>
+    el.name.toLowerCase().includes(search.toLowerCase()),
   )
 
   // Pagination States

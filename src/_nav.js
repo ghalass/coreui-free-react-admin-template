@@ -80,6 +80,14 @@ const _nav = [
         component: CNavItem,
         name: 'Engins',
         to: '/configs/engins',
+      }, {
+        component: CNavItem,
+        name: 'Types des lubrifiants',
+        to: '/configs/typelubrifiants',
+      }, {
+        component: CNavItem,
+        name: 'Lubrifiants',
+        to: '/configs/lubrifiants',
       },
     ],
   },

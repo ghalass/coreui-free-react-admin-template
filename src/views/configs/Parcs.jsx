@@ -3,6 +3,7 @@ import {
   CAlert,
   CBadge,
   CFormInput,
+  CFormSelect,
   CPagination,
   CPaginationItem,
   CSpinner,
@@ -20,25 +21,28 @@ import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { exportExcel, getMultiplesOf } from '../../utils/func'
 import { useCreateParc, useDeleteTypeparc, useParcs, useUpdateTypeparc } from '../../hooks/useParcs'
+import { useTypeparcs } from '../../hooks/useTypeparcs'
 
 const Parcs = () => {
   const getAllQuery = useQuery(useParcs())
+  const getAllTypeparcsQuery = useQuery(useTypeparcs())
 
   const [visible, setVisible] = useState(false)
   const [operation, setOperation] = useState('')
 
-  const initialVal = { id: '', name: '' }
+  const initialVal = { id: '', name: '', typeparcId: '' }
 
   const [entity, setEntity] = useState(initialVal)
   const createMutation = useCreateParc()
   const deleteMutation = useDeleteTypeparc()
-  const updateMutation = useUpdateTypeparc()
+  const updateMutation = useCreateParc()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = {
       id: entity.id,
       name: entity.name,
+      typeparcId: entity.typeparcId,
     }
 
     switch (operation) {
@@ -89,8 +93,10 @@ const Parcs = () => {
     }
   }
   // Filter the entitys based on the search query
-  const filteredEntitys = getAllQuery.data?.filter((parc) =>
-    parc.name.toLowerCase().includes(search.toLowerCase()),
+  const filteredEntitys = getAllQuery.data?.filter(
+    (el) =>
+      el?.name.toLowerCase().includes(search.toLowerCase()) ||
+      el?.Typeparc?.name.toLowerCase().includes(search.toLowerCase()),
   )
 
   // Pagination States
@@ -290,6 +296,30 @@ const Parcs = () => {
               operation === 'delete'
             }
           />
+
+          <CFormSelect
+            id="floatingSelect"
+            floatingClassName="mb-3"
+            floatingLabel="Choisir un type de parc"
+            aria-label="Floating label select example"
+            value={entity?.typeparcId}
+            onChange={(e) => setEntity({ ...entity, typeparcId: e.target.value })}
+            disabled={
+              createMutation.isPending ||
+              updateMutation.isPending ||
+              deleteMutation.isPending ||
+              operation === 'delete'
+            }
+          >
+            <option></option>
+            {getAllTypeparcsQuery.data &&
+              getAllTypeparcsQuery.data?.length > 0 &&
+              getAllTypeparcsQuery.data?.map((typeparc, indx) => (
+                <option key={indx} value={typeparc?.id}>
+                  {typeparc?.name}
+                </option>
+              ))}
+          </CFormSelect>
 
           {createMutation.isError && (
             <CAlert color="danger" className="mb-0 mt-2 py-2">

@@ -17,21 +17,28 @@ import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } 
 import { cilCloudDownload, cilPenNib, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { useQuery } from '@tanstack/react-query'
-import { fecthSitesQuery, useCreateSite, useDeleteSite, useUpdateSite } from '../../hooks/useSites'
+import {
+  useCreateTypeparc,
+  useDeleteTypeparc,
+  useTypeparcs,
+  useUpdateTypeparc,
+} from '../../hooks/useTypeparcs'
 import { toast } from 'react-toastify'
 import { exportExcel, getMultiplesOf } from '../../utils/func'
+import { useTypelubrifiants } from '../../hooks/useTypelubrifiants'
 
-const Sites = () => {
-  const getAllQuery = useQuery(fecthSitesQuery())
+const Typelubrifiants = () => {
+  const getAllQuery = useQuery(useTypelubrifiants())
 
   const [visible, setVisible] = useState(false)
   const [operation, setOperation] = useState('')
+
   const initialVal = { id: '', name: '' }
 
   const [entity, setEntity] = useState(initialVal)
-  const createMutation = useCreateSite()
-  const deleteMutation = useDeleteSite()
-  const updateMutation = useUpdateSite()
+  const createMutation = useCreateTypeparc()
+  const deleteMutation = useDeleteTypeparc()
+  const updateMutation = useUpdateTypeparc()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -89,7 +96,7 @@ const Sites = () => {
   }
   // Filter the entitys based on the search query
   const filteredEntitys = getAllQuery.data?.filter((el) =>
-    el.name.toLowerCase().includes(search.toLowerCase()),
+    el?.name.toLowerCase().includes(search.toLowerCase()),
   )
 
   // Pagination States
@@ -110,7 +117,7 @@ const Sites = () => {
     <div>
       <div className="my-1 d-flex justify-content-between ">
         <div className="d-flex align-items-center gap-1 text-uppercase">
-          Liste des sites
+          Liste des types des lubrifiants
           <div>
             <CBadge textBgColor="primary"> {getAllQuery.data?.length || 0}</CBadge>
           </div>
@@ -150,7 +157,7 @@ const Sites = () => {
             size="sm"
             color="success"
             variant="outline"
-            onClick={() => exportExcel('myTable', 'Liste des sites')}
+            onClick={() => exportExcel('myTable', 'Liste des typeparcs')}
             className="rounded-pill"
           >
             Excel <CIcon icon={cilCloudDownload} />
@@ -211,7 +218,7 @@ const Sites = () => {
       <CTable striped hover id="myTable">
         <CTableHead>
           <CTableRow>
-            <CTableHeaderCell scope="col">Nom du site</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Nom du type de lubrifiant</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
@@ -268,14 +275,14 @@ const Sites = () => {
         aria-labelledby="StaticBackdropExampleLabel"
       >
         <CModalHeader>
-          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un site</CModalTitle>
+          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un typeparc</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormInput
             type="text"
             id="floatingInput"
             floatingClassName="mb-3"
-            floatingLabel="Nom du site"
+            floatingLabel="Nom du typeparc"
             placeholder="pg11"
             value={entity.name}
             onChange={(e) => setEntity({ ...entity, name: e.target.value })}
@@ -344,4 +351,4 @@ const Sites = () => {
   )
 }
 
-export default Sites
+export default Typelubrifiants

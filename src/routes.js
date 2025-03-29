@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -59,6 +58,8 @@ const Sites = React.lazy(() => import('./views/configs/Sites'))
 const Typeparcs = React.lazy(() => import('./views/configs/Typeparcs'))
 const Parcs = React.lazy(() => import('./views/configs/Parcs'))
 const Engins = React.lazy(() => import('./views/configs/Engins'))
+const Typelubrifiants = React.lazy(() => import('./views/configs/Typelubrifiants'))
+const Lubrifiants = React.lazy(() => import('./views/configs/Lubrifiants'))
 
 const SaisieRje = React.lazy(() => import('./views/saisies/SaisieRje'))
 
@@ -72,6 +73,8 @@ const routes = [
   { path: '/configs/typeparcs', name: 'Typeparcs', element: Typeparcs },
   { path: '/configs/parcs', name: 'Parcs', element: Parcs },
   { path: '/configs/engins', name: 'Engins', element: Engins },
+  { path: '/configs/typelubrifiants', name: 'Typelubrifiants', element: Typelubrifiants },
+  { path: '/configs/lubrifiants', name: 'lubrifiants', element: Lubrifiants },
 
 
   { path: '/saisie/rje', name: 'SaisieRje', element: SaisieRje },

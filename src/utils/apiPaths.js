@@ -31,7 +31,7 @@ export const API_PATHS = {
     PARCS: {
         GET_ALL_PARCS: "/parcs",
         GET_ALL_PARCS_BY_TYPEPARC: (typeparcId) => `/parcs/typeparc/${typeparcId}`,
-        ADD_PARC: "/parcs/add",
+        ADD_PARC: "/parcs/",
         UPDATE_PARC: (parcId) => `/parcs/${parcId}`,
         DELETE_PARC: (parcId) => `/parcs/${parcId}`,
         DOWNLOAD_PARCs: "/parcs/downloadexcel",
@@ -55,7 +55,7 @@ export const API_PATHS = {
         GET_ALL_PANNES: "/pannes",
         GET_ALL_PANNES_BY_TYPEPANNE_ID: (typepanneId) => `/pannes/typepanne/${typepanneId}`,
 
-        ADD_PANNE: "/pannes/add",
+        ADD_PANNE: "/pannes/",
         UPDATE_PANNE: (panneId) => `/pannes/${panneId}`,
         DELETE_PANNE: (panneId) => `/pannes/${panneId}`,
         DOWNLOAD_PANNES: "/pannes/downloadexcel",

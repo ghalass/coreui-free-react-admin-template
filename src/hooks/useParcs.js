@@ -25,7 +25,7 @@ export const useCreateParc = () => {
         mutationFn: createParc,
         onSuccess: () => {
             queryClient.invalidateQueries(['parcs']); // Rafraîchir la liste des typeparcs
-            toast.success('Typeparc ajouté avec succès !'); // Notification de succès
+            // toast.success('Typeparc ajouté avec succès !'); // Notification de succès
         },
         onError: () => {
             toast.error('Erreur lors de l\'ajout du Typeparc.'); // Notification d'erreur
@@ -39,7 +39,7 @@ export const useUpdateTypeparc = () => {
         mutationFn: updateParc,
         onSuccess: () => {
             queryClient.invalidateQueries(['parcs']);
-            toast.success('Typeparc modifié avec succès !'); // Notification de succès
+            // toast.success('Typeparc modifié avec succès !'); // Notification de succès
         },
         onError: () => {
             toast.error('Erreur lors de la modification du Typeparc.'); // Notification d'erreur
@@ -53,7 +53,7 @@ export const useDeleteTypeparc = () => {
         mutationFn: deleteParc,
         onSuccess: () => {
             queryClient.invalidateQueries(['parcs']);
-            toast.success('Typeparc supprimé avec succès !'); // Notification de succès
+            // toast.success('Typeparc supprimé avec succès !'); // Notification de succès
         },
         onError: () => {
             toast.error('Erreur lors de la suppression du Typeparc.'); // Notification d'erreur
