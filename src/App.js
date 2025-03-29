@@ -7,6 +7,7 @@ import './scss/style.scss'
 
 // We use those styles to show code examples, you should remove them in your application.
 import './scss/examples.scss'
+import PersistLogin from './components/PersistLogin'
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
@@ -49,7 +50,10 @@ const App = () => {
           <Route exact path="/register" name="Register Page" element={<Register />} />
           <Route exact path="/404" name="Page 404" element={<Page404 />} />
           <Route exact path="/500" name="Page 500" element={<Page500 />} />
-          <Route path="*" name="Home" element={<DefaultLayout />} />
+
+          <Route element={<PersistLogin />}>
+            <Route path="*" name="Home" element={<DefaultLayout />} />
+          </Route>
         </Routes>
       </Suspense>
     </BrowserRouter>

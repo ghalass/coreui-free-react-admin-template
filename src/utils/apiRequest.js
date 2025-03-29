@@ -1,4 +1,4 @@
-const TIME_OUT = 1000; // FOR TEST LOADING TIME
+const TIME_OUT = 0; // FOR TEST LOADING TIME
 
 export const apiRequest = async (endpoint, method = "GET", body = null, token = null) => {
     try {

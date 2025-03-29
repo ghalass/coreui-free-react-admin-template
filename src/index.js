@@ -30,7 +30,6 @@ createRoot(document.getElementById('root')).render(
 
     <AuthProvider>
       <Provider store={store}>
-
         <App />
       </Provider>
     </AuthProvider>

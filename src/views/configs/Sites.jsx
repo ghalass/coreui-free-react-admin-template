@@ -3,6 +3,8 @@ import {
   CAlert,
   CBadge,
   CFormInput,
+  CPagination,
+  CPaginationItem,
   CSpinner,
   CTable,
   CTableBody,
@@ -12,11 +14,12 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
-import { cilPenNib, cilPlus, cilTrash } from '@coreui/icons'
+import { cilCloudDownload, cilPenNib, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { fecthSitesQuery, useCreateSite, useDeleteSite, useUpdateSite } from '../../hooks/useSites'
 import { toast } from 'react-toastify'
+import { exportExcel, getMultiplesOf } from '../../utils/func'
 
 const Sites = () => {
   const getAllQuery = useQuery(fecthSitesQuery())
@@ -75,6 +78,33 @@ const Sites = () => {
     setOperation('create')
   }
 
+  const [search, setSearch] = useState('')
+  const handleSearch = (e) => {
+    setCurrentPage(1)
+    const newSearchValue = e.target.value
+    if (newSearchValue !== search) {
+      setSearch(newSearchValue)
+    }
+  }
+  // Filter the sites based on the search query
+  const filteredSites = getAllQuery.data?.filter((site) =>
+    site.name.toLowerCase().includes(search.toLowerCase()),
+  )
+
+  // Pagination States
+  const [currentPage, setCurrentPage] = useState(1)
+  const [sitesPerPage, setSitesPerPage] = useState(10)
+  // Calculate current sites to display
+  const indexOfLastSite = currentPage * sitesPerPage
+  const indexOfFirstSite = indexOfLastSite - sitesPerPage
+  const currentSites = filteredSites?.slice(indexOfFirstSite, indexOfLastSite)
+  // Handle page change
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
+  // Calculate total pages
+  const totalPages = Math.ceil(filteredSites?.length / sitesPerPage)
+
   return (
     <div>
       <div className="my-1 d-flex justify-content-between ">
@@ -93,8 +123,8 @@ const Sites = () => {
             type="search"
             placeholder="Chercher..."
             className="form-control form-control-sm "
-            // value={search}
-            // onChange={handleSearch}
+            value={search}
+            onChange={handleSearch}
           />
 
           <CButton
@@ -113,15 +143,79 @@ const Sites = () => {
         </div>
       </div>
 
-      <CTable striped hover>
+      <div className="d-flex gap-1 justify-content-between align-items-center mb-1">
+        <div>
+          <CButton
+            size="sm"
+            color="success"
+            variant="outline"
+            onClick={() => exportExcel('myTable', 'Liste des sites')}
+            className="rounded-pill"
+          >
+            Excel <CIcon icon={cilCloudDownload} />
+          </CButton>
+        </div>
+
+        <div className="d-flex gap-1 justify-content-between align-items-center">
+          <div style={{ width: '50px' }}>
+            <select
+              className="form-control form-control-sm"
+              defaultValue={sitesPerPage}
+              onChange={(e) => {
+                setSitesPerPage(e.target.value)
+                setCurrentPage(1)
+              }}
+            >
+              {getMultiplesOf(filteredSites?.length, 5)?.map((item, i) => (
+                <option key={i} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <CPagination size="sm" aria-label="Page navigation example" className="mb-0">
+              <CPaginationItem
+                aria-label="Previous"
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </CPaginationItem>
+
+              {Array.from({ length: totalPages }, (_, index) => (
+                <CPaginationItem
+                  key={index}
+                  active={index + 1 === currentPage}
+                  size="sm"
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </CPaginationItem>
+              ))}
+
+              <CPaginationItem
+                aria-label="Next"
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </CPaginationItem>
+            </CPagination>
+          </div>
+        </div>
+      </div>
+
+      <CTable striped hover id="myTable">
         <CTableHead>
           <CTableRow>
             <CTableHeaderCell scope="col">Nom du site</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
-          {getAllQuery.data && getAllQuery.data.length > 0 ? (
-            getAllQuery.data.map((item, index) => (
+          {currentSites && currentSites?.length > 0 ? (
+            currentSites?.map((item, index) => (
               <CTableRow key={index}>
                 <CTableDataCell>
                   <CButton
@@ -173,7 +267,7 @@ const Sites = () => {
         aria-labelledby="StaticBackdropExampleLabel"
       >
         <CModalHeader>
-          <CModalTitle id="StaticBackdropExampleLabel">Ajouter un site {operation}</CModalTitle>
+          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un site</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormInput
@@ -187,7 +281,8 @@ const Sites = () => {
             disabled={
               createSiteMutation.isPending ||
               updateSiteMutation.isPending ||
-              deleteSiteMutation.isPending
+              deleteSiteMutation.isPending ||
+              operation === 'delete'
             }
           />
 
