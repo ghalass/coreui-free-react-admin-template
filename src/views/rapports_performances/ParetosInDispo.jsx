@@ -129,7 +129,9 @@ const ParetosInDispo = () => {
                           {panneObj?.engins &&
                             panneObj?.engins?.length > 0 &&
                             panneObj?.engins?.map((e, r) => (
-                              <td>{e?.him !== 0 ? e?.name + ' ( ' + e?.him + ' ) ' : ''}</td>
+                              <td key={r}>
+                                {e?.him !== 0 ? e?.name + ' ( ' + e?.him + ' ) ' : ''}
+                              </td>
                             ))}
                         </tr>
                       ))}
