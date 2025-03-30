@@ -21,3 +21,15 @@ export const updateSaisiePanne = async (data) => {
 export const getSaisieHrmDay = async (du) => {
     return await apiRequest(API_PATHS.SAISIE_RJE.GET_SAISIE_RJE_DAY, "POST", { du });
 };
+
+export const upsetHrm = async (upsetHRM) => {
+    if (upsetHRM?.id === "") {
+        return await apiRequest(API_PATHS.SAISIE_RJE.ADD_SAISIE_RJE_HRM, "POST", upsetHRM);
+    } else {
+        return await apiRequest(API_PATHS.SAISIE_RJE.UPDATE_SAISIE_RJE_HRM, "PATCH", upsetHRM);
+    }
+};
+
+export const addPanne = async (data) => {
+    return await apiRequest(API_PATHS.SAISIE_RJE.ADD_SAISIE_RJE_PANNE_HIM, "POST", data);
+};

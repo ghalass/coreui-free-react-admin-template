@@ -1,6 +1,6 @@
 // hooks/useSaisieRje.js
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createSaisieHrm, deleteSaisiePanne, fecthSaisieRjeQuery, getSaisieHrmDay, updateSaisiePanne } from '../api/saisieRjeApi';
+import { addPanne, createSaisieHrm, deleteSaisiePanne, fecthSaisieRjeQuery, getSaisieHrmDay, updateSaisiePanne, upsetHrm } from '../api/saisieRjeApi';
 import { toast } from 'react-toastify';
 
 export default function fecthSaisieRjeQueryOptions(du, enginId) {
@@ -44,11 +44,41 @@ export const useUpdateSaisiePanne = (handleCloseEditPanneModal) => {
     });
 }
 
+export const upsetHRMQueryOptions = () => {
+    const queryClient = useQueryClient();
+    return queryOptions({
+        mutationFn: upsetHrm,
+        onSuccess: () => {
+            // toast.success("Ajouté avec succès.");
+            // t.success("HRM Ajouté avec succès.");
+            // Invalidate and refetch
+            queryClient.invalidateQueries({ queryKey: ["saisieRjeList"] });
+        },
+    })
+}
+
+export const addPanneQueryOptions = () => {
+    const queryClient = useQueryClient();
+    return queryOptions({
+        mutationFn: addPanne,
+        onSuccess: () => {
+            // setUser({ name: "", email: "", password: "" });
+            // handleClosePanneModal();
+            // toast.success("Ajouté avec succès.");
+            // t.success("Panne Ajouté avec succès.");
+            // Invalidate and refetch
+            queryClient.invalidateQueries({ queryKey: ["saisieRjeList"] });
+        }
+    })
+}
+
+
 export const useGetSaisieHrmDay = (du) => {
     return queryOptions({
         queryKey: ["donneesSaisieRjeList"],
         queryFn: () => getSaisieHrmDay(du),
         enabled: false, // 🔥 Désactive la requête automatique
     })
-
 }
+
+
