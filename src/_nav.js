@@ -45,16 +45,78 @@ const _nav = [
   //   to: '/theme/typography',
   //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   // },
+
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Journalier',
-    to: '/saisie/rje',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Saisie RJE',
+        to: '/saisie/rje',
+      }, {
+        component: CNavItem,
+        name: 'Données RJE saisie',
+        to: '/saisie/donnees-rje',
+      },
+    ],
   },
+
+  // SAISIES
+  {
+    component: CNavTitle,
+    name: 'rapports',
+  },
+  {
+    component: CNavGroup,
+    name: 'Performances',
+    icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Rapport RJE',
+        to: '/rapport/rapport-rje',
+      },
+      {
+        component: CNavItem,
+        name: 'Unité Physique',
+        to: '/rapport/unite-physique',
+      }, {
+        component: CNavItem,
+        name: 'Etat Mensuel',
+        to: '/rapport/etat-mensuel',
+      }, {
+        component: CNavItem,
+        name: 'Indispo',
+        to: '/rapport/rapport-indispo',
+      }, {
+        component: CNavItem,
+        name: 'Heures Chassis',
+        to: '/rapport/heure-schassis',
+      }, {
+        component: CNavItem,
+        name: 'Spéc Lub',
+        to: '/rapport/rapport-speclub',
+      }, {
+        component: CNavItem,
+        name: 'Paretos indispo',
+        to: '/rapport/pareto-indispo',
+      },
+    ],
+  },
+
+
+  // Configurations
   {
     component: CNavTitle,
     name: 'Configurations',
   },
+  // 
+  // 
+
+
+
   // 
   // 
   // 

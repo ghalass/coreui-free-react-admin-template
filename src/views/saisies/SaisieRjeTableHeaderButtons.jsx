@@ -11,7 +11,7 @@ const SaisieRjeTableHeaderButtons = () => {
   // DISABLE ADD PANNE BUTTON WHEN NO HRM AND NO ENGIN SELECTED
   const disableAddPanneButton = !(!!selectedFields.enginId && !!saisieRjeQueryStore?.data?.[0]?.hrm)
   return (
-    <div className="d-flex gap-4 justify-content-center ">
+    <div className="d-flex gap-4 justify-content-center mb-2">
       <CButton
         onClick={handleShowPanneModal}
         size="sm"

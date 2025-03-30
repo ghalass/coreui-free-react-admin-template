@@ -9,6 +9,8 @@ import SaisieRjeTable from './SaisieRjeTable'
 import SaisieRjeCreateHrmModal from './SaisieRjeCreateHrmModal'
 import SaisieRjeCreatePanneModal from './SaisieRjeCreatePanneModal'
 import SaisieRjeEditPanneModal from './SaisieRjeEditPanneModal'
+import SaisieRjeDeletePanneModal from './SaisieRjeDeletePanneModal'
+import SaisieRjeCreateLubrifiantModal from './SaisieRjeCreateLubrifiantModal'
 
 const SaisieRje = () => {
   const { selectedFields, setSaisieRjeQueryStore } = useSaisieRjeStore()
@@ -47,8 +49,10 @@ const SaisieRje = () => {
       <SaisieRjeEditPanneModal />
 
       {/* DELETE PANNE */}
+      <SaisieRjeDeletePanneModal />
 
       {/* ADD LUB MODAL *************/}
+      <SaisieRjeCreateLubrifiantModal />
     </div>
   )
 }

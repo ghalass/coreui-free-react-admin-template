@@ -64,7 +64,7 @@ const AppHeaderDropdown = () => {
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
 
-        <CDropdownItem as="button">
+        <CDropdownItem as="button" onClick={() => navigate("/user/profile")}>
           <CIcon icon={cilUser} className="me-2" />
           Profile
         </CDropdownItem>

@@ -15,7 +15,7 @@ export const usePannesByTypePanne = (typepanneId) => {
     return queryOptions({
         queryKey: ['pannesByTypepanne', typepanneId], // Clé de requête
         queryFn: () => fetchPannesByTypepanne(typepanneId), // Fonction pour récupérer les typeparcs
-        enabled: !!(typepanneId !== "")
+        enabled: !!(typepanneId !== "") && typepanneId !== undefined
     });
 };
 

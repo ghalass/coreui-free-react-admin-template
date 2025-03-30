@@ -31,8 +31,8 @@ const SaisieRjeSelects = () => {
         type="date"
         id="floatingInputDate"
         floatingClassName="mb-3"
-        floatingLabel="Nom du site"
-        placeholder="pg11"
+        floatingLabel="Date de saisie"
+        placeholder="Date de saisie"
         value={selectedFields?.du}
         onChange={(e) =>
           setSelectedFields({
@@ -40,12 +40,7 @@ const SaisieRjeSelects = () => {
             du: e.target.value,
           })
         }
-        // disabled={
-        //   createMutation.isPending ||
-        //   updateMutation.isPending ||
-        //   deleteMutation.isPending ||
-        //   operation === 'delete'
-        // }
+        disabled={isLoading}
       />
 
       <CFormSelect
@@ -58,14 +53,11 @@ const SaisieRjeSelects = () => {
           setSelectedFields({
             ...selectedFields,
             typeparcId: e.target.value,
+            parcId: '',
+            enginId: '',
           })
         }
-        // disabled={
-        //   createMutation.isPending ||
-        //   updateMutation.isPending ||
-        //   deleteMutation.isPending ||
-        //   operation === 'delete'
-        // }
+        disabled={isLoading}
       >
         <option></option>
         {typeparcsQuery.data &&
@@ -87,14 +79,10 @@ const SaisieRjeSelects = () => {
           setSelectedFields({
             ...selectedFields,
             parcId: e.target.value,
+            enginId: '',
           })
         }
-        // disabled={
-        //   createMutation.isPending ||
-        //   updateMutation.isPending ||
-        //   deleteMutation.isPending ||
-        //   operation === 'delete'
-        // }
+        disabled={isLoading}
       >
         <option></option>
         {parcsByTypeparcQuery.data &&
@@ -116,14 +104,10 @@ const SaisieRjeSelects = () => {
           setSelectedFields({
             ...selectedFields,
             siteId: e.target.value,
+            enginId: '',
           })
         }
-        // disabled={
-        //   createMutation.isPending ||
-        //   updateMutation.isPending ||
-        //   deleteMutation.isPending ||
-        //   operation === 'delete'
-        // }
+        disabled={isLoading}
       >
         <option></option>
         {sitesQuery.data &&
@@ -147,12 +131,7 @@ const SaisieRjeSelects = () => {
             enginId: e.target.value,
           })
         }
-        // disabled={
-        //   createMutation.isPending ||
-        //   updateMutation.isPending ||
-        //   deleteMutation.isPending ||
-        //   operation === 'delete'
-        // }
+        disabled={isLoading}
       >
         <option></option>
         {enginsQuery.data &&
