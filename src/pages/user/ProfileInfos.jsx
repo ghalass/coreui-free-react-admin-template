@@ -1,6 +1,6 @@
-import { useAuth } from '../../../context/Auth'
-import { getUserRole } from '../../../utils/func'
-import avatar8 from '../../../assets/images/avatars/icons8-user-80.png'
+import { getUserRole } from '../../utils/func'
+import avatar8 from '../../assets/images/avatars/icons8-user-80.png'
+import { useAuth } from '../../context/Auth'
 
 const ProfileInfos = () => {
   const auth = useAuth()

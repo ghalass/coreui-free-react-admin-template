@@ -16,9 +16,9 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import { loginQuery } from '../../../hooks/useUsers'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../context/Auth'
+import { loginQuery } from '../../hooks/useUsers'
+import { useAuth } from '../../context/Auth'
 
 const Login = () => {
   const loginMutation = loginQuery();
