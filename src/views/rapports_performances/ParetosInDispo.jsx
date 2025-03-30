@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
-import {
-  getParetoIndispParcOptions,
-  getParetoMtbfParcOptions,
-  getRapportIndispoOptions,
-} from '../../hooks/useRapports'
+import { getParetoIndispParcOptions, getParetoMtbfParcOptions } from '../../hooks/useRapports'
 import { useQuery } from '@tanstack/react-query'
 import { CButton, CFormInput, CFormSelect, CSpinner, CTable } from '@coreui/react'
-import { exportExcel } from '../../utils/func'
 import { useParcs } from '../../hooks/useParcs'
 import ChartCustom from '../../components/ChartCustom'
 import { getYear, getMonth, parseISO } from 'date-fns'
@@ -18,13 +13,13 @@ const ParetosInDispo = () => {
 
   const getAllParcsQuery = useQuery(useParcs())
 
-  const [_, setShouldFetch] = useState(false)
+  // const [_, setShouldFetch] = useState(false)
 
   const getParetoIndispParc = useQuery(getParetoIndispParcOptions(selectedParc, date))
   const getParetoMtbfParc = useQuery(getParetoMtbfParcOptions(selectedParc, date))
 
   const handleClick = () => {
-    setShouldFetch(true)
+    // setShouldFetch(true)
     getParetoIndispParc.refetch()
     getParetoMtbfParc.refetch()
   }
@@ -34,7 +29,7 @@ const ParetosInDispo = () => {
         <CFormSelect
           id="floatingSelect"
           floatingClassName="mb-3"
-          floatingLabel="Choisir un eparc"
+          floatingLabel="Choisir un parc"
           aria-label="Floating label select example"
           value={selectedParc}
           onChange={(e) => {
@@ -145,9 +140,8 @@ const ParetosInDispo = () => {
         <div className="col-sm">
           <div className="d-flex flex-column">
             <h6 className="text-center text-uppercase">
-              évolution mtbf du parc {selectedParcName}
-              {' - '}
-              {getYear(parseISO(date))}
+              évolution mtbf du parc {selectedParcName} au mois :{' '}
+              {date.split('-').reverse().join('-')}
             </h6>
 
             {!getParetoIndispParc.isFetching &&
@@ -198,7 +192,7 @@ const ParetosInDispo = () => {
                         {panneObj?.engins_mtbf &&
                           panneObj?.engins_mtbf?.length > 0 &&
                           panneObj?.engins_mtbf?.map((e, r) => (
-                            <td>{e?.ni !== 0 ? e?.name + ' ( ' + e?.ni + ' ) ' : ''}</td>
+                            <td key={r}>{e?.ni !== 0 ? e?.name + ' ( ' + e?.ni + ' ) ' : ''}</td>
                           ))}
                       </tr>
                     ))}

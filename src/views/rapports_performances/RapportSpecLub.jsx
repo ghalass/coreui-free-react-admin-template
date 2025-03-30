@@ -66,7 +66,7 @@ const RapportSpecLub = () => {
         />
 
         <CButton
-          odisabled={getRapportSpecLub.isFetching || selectedTypelubrifiant == ''}
+          disabled={getRapportSpecLub.isFetching || selectedTypelubrifiant == ''}
           onClick={handleClick}
           size="sm"
           color="success"
