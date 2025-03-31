@@ -30,7 +30,9 @@ const HeuresChassis = () => {
       <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
         <div>
           <CButton
-            disabled={getRapportHeuresChassis.isFetching}
+            disabled={
+              getRapportHeuresChassis.isFetching || !!getRapportHeuresChassis?.data !== true
+            }
             onClick={() => exportExcel('tbl_heures_chassis', 'Rapport Heures Chassis')}
             size="sm"
             color="success"

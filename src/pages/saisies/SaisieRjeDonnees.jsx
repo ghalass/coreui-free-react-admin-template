@@ -29,147 +29,145 @@ const SaisieRjeDonnees = () => {
 
   return (
     <div>
-      <div>
-        <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-          <CButton
-            disabled={getSaisieHrmDay.isFetching}
-            onClick={() => exportExcel('tbl_donnees_saisies', 'Données saisies')}
-            size="sm"
-            color="success"
-            variant="outline"
-            className="rounded-pill"
-          >
-            Excel
-          </CButton>
-
-          <CFormInput
-            type="date"
-            id="floatingInputDate"
-            floatingClassName="mb-3"
-            floatingLabel="Date de saisie"
-            placeholder="pg11"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            disabled={getSaisieHrmDay.isFetching}
-          />
-
-          <CButton
-            disabled={getSaisieHrmDay.isFetching}
-            onClick={handleClick}
-            size="sm"
-            color="secondary"
-            variant="outline"
-            className="rounded-pill"
-          >
-            <div className="d-flex gap-1">
-              {getSaisieHrmDay.isFetching && <CSpinner size="sm" />}
-              <div> Générer le rapport</div>
-            </div>
-          </CButton>
-        </div>
-
-        <div className="d-flex gap-1 mb-2">
-          <input
-            type="search"
-            className="form-control form-control-sm"
-            placeholder="Typeparc..."
-            value={searchByTypeparc}
-            onChange={(e) => setSearchByTypeparc(e.target.value)}
-          />
-
-          <input
-            type="search"
-            className="form-control form-control-sm"
-            placeholder="Parc..."
-            value={searchByParc}
-            onChange={(e) => setSearchByParc(e.target.value)}
-          />
-
-          <input
-            type="search"
-            className="form-control form-control-sm"
-            placeholder="Engin..."
-            value={searchByEngin}
-            onChange={(e) => setSearchByEngin(e.target.value)}
-          />
-
-          <input
-            type="search"
-            className="form-control form-control-sm"
-            placeholder="Site..."
-            value={searchBySite}
-            onChange={(e) => setSearchBySite(e.target.value)}
-          />
-
-          <input
-            type="search"
-            className="form-control form-control-sm"
-            placeholder="Panne..."
-            value={searchByPanne}
-            onChange={(e) => setSearchByPanne(e.target.value)}
-          />
-        </div>
-
-        <CTable
-          striped
-          hover
+      <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
+        <CButton
+          disabled={getSaisieHrmDay.isFetching || !!filteredData !== true}
+          onClick={() => exportExcel('tbl_donnees_saisies', 'Données saisies')}
           size="sm"
-          className="text-center text-uppercase"
-          id="tbl_donnees_saisies"
+          color="success"
+          variant="outline"
+          className="rounded-pill"
         >
-          <thead>
-            <tr>
-              <td colSpan={10}>
-                les données hrm/him saisies pour la journée du {date.split('-').reverse().join('-')}
-              </td>
-            </tr>
+          Excel
+        </CButton>
 
-            <tr>
-              <th>Date</th>
-              <th>Typeparc</th>
-              <th>Parc</th>
-              <th>Engin</th>
-              <th>Site</th>
-              <th>HRM</th>
-              <th>Panne</th>
-              <th>HIM</th>
-              <th>NI</th>
-              <th>LUB</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!getSaisieHrmDay.isFetching &&
-              filteredData?.map((r, i) => (
-                <tr key={i}>
-                  <td>{r?.date}</td>
-                  <td>{r?.typeparc}</td>
-                  <td>{r?.parc}</td>
-                  <td>{r?.engin}</td>
-                  <td>{r?.site}</td>
-                  <td>{r?.hrm}</td>
-                  <td className="text-start">{r?.panne}</td>
-                  <td>{r?.him}</td>
-                  <td>{r?.ni}</td>
-                  <td>
-                    {r?.lubrifiants?.map((lub, j) => (
-                      <span key={j}>
-                        {lub?.name} ({lub?.qte}) |{' '}
-                      </span>
-                    ))}
-                  </td>
-                </tr>
-              ))}
+        <CFormInput
+          type="date"
+          id="floatingInputDate"
+          floatingClassName="mb-3"
+          floatingLabel="Date de saisie"
+          placeholder="pg11"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          disabled={getSaisieHrmDay.isFetching}
+        />
 
-            {getSaisieHrmDay.isFetching && (
-              <tr>
-                <td colSpan={10} className="text-center text-primary">
-                  <CSpinner size="sm" /> Chargement...
+        <CButton
+          disabled={getSaisieHrmDay.isFetching}
+          onClick={handleClick}
+          size="sm"
+          color="secondary"
+          variant="outline"
+          className="rounded-pill"
+        >
+          <div className="d-flex gap-1">
+            {getSaisieHrmDay.isFetching && <CSpinner size="sm" />}
+            <div> Générer le rapport</div>
+          </div>
+        </CButton>
+      </div>
+
+      <div className="d-flex gap-1 mb-2">
+        <input
+          type="search"
+          className="form-control form-control-sm"
+          placeholder="Typeparc..."
+          value={searchByTypeparc}
+          onChange={(e) => setSearchByTypeparc(e.target.value)}
+        />
+
+        <input
+          type="search"
+          className="form-control form-control-sm"
+          placeholder="Parc..."
+          value={searchByParc}
+          onChange={(e) => setSearchByParc(e.target.value)}
+        />
+
+        <input
+          type="search"
+          className="form-control form-control-sm"
+          placeholder="Engin..."
+          value={searchByEngin}
+          onChange={(e) => setSearchByEngin(e.target.value)}
+        />
+
+        <input
+          type="search"
+          className="form-control form-control-sm"
+          placeholder="Site..."
+          value={searchBySite}
+          onChange={(e) => setSearchBySite(e.target.value)}
+        />
+
+        <input
+          type="search"
+          className="form-control form-control-sm"
+          placeholder="Panne..."
+          value={searchByPanne}
+          onChange={(e) => setSearchByPanne(e.target.value)}
+        />
+      </div>
+
+      <CTable
+        striped
+        hover
+        size="sm"
+        className="text-center text-uppercase"
+        id="tbl_donnees_saisies"
+      >
+        <thead>
+          <tr>
+            <td colSpan={10}>
+              les données hrm/him saisies pour la journée du {date.split('-').reverse().join('-')}
+            </td>
+          </tr>
+
+          <tr>
+            <th>Date</th>
+            <th>Typeparc</th>
+            <th>Parc</th>
+            <th>Engin</th>
+            <th>Site</th>
+            <th>HRM</th>
+            <th>Panne</th>
+            <th>HIM</th>
+            <th>NI</th>
+            <th>LUB</th>
+          </tr>
+        </thead>
+        <tbody>
+          {!getSaisieHrmDay.isFetching &&
+            filteredData?.map((r, i) => (
+              <tr key={i}>
+                <td>{r?.date}</td>
+                <td>{r?.typeparc}</td>
+                <td>{r?.parc}</td>
+                <td>{r?.engin}</td>
+                <td>{r?.site}</td>
+                <td>{r?.hrm}</td>
+                <td className="text-start">{r?.panne}</td>
+                <td>{r?.him}</td>
+                <td>{r?.ni}</td>
+                <td>
+                  {r?.lubrifiants?.map((lub, j) => (
+                    <span key={j}>
+                      {lub?.name} ({lub?.qte}) |{' '}
+                    </span>
+                  ))}
                 </td>
               </tr>
-            )}
-          </tbody>
-        </CTable>
-      </div>
+            ))}
+
+          {getSaisieHrmDay.isFetching && (
+            <tr>
+              <td colSpan={10} className="text-center text-primary">
+                <CSpinner size="sm" /> Chargement...
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </CTable>
     </div>
   )
 }

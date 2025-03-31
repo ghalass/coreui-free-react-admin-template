@@ -29,7 +29,9 @@ const EtatMensuel = () => {
       <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
         <div>
           <CButton
-            disabled={generateEtatMensuelQuery.isFetching}
+            disabled={
+              generateEtatMensuelQuery.isFetching || !!generateEtatMensuelQuery?.data !== true
+            }
             onClick={() => exportExcel('tbl_etat_mensuel', 'Rapport Etat Mensuel')}
             size="sm"
             color="success"

@@ -31,7 +31,7 @@ const RapportRje = () => {
       <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
         <div>
           <CButton
-            disabled={generateRjeQuery.isFetching}
+            disabled={generateRjeQuery.isFetching || !!generateRjeQuery?.data !== true}
             onClick={() => exportExcel('tbl_rje', 'Rapport RJE')}
             size="sm"
             color="success"

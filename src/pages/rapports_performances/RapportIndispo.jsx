@@ -28,7 +28,7 @@ const RapportIndispo = () => {
       <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
         <div>
           <CButton
-            disabled={getRapportIndis.isFetching}
+            disabled={getRapportIndis.isFetching || !!getRapportIndis?.data !== true}
             onClick={() => exportExcel('tbl_rapportindispo', "Rapport D'indisponibilité")}
             size="sm"
             color="success"

@@ -190,6 +190,7 @@ const Engins = () => {
             variant="outline"
             onClick={() => exportExcel('myTable', 'Liste des sites')}
             className="rounded-pill"
+            disabled={!!currentEntitys?.length !== true}
           >
             Excel <CIcon icon={cilCloudDownload} />
           </CButton>

@@ -31,7 +31,9 @@ const UnitePhysique = () => {
       <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
         <div>
           <CButton
-            disabled={generateUnitePhysiqueQuery.isFetching}
+            disabled={
+              generateUnitePhysiqueQuery.isFetching || !!generateUnitePhysiqueQuery?.data !== true
+            }
             onClick={() => exportExcel('tbl_unite_physique', 'Rapport Unité Physique')}
             size="sm"
             color="success"

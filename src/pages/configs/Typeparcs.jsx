@@ -158,6 +158,7 @@ const Typeparcs = () => {
             variant="outline"
             onClick={() => exportExcel('myTable', 'Liste des typeparcs')}
             className="rounded-pill"
+            disabled={!!currentEntitys?.length !== true}
           >
             Excel <CIcon icon={cilCloudDownload} />
           </CButton>

@@ -26,7 +26,7 @@ const RapportSpecLub = () => {
       <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
         <div>
           <CButton
-            disabled={getRapportSpecLub.isFetching}
+            disabled={getRapportSpecLub.isFetching || !!getRapportSpecLub?.data !== true}
             onClick={() => exportExcel('tbl_rapport_speclub', 'Rapport Spéc Lub')}
             size="sm"
             color="success"
