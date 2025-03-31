@@ -88,7 +88,11 @@ const UnitePhysique = () => {
             <CTableHeaderCell colSpan={2}></CTableHeaderCell>
 
             {getAllSitesQuery?.data?.map((site, i) => (
-              <CTableHeaderCell key={i} colSpan={4}>
+              <CTableHeaderCell
+                key={i}
+                colSpan={4}
+                className={`${(i + 4) % 2 !== 0 && 'bg-secondary-subtle'}`}
+              >
                 {site?.name}
               </CTableHeaderCell>
             ))}
@@ -101,8 +105,12 @@ const UnitePhysique = () => {
 
             {getAllSitesQuery?.data?.map((site, i) => (
               <React.Fragment key={i}>
-                <td colSpan={2}>HRM</td>
-                <td colSpan={2}>HIM</td>
+                <td colSpan={2} className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
+                  HRM
+                </td>
+                <td colSpan={2} className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
+                  HIM
+                </td>
               </React.Fragment>
             ))}
 
@@ -116,10 +124,18 @@ const UnitePhysique = () => {
 
             {getAllSitesQuery.data?.map((site, i) => (
               <React.Fragment key={i}>
-                <CTableDataCell>M</CTableDataCell>
-                <CTableDataCell>A</CTableDataCell>
-                <CTableDataCell>M</CTableDataCell>
-                <CTableDataCell>A</CTableDataCell>
+                <CTableDataCell className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
+                  M
+                </CTableDataCell>
+                <CTableDataCell className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
+                  A
+                </CTableDataCell>
+                <CTableDataCell className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
+                  M
+                </CTableDataCell>
+                <CTableDataCell className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
+                  A
+                </CTableDataCell>
               </React.Fragment>
             ))}
 
@@ -139,16 +155,16 @@ const UnitePhysique = () => {
 
                 {getAllSitesQuery.data?.map((site, i) => (
                   <React.Fragment key={i}>
-                    <CTableDataCell>
+                    <CTableDataCell className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
                       {unitePhysique.par_site?.map((s, i) => s?.site === site?.name && s?.hrm_m)}
                     </CTableDataCell>
-                    <CTableDataCell>
+                    <CTableDataCell className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
                       {unitePhysique.par_site?.map((s, i) => s?.site === site?.name && s?.hrm_a)}
                     </CTableDataCell>
-                    <CTableDataCell>
+                    <CTableDataCell className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
                       {unitePhysique.par_site?.map((s, i) => s?.site === site?.name && s?.him_m)}
                     </CTableDataCell>
-                    <CTableDataCell>
+                    <CTableDataCell className={`${(i + 2) % 2 !== 0 && 'bg-secondary-subtle'}`}>
                       {unitePhysique.par_site?.map((s, i) => s?.site === site?.name && s?.him_a)}
                     </CTableDataCell>
                   </React.Fragment>

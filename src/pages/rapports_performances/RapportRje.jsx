@@ -89,7 +89,7 @@ const RapportRje = () => {
               JOURNALIER
             </CTableHeaderCell>
 
-            <CTableHeaderCell className="text-center" colSpan={7}>
+            <CTableHeaderCell className="text-center bg-secondary-subtle" colSpan={7}>
               MENSUEL
             </CTableHeaderCell>
 
@@ -109,13 +109,13 @@ const RapportRje = () => {
             <CTableHeaderCell>MTBF</CTableHeaderCell>
             <CTableHeaderCell>TDM</CTableHeaderCell>
 
-            <CTableHeaderCell>NHO</CTableHeaderCell>
-            <CTableHeaderCell>HRM</CTableHeaderCell>
-            <CTableHeaderCell>HIM</CTableHeaderCell>
-            <CTableHeaderCell>NI</CTableHeaderCell>
-            <CTableHeaderCell>DISP</CTableHeaderCell>
-            <CTableHeaderCell>MTBF</CTableHeaderCell>
-            <CTableHeaderCell>TDM</CTableHeaderCell>
+            <CTableHeaderCell className="bg-secondary-subtle">NHO</CTableHeaderCell>
+            <CTableHeaderCell className="bg-secondary-subtle">HRM</CTableHeaderCell>
+            <CTableHeaderCell className="bg-secondary-subtle">HIM</CTableHeaderCell>
+            <CTableHeaderCell className="bg-secondary-subtle">NI</CTableHeaderCell>
+            <CTableHeaderCell className="bg-secondary-subtle">DISP</CTableHeaderCell>
+            <CTableHeaderCell className="bg-secondary-subtle">MTBF</CTableHeaderCell>
+            <CTableHeaderCell className="bg-secondary-subtle">TDM</CTableHeaderCell>
 
             <CTableHeaderCell>NHO</CTableHeaderCell>
             <CTableHeaderCell>HRM</CTableHeaderCell>
@@ -140,13 +140,13 @@ const RapportRje = () => {
                 <CTableDataCell>{r?.mtbf_j}</CTableDataCell>
                 <CTableDataCell>{r?.TDM_j}</CTableDataCell>
 
-                <CTableDataCell>{r?.nho_m}</CTableDataCell>
-                <CTableDataCell>{r?.hrm_m}</CTableDataCell>
-                <CTableDataCell>{r?.him_m}</CTableDataCell>
-                <CTableDataCell>{r?.ni_m}</CTableDataCell>
-                <CTableDataCell>{r?.dispo_m}</CTableDataCell>
-                <CTableDataCell>{r?.mtbf_m}</CTableDataCell>
-                <CTableDataCell>{r?.TDM_m}</CTableDataCell>
+                <CTableDataCell className="bg-secondary-subtle">{r?.nho_m}</CTableDataCell>
+                <CTableDataCell className="bg-secondary-subtle">{r?.hrm_m}</CTableDataCell>
+                <CTableDataCell className="bg-secondary-subtle">{r?.him_m}</CTableDataCell>
+                <CTableDataCell className="bg-secondary-subtle">{r?.ni_m}</CTableDataCell>
+                <CTableDataCell className="bg-secondary-subtle">{r?.dispo_m}</CTableDataCell>
+                <CTableDataCell className="bg-secondary-subtle">{r?.mtbf_m}</CTableDataCell>
+                <CTableDataCell className="bg-secondary-subtle">{r?.TDM_m}</CTableDataCell>
 
                 <CTableDataCell>{r?.nho_a}</CTableDataCell>
                 <CTableDataCell>{r?.hrm_a}</CTableDataCell>

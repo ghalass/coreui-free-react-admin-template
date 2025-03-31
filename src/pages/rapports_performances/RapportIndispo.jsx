@@ -85,11 +85,15 @@ const RapportIndispo = () => {
 
             <CTableDataCell colSpan={2}>NHO</CTableDataCell>
 
-            <CTableDataCell colSpan={2}>NI</CTableDataCell>
+            <CTableDataCell colSpan={2} className={`bg-secondary-subtle`}>
+              NI
+            </CTableDataCell>
 
             <CTableDataCell colSpan={2}>HIM</CTableDataCell>
 
-            <CTableDataCell colSpan={2}>INDISP</CTableDataCell>
+            <CTableDataCell colSpan={2} className={`bg-secondary-subtle`}>
+              INDISP
+            </CTableDataCell>
 
             <CTableDataCell colSpan={2}>COEF</CTableDataCell>
           </CTableRow>
@@ -103,14 +107,14 @@ const RapportIndispo = () => {
             <CTableDataCell>M</CTableDataCell>
             <CTableDataCell>A</CTableDataCell>
 
-            <CTableDataCell>M</CTableDataCell>
-            <CTableDataCell>A</CTableDataCell>
+            <CTableDataCell className={`bg-secondary-subtle`}>M</CTableDataCell>
+            <CTableDataCell className={`bg-secondary-subtle`}>A</CTableDataCell>
 
             <CTableDataCell>M</CTableDataCell>
             <CTableDataCell>A</CTableDataCell>
 
-            <CTableDataCell>M</CTableDataCell>
-            <CTableDataCell>A</CTableDataCell>
+            <CTableDataCell className={`bg-secondary-subtle`}>M</CTableDataCell>
+            <CTableDataCell className={`bg-secondary-subtle`}>A</CTableDataCell>
 
             <CTableDataCell>M</CTableDataCell>
             <CTableDataCell>A</CTableDataCell>

@@ -35,6 +35,8 @@ const SaisieRjeCreateHrmModal = () => {
     e.preventDefault()
 
     if (!hrm || isNaN(hrm)) {
+      console.log('error')
+
       setError("HRM Saisie n'est pas valide")
       return
     }
@@ -91,6 +93,12 @@ const SaisieRjeCreateHrmModal = () => {
         {mutationUpsetHRM.isError && (
           <CAlert color="danger" className="mb-0 mt-2 py-2">
             {mutationUpsetHRM.error.message}
+          </CAlert>
+        )}
+
+        {error && (
+          <CAlert color="danger" className="mb-0 mt-2 py-2">
+            {error}
           </CAlert>
         )}
       </CModalBody>
