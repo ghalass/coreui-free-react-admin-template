@@ -35,7 +35,7 @@ const Parcs = () => {
   const [entity, setEntity] = useState(initialVal)
   const createMutation = useCreateParc()
   const deleteMutation = useDeleteTypeparc()
-  const updateMutation = useCreateParc()
+  const updateMutation = useUpdateTypeparc()
 
   const handleSubmit = (e) => {
     e.preventDefault()

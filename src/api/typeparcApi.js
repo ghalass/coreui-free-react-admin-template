@@ -11,9 +11,9 @@ export const createTypeparc = async (typeparc) => {
 };
 
 export const updateTypeparc = async (updatedTypeparc) => {
-    return apiRequest(API_PATHS.TYPEPARCS.UPDATE_TYPEPARC(updatedTypeparc.id), "PUT", updatedTypeparc);
+    return apiRequest(API_PATHS.TYPEPARCS.UPDATE_TYPEPARC(updatedTypeparc.id), "PATCH", updatedTypeparc);
 };
 
 export const deleteTypeparc = async (typeparc) => {
-    return apiRequest(API_PATHS.TYPEPARCS.DELETE_TYPEPARC(typeparc.id), "PATCH", typeparc);
+    return apiRequest(API_PATHS.TYPEPARCS.DELETE_TYPEPARC(typeparc.id), "DELETE", typeparc);
 };

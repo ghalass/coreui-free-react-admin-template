@@ -1,7 +1,7 @@
 // hooks/useTypeparcs.js
 import { useQuery, useMutation, useQueryClient, queryOptions } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { fetchTypelubrifiants } from '../api/typelubrifiantsApi';
+import { createTypelubrifiant, deleteTypelubrifiant, fetchTypelubrifiants, updateTypelubrifiant } from '../api/typelubrifiantsApi';
 
 export const useTypelubrifiants = () => {
     return queryOptions({
@@ -10,44 +10,44 @@ export const useTypelubrifiants = () => {
     });
 };
 
-// export const useCreateTypeparc = () => {
-//     const queryClient = useQueryClient();
-//     return useMutation({
-//         mutationFn: createTypeparc,
-//         onSuccess: () => {
-//             queryClient.invalidateQueries(['typeparcs']); // Rafraîchir la liste des typeparcs
-//             toast.success('Typeparc ajouté avec succès !'); // Notification de succès
-//         },
-//         onError: () => {
-//             toast.error('Erreur lors de l\'ajout du Typeparc.'); // Notification d'erreur
-//         },
-//     });
-// };
+export const useCreateTypelubrifiant = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: createTypelubrifiant,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['typelubrifiants']); // Rafraîchir la liste des typeparcs
+            // toast.success('Typeparc ajouté avec succès !'); // Notification de succès
+        },
+        onError: () => {
+            toast.error('Erreur lors de l\'ajout du typelubrifiants.'); // Notification d'erreur
+        },
+    });
+};
 
-// export const useUpdateTypeparc = () => {
-//     const queryClient = useQueryClient();
-//     return useMutation({
-//         mutationFn: updateTypeparc,
-//         onSuccess: () => {
-//             queryClient.invalidateQueries(['typeparcs']);
-//             toast.success('Typeparc modifié avec succès !'); // Notification de succès
-//         },
-//         onError: () => {
-//             toast.error('Erreur lors de la modification du Typeparc.'); // Notification d'erreur
-//         },
-//     });
-// }
+export const useUpdateTypelubrifiant = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: updateTypelubrifiant,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['typelubrifiants']);
+            // toast.success('Typeparc modifié avec succès !'); // Notification de succès
+        },
+        onError: () => {
+            toast.error('Erreur lors de la modification du typelubrifiants.'); // Notification d'erreur
+        },
+    });
+}
 
-// export const useDeleteTypeparc = () => {
-//     const queryClient = useQueryClient();
-//     return useMutation({
-//         mutationFn: deleteTypeparc,
-//         onSuccess: () => {
-//             queryClient.invalidateQueries(['typeparcs']);
-//             toast.success('Typeparc supprimé avec succès !'); // Notification de succès
-//         },
-//         onError: () => {
-//             toast.error('Erreur lors de la suppression du Typeparc.'); // Notification d'erreur
-//         },
-//     });
-// };
+export const useDeleteTypelubrifiant = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: deleteTypelubrifiant,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['typelubrifiants']);
+            // toast.success('Typeparc supprimé avec succès !'); // Notification de succès
+        },
+        onError: () => {
+            toast.error('Erreur lors de la suppression du typelubrifiants.'); // Notification d'erreur
+        },
+    });
+};

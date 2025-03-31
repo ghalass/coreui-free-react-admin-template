@@ -17,15 +17,14 @@ import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } 
 import { cilCloudDownload, cilPenNib, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { useQuery } from '@tanstack/react-query'
-import {
-  useCreateTypeparc,
-  useDeleteTypeparc,
-  useTypeparcs,
-  useUpdateTypeparc,
-} from '../../hooks/useTypeparcs'
 import { toast } from 'react-toastify'
 import { exportExcel, getMultiplesOf } from '../../utils/func'
-import { useTypelubrifiants } from '../../hooks/useTypelubrifiants'
+import {
+  useCreateTypelubrifiant,
+  useDeleteTypelubrifiant,
+  useTypelubrifiants,
+  useUpdateTypelubrifiant,
+} from '../../hooks/useTypelubrifiants'
 
 const Typelubrifiants = () => {
   const getAllQuery = useQuery(useTypelubrifiants())
@@ -36,9 +35,9 @@ const Typelubrifiants = () => {
   const initialVal = { id: '', name: '' }
 
   const [entity, setEntity] = useState(initialVal)
-  const createMutation = useCreateTypeparc()
-  const deleteMutation = useDeleteTypeparc()
-  const updateMutation = useUpdateTypeparc()
+  const createMutation = useCreateTypelubrifiant()
+  const deleteMutation = useDeleteTypelubrifiant()
+  const updateMutation = useUpdateTypelubrifiant()
 
   const handleSubmit = (e) => {
     e.preventDefault()

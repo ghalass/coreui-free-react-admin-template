@@ -16,9 +16,9 @@ export const createParc = async (parc) => {
 };
 
 export const updateParc = async (updatedParc) => {
-    return apiRequest(API_PATHS.PARCS.UPDATE_PARC(updatedParc.id), "PUT", updatedParc);
+    return apiRequest(API_PATHS.PARCS.UPDATE_PARC(updatedParc.id), "PATCH", updatedParc);
 };
 
 export const deleteParc = async (parc) => {
-    return apiRequest(API_PATHS.PARCS.DELETE_PARC(parc.id), "PATCH", parc);
+    return apiRequest(API_PATHS.PARCS.DELETE_PARC(parc.id), "DELETE", parc);
 };

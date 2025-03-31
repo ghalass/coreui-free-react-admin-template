@@ -3,6 +3,7 @@ import {
   CAlert,
   CBadge,
   CFormInput,
+  CFormSelect,
   CPagination,
   CPaginationItem,
   CSpinner,
@@ -19,27 +20,35 @@ import CIcon from '@coreui/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { exportExcel, getMultiplesOf } from '../../utils/func'
-import { useCreateParc, useDeleteTypeparc, useParcs, useUpdateTypeparc } from '../../hooks/useParcs'
-import { fecthLubrifiantsQuery } from '../../hooks/useLubrifiants'
+import {
+  fecthLubrifiantsQuery,
+  useCreateLubrifiant,
+  useDeleteLubrifiant,
+  useUpdateLubrifiant,
+} from '../../hooks/useLubrifiants'
+import { useTypelubrifiants } from '../../hooks/useTypelubrifiants'
 
 const Lubrifiants = () => {
+  const getAllTypelubrifiantsQuery = useQuery(useTypelubrifiants())
+
   const getAllQuery = useQuery(fecthLubrifiantsQuery())
 
   const [visible, setVisible] = useState(false)
   const [operation, setOperation] = useState('')
 
-  const initialVal = { id: '', name: '' }
+  const initialVal = { id: '', name: '', typelubrifiantId: '' }
 
   const [entity, setEntity] = useState(initialVal)
-  const createMutation = useCreateParc()
-  const deleteMutation = useDeleteTypeparc()
-  const updateMutation = useUpdateTypeparc()
+  const createMutation = useCreateLubrifiant()
+  const deleteMutation = useDeleteLubrifiant()
+  const updateMutation = useUpdateLubrifiant()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = {
       id: entity.id,
       name: entity.name,
+      typelubrifiantId: entity.typelubrifiantId,
     }
 
     switch (operation) {
@@ -275,14 +284,38 @@ const Lubrifiants = () => {
         aria-labelledby="StaticBackdropExampleLabel"
       >
         <CModalHeader>
-          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un parc</CModalTitle>
+          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un lubrifiant</CModalTitle>
         </CModalHeader>
         <CModalBody>
+          <CFormSelect
+            id="floatingSelect"
+            floatingClassName="mb-3"
+            floatingLabel="Choisir un type de lubrifiant"
+            aria-label="Floating label select example"
+            value={entity.typelubrifiantId}
+            onChange={(e) => setEntity({ ...entity, typelubrifiantId: e.target.value })}
+            disabled={
+              createMutation.isPending ||
+              updateMutation.isPending ||
+              deleteMutation.isPending ||
+              operation === 'delete'
+            }
+          >
+            <option></option>
+            {getAllTypelubrifiantsQuery.data &&
+              getAllTypelubrifiantsQuery.data?.length > 0 &&
+              getAllTypelubrifiantsQuery.data?.map((typelubrifiant, indx) => (
+                <option key={indx} value={typelubrifiant?.id}>
+                  {typelubrifiant?.name}
+                </option>
+              ))}
+          </CFormSelect>
+
           <CFormInput
             type="text"
             id="floatingInput"
             floatingClassName="mb-3"
-            floatingLabel="Nom du parc"
+            floatingLabel="Nom du lubrifiant"
             placeholder="pg11"
             value={entity.name}
             onChange={(e) => setEntity({ ...entity, name: e.target.value })}

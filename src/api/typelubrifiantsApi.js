@@ -11,9 +11,9 @@ export const createTypelubrifiant = async (typelubrifiant) => {
 };
 
 export const updateTypelubrifiant = async (updatedTypelubrifiant) => {
-    return apiRequest(API_PATHS.TYPELUBRIFIANTS.UPDATE_TYPELUBRIFIANT(updatedTypelubrifiant.id), "PUT", updatedTypelubrifiant);
+    return apiRequest(API_PATHS.TYPELUBRIFIANTS.UPDATE_TYPELUBRIFIANT(updatedTypelubrifiant.id), "PATCH", updatedTypelubrifiant);
 };
 
 export const deleteTypelubrifiant = async (typelubrifiant) => {
-    return apiRequest(API_PATHS.TYPELUBRIFIANTS.DELETE_TYPELUBRIFIANT(typelubrifiant.id), "PATCH", typelubrifiant);
+    return apiRequest(API_PATHS.TYPELUBRIFIANTS.DELETE_TYPELUBRIFIANT(typelubrifiant.id), "DELETE", typelubrifiant);
 };
