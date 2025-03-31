@@ -3,6 +3,7 @@ import {
   CAlert,
   CBadge,
   CFormInput,
+  CFormSelect,
   CPagination,
   CPaginationItem,
   CSpinner,
@@ -19,31 +20,30 @@ import CIcon from '@coreui/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { exportExcel, getMultiplesOf } from '../../utils/func'
-import {
-  useCreateTypelubrifiant,
-  useDeleteTypelubrifiant,
-  useTypelubrifiants,
-  useUpdateTypelubrifiant,
-} from '../../hooks/useTypelubrifiants'
+import { useCreateParc, useDeleteTypeparc, useParcs, useUpdateTypeparc } from '../../hooks/useParcs'
+import { useCreatePanne, useDeletePanne, usePannes, useUpdatePanne } from '../../hooks/usePannes'
+import { useTypepannes } from '../../hooks/useTypepannes'
 
-const Typelubrifiants = () => {
-  const getAllQuery = useQuery(useTypelubrifiants())
+const Pannes = () => {
+  const getAllQuery = useQuery(usePannes())
+  const getAllTypeparcsQuery = useQuery(useTypepannes())
 
   const [visible, setVisible] = useState(false)
   const [operation, setOperation] = useState('')
 
-  const initialVal = { id: '', name: '' }
+  const initialVal = { id: '', name: '', typepanneId: '' }
 
   const [entity, setEntity] = useState(initialVal)
-  const createMutation = useCreateTypelubrifiant()
-  const deleteMutation = useDeleteTypelubrifiant()
-  const updateMutation = useUpdateTypelubrifiant()
+  const createMutation = useCreatePanne()
+  const deleteMutation = useDeletePanne()
+  const updateMutation = useUpdatePanne()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = {
       id: entity.id,
       name: entity.name,
+      typepanneId: entity.typepanneId,
     }
 
     switch (operation) {
@@ -96,8 +96,10 @@ const Typelubrifiants = () => {
     }
   }
   // Filter the entitys based on the search query
-  const filteredEntitys = getAllQuery.data?.filter((el) =>
-    el?.name.toLowerCase().includes(search.toLowerCase()),
+  const filteredEntitys = getAllQuery.data?.filter(
+    (el) =>
+      el?.name.toLowerCase().includes(search.toLowerCase()) ||
+      el?.Typeparc?.name.toLowerCase().includes(search.toLowerCase()),
   )
 
   // Pagination States
@@ -118,7 +120,7 @@ const Typelubrifiants = () => {
     <div>
       <div className="my-1 d-flex justify-content-between ">
         <div className="d-flex align-items-center gap-1 text-uppercase">
-          Liste des types des lubrifiants
+          Liste des parcs
           <div>
             <CBadge textBgColor="primary"> {getAllQuery.data?.length || 0}</CBadge>
           </div>
@@ -158,7 +160,7 @@ const Typelubrifiants = () => {
             size="sm"
             color="success"
             variant="outline"
-            onClick={() => exportExcel('myTable', 'Liste des typeparcs')}
+            onClick={() => exportExcel('myTable', 'Liste des parcs')}
             className="rounded-pill"
             disabled={!!currentEntitys?.length !== true}
           >
@@ -220,7 +222,8 @@ const Typelubrifiants = () => {
       <CTable striped hover id="myTable">
         <CTableHead>
           <CTableRow>
-            <CTableHeaderCell scope="col">Nom du type de lubrifiant</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Nom du parc</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Type de parc</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
@@ -256,6 +259,8 @@ const Typelubrifiants = () => {
                   </CButton>{' '}
                   {item?.name}
                 </CTableDataCell>
+
+                <CTableDataCell> {item?.Typeparc?.name}</CTableDataCell>
               </CTableRow>
             ))
           ) : (
@@ -277,14 +282,14 @@ const Typelubrifiants = () => {
         aria-labelledby="StaticBackdropExampleLabel"
       >
         <CModalHeader>
-          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un typeparc</CModalTitle>
+          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un parc</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormInput
             type="text"
             id="floatingInput"
             floatingClassName="mb-3"
-            floatingLabel="Nom du typeparc"
+            floatingLabel="Nom du parc"
             placeholder="pg11"
             value={entity.name}
             onChange={(e) => setEntity({ ...entity, name: e.target.value })}
@@ -295,6 +300,30 @@ const Typelubrifiants = () => {
               operation === 'delete'
             }
           />
+
+          <CFormSelect
+            id="floatingSelect"
+            floatingClassName="mb-3"
+            floatingLabel="Choisir un type de parc"
+            aria-label="Floating label select example"
+            value={entity?.typepanneId}
+            onChange={(e) => setEntity({ ...entity, typepanneId: e.target.value })}
+            disabled={
+              createMutation.isPending ||
+              updateMutation.isPending ||
+              deleteMutation.isPending ||
+              operation === 'delete'
+            }
+          >
+            <option></option>
+            {getAllTypeparcsQuery.data &&
+              getAllTypeparcsQuery.data?.length > 0 &&
+              getAllTypeparcsQuery.data?.map((typeparc, indx) => (
+                <option key={indx} value={typeparc?.id}>
+                  {typeparc?.name}
+                </option>
+              ))}
+          </CFormSelect>
 
           {createMutation.isError && (
             <CAlert color="danger" className="mb-0 mt-2 py-2">
@@ -353,4 +382,4 @@ const Typelubrifiants = () => {
   )
 }
 
-export default Typelubrifiants
+export default Pannes

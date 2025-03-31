@@ -88,6 +88,7 @@ const Engins = () => {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
+            toast.success('Supprimé avec succès.')
           },
         })
         break
@@ -96,6 +97,7 @@ const Engins = () => {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
+            toast.success('Modifié avec succès.')
           },
         })
         break

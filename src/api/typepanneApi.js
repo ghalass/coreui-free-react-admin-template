@@ -11,9 +11,9 @@ export const createTypepanne = async (typepanne) => {
 };
 
 export const updateTypepanne = async (updatedTypepanne) => {
-    return apiRequest(API_PATHS.TYPEPANNES.UPDATE_TYPEPANNE(updatedTypepanne.id), "PUT", updatedTypepanne);
+    return apiRequest(API_PATHS.TYPEPANNES.UPDATE_TYPEPANNE(updatedTypepanne.id), "PATCH", updatedTypepanne);
 };
 
 export const deleteTypepanne = async (typepanne) => {
-    return apiRequest(API_PATHS.TYPEPANNES.DELETE_TYPEPANNE(typepanne.id), "PATCH", typepanne);
+    return apiRequest(API_PATHS.TYPEPANNES.DELETE_TYPEPANNE(typepanne.id), "DELETE", typepanne);
 };

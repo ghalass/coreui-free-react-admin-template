@@ -66,6 +66,7 @@ const Lubrifiants = () => {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
+            toast.success('Supprimé avec succès.')
           },
         })
         break
@@ -74,6 +75,7 @@ const Lubrifiants = () => {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
+            toast.success('Modifié avec succès.')
           },
         })
         break

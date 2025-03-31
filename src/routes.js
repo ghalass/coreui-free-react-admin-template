@@ -18,6 +18,8 @@ const UnitePhysique = React.lazy(() => import('./pages/rapports_performances/Uni
 const Profile = React.lazy(() => import('./pages/user/Profile'))
 const Page404 = React.lazy(() => import('./pages/page404/Page404'))
 const Users = React.lazy(() => import('./pages/configs/Users'))
+const Typepannes = React.lazy(() => import('./pages/configs/Typepannes'))
+const Pannes = React.lazy(() => import('./pages/configs/Pannes'))
 
 const routes = [
   { path: '/', name: 'Home', element: Home },
@@ -29,6 +31,9 @@ const routes = [
   { path: '/configs/typeparcs', name: 'Typeparcs', element: Typeparcs },
   { path: '/configs/parcs', name: 'Parcs', element: Parcs },
   { path: '/configs/engins', name: 'Engins', element: Engins },
+  { path: '/configs/typepannes', name: 'Typepannes', element: Typepannes },
+  { path: '/configs/typepannes', name: 'Typepannes', element: Typepannes },
+  { path: '/configs/pannes', name: 'Pannes', element: Pannes },
   { path: '/configs/typelubrifiants', name: 'Typelubrifiants', element: Typelubrifiants },
   { path: '/configs/lubrifiants', name: 'lubrifiants', element: Lubrifiants },
 

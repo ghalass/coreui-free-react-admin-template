@@ -61,6 +61,7 @@ const Typeparcs = () => {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
+            toast.success('Supprimé avec succès.')
           },
         })
         break
@@ -69,6 +70,7 @@ const Typeparcs = () => {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
+            toast.success('Modifié avec succès.')
           },
         })
         break

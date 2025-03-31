@@ -55,6 +55,7 @@ const Sites = () => {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
+            toast.success('Supprimé avec succès.')
           },
         })
         break
@@ -63,6 +64,7 @@ const Sites = () => {
           onSuccess: () => {
             setVisible(!visible)
             handleResetAll()
+            toast.success('Modifié avec succès.')
           },
         })
         break

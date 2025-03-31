@@ -27,7 +27,7 @@ const Login = () => {
   const [user, setUser] = useState({
     email: "user_for_test@email.com",
     password: "123456",
-    // email: "ghalass@gmail.com",
+    // email: "ghalass@gmail.com", 
     // password: "gh@l@ss@dmin",
   });
 

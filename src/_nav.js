@@ -111,6 +111,14 @@ const _nav = [
         to: '/configs/engins',
       }, {
         component: CNavItem,
+        name: 'Typepannes',
+        to: '/configs/typepannes',
+      }, {
+        component: CNavItem,
+        name: 'Pannes',
+        to: '/configs/pannes',
+      }, {
+        component: CNavItem,
         name: 'Types des lubrifiants',
         to: '/configs/typelubrifiants',
       }, {

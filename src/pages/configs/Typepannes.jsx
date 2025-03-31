@@ -20,14 +20,14 @@ import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { exportExcel, getMultiplesOf } from '../../utils/func'
 import {
-  useCreateTypelubrifiant,
-  useDeleteTypelubrifiant,
-  useTypelubrifiants,
-  useUpdateTypelubrifiant,
-} from '../../hooks/useTypelubrifiants'
+  useCreateTypepanne,
+  useDeleteTypepanne,
+  useTypepannes,
+  useUpdateTypepanne,
+} from '../../hooks/useTypepannes'
 
-const Typelubrifiants = () => {
-  const getAllQuery = useQuery(useTypelubrifiants())
+const Typepannes = () => {
+  const getAllQuery = useQuery(useTypepannes())
 
   const [visible, setVisible] = useState(false)
   const [operation, setOperation] = useState('')
@@ -35,9 +35,9 @@ const Typelubrifiants = () => {
   const initialVal = { id: '', name: '' }
 
   const [entity, setEntity] = useState(initialVal)
-  const createMutation = useCreateTypelubrifiant()
-  const deleteMutation = useDeleteTypelubrifiant()
-  const updateMutation = useUpdateTypelubrifiant()
+  const createMutation = useCreateTypepanne()
+  const deleteMutation = useDeleteTypepanne()
+  const updateMutation = useUpdateTypepanne()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -118,7 +118,7 @@ const Typelubrifiants = () => {
     <div>
       <div className="my-1 d-flex justify-content-between ">
         <div className="d-flex align-items-center gap-1 text-uppercase">
-          Liste des types des lubrifiants
+          Liste des types des pannes
           <div>
             <CBadge textBgColor="primary"> {getAllQuery.data?.length || 0}</CBadge>
           </div>
@@ -158,7 +158,7 @@ const Typelubrifiants = () => {
             size="sm"
             color="success"
             variant="outline"
-            onClick={() => exportExcel('myTable', 'Liste des typeparcs')}
+            onClick={() => exportExcel('myTable', 'Liste des typepannes')}
             className="rounded-pill"
             disabled={!!currentEntitys?.length !== true}
           >
@@ -220,7 +220,7 @@ const Typelubrifiants = () => {
       <CTable striped hover id="myTable">
         <CTableHead>
           <CTableRow>
-            <CTableHeaderCell scope="col">Nom du type de lubrifiant</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Nom du type de panne</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
@@ -277,14 +277,14 @@ const Typelubrifiants = () => {
         aria-labelledby="StaticBackdropExampleLabel"
       >
         <CModalHeader>
-          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un typeparc</CModalTitle>
+          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un typepanne</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormInput
             type="text"
             id="floatingInput"
             floatingClassName="mb-3"
-            floatingLabel="Nom du typeparc"
+            floatingLabel="Nom du typepanne"
             placeholder="pg11"
             value={entity.name}
             onChange={(e) => setEntity({ ...entity, name: e.target.value })}
@@ -353,4 +353,4 @@ const Typelubrifiants = () => {
   )
 }
 
-export default Typelubrifiants
+export default Typepannes
