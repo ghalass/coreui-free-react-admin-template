@@ -17,12 +17,9 @@ import { exportExcel } from '../../utils/func'
 const RapportRje = () => {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
 
-  const [_, setShouldFetch] = useState(false)
-
   const generateRjeQuery = useQuery(generateRjeQueryOptions(date))
 
   const handleClick = () => {
-    setShouldFetch(true) // Activer la requête au clic
     generateRjeQuery.refetch() // 🔥 Déclenche la requête au clic
   }
 

@@ -15,12 +15,9 @@ import {
 const RapportIndispo = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 7))
 
-  const [_, setShouldFetch] = useState(false)
-
   const getRapportIndis = useQuery(getRapportIndispoOptions(date))
 
   const handleClick = () => {
-    setShouldFetch(true) // Activer la requête au clic
     getRapportIndis.refetch() // 🔥 Déclenche la requête au clic
   }
   return (

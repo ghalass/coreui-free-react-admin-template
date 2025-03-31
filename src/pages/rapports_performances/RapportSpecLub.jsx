@@ -10,14 +10,11 @@ const RapportSpecLub = () => {
 
   const [selectedTypelubrifiant, setSelectedTypelubrifiant] = useState('')
 
-  const [_, setShouldFetch] = useState(false)
-
   const getAllTypelubrifiantsQuery = useQuery(useTypelubrifiants())
 
   const getRapportSpecLub = useQuery(getRapportSpecLubOptions(selectedTypelubrifiant, year))
 
   const handleClick = () => {
-    setShouldFetch(true) // Activer la requête au clic
     getRapportSpecLub.refetch() // 🔥 Déclenche la requête au clic
   }
 

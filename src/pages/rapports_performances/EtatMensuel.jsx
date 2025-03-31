@@ -15,12 +15,9 @@ import {
 const EtatMensuel = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 7))
 
-  const [_, setShouldFetch] = useState(false)
-
   const generateEtatMensuelQuery = useQuery(generateEtatMensuelOptions(date))
 
   const handleClick = () => {
-    setShouldFetch(true) // Activer la requête au clic
     generateEtatMensuelQuery.refetch() // 🔥 Déclenche la requête au clic
   }
 

@@ -42,11 +42,11 @@ export const getRapportHeuresChassisOptions = (du) => {
     })
 }
 
-export const getRapportSpecLubOptions = (typelubrifiantId, year) => {
+export const getRapportSpecLubOptions = (typelubrifiantId, year, shouldFetch) => {
     return queryOptions({
         queryKey: ["rapportRapportSpecLub"],
         queryFn: () => getRapportSpecLub(typelubrifiantId, year),
-        enabled: typelubrifiantId !== "" && year !== ""
+        enabled: false
     })
 }
 
@@ -54,7 +54,7 @@ export const getParetoIndispParcOptions = (parcId, date) => {
     return queryOptions({
         queryKey: ["rapportParetoIndispParc"],
         queryFn: () => getParetoIndispParc(parcId, date),
-        enabled: parcId !== "" && date !== ""
+        enabled: false
     })
 }
 
@@ -62,6 +62,6 @@ export const getParetoMtbfParcOptions = (parcId, date) => {
     return queryOptions({
         queryKey: ["rapportParetoMtbfParc"],
         queryFn: () => getParetoMtbfParc(parcId, date),
-        enabled: parcId !== "" || date !== ""
+        enabled: false
     })
 }

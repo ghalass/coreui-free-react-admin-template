@@ -18,12 +18,9 @@ const UnitePhysique = () => {
 
   const getAllSitesQuery = useQuery(fecthSitesQuery())
 
-  const [_, setShouldFetch] = useState(false)
-
   const generateUnitePhysiqueQuery = useQuery(generateUnitePhysiqueQueryOptions(date))
 
   const handleClick = () => {
-    setShouldFetch(true) // Activer la requête au clic
     generateUnitePhysiqueQuery.refetch() // 🔥 Déclenche la requête au clic
   }
   return (

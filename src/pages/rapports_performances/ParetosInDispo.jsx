@@ -13,13 +13,10 @@ const ParetosInDispo = () => {
 
   const getAllParcsQuery = useQuery(useParcs())
 
-  // const [_, setShouldFetch] = useState(false)
-
   const getParetoIndispParc = useQuery(getParetoIndispParcOptions(selectedParc, date))
   const getParetoMtbfParc = useQuery(getParetoMtbfParcOptions(selectedParc, date))
 
   const handleClick = () => {
-    // setShouldFetch(true)
     getParetoIndispParc.refetch()
     getParetoMtbfParc.refetch()
   }
