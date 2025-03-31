@@ -14,8 +14,8 @@ export const updateUser = async (updatedSite) => {
     return await apiRequest(API_PATHS.AUTH.UPDATE_USER, "PATCH", updatedSite);
 };
 
-export const deleteUser = async (siteId) => {
-    return await apiRequest(API_PATHS.AUTH.DELETE_USER(siteId), "DELETE");
+export const deleteUser = async (user) => {
+    return await apiRequest(API_PATHS.AUTH.DELETE_USER(user?.id), "DELETE");
 };
 
 export const loginUser = async (data) => {
