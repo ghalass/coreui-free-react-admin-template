@@ -1,5 +1,4 @@
 import React from 'react'
-
 const Home = React.lazy(() => import('./pages/home/Home'))
 const Sites = React.lazy(() => import('./pages/configs/Sites'))
 const Typeparcs = React.lazy(() => import('./pages/configs/Typeparcs'))
@@ -18,13 +17,14 @@ const RapportSpecLub = React.lazy(() => import('./pages/rapports_performances/Ra
 const UnitePhysique = React.lazy(() => import('./pages/rapports_performances/UnitePhysique'))
 const Profile = React.lazy(() => import('./pages/user/Profile'))
 const Page404 = React.lazy(() => import('./pages/page404/Page404'))
+const Users = React.lazy(() => import('./pages/configs/Users'))
 
 const routes = [
   { path: '/', name: 'Home', element: Home },
   { path: '/*', name: 'Page404', element: Page404 },
 
   { path: '/user/profile', name: 'Profile', element: Profile },
-
+  { path: '/configs/users', name: 'Users', element: Users },
   { path: '/configs/sites', name: 'Sites', element: Sites },
   { path: '/configs/typeparcs', name: 'Typeparcs', element: Typeparcs },
   { path: '/configs/parcs', name: 'Parcs', element: Parcs },

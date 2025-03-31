@@ -117,6 +117,10 @@ const _nav = [
         component: CNavItem,
         name: 'Lubrifiants',
         to: '/configs/lubrifiants',
+      }, {
+        component: CNavItem,
+        name: 'Utilisateurs',
+        to: '/configs/users',
       },
     ],
   },

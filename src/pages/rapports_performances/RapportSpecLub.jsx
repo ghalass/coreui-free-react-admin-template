@@ -7,6 +7,7 @@ import { CButton, CFormInput, CFormSelect, CSpinner, CTable } from '@coreui/reac
 const RapportSpecLub = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 7))
   const year = date.split('-')[0] // Extrait l'année
+  const [selectedTypeLubName, setSelectedTypeLubName] = useState('')
 
   const [selectedTypelubrifiant, setSelectedTypelubrifiant] = useState('')
 
@@ -40,7 +41,12 @@ const RapportSpecLub = () => {
           floatingLabel="Choisir un lubrifiant"
           aria-label="Floating label select example"
           value={selectedTypelubrifiant}
-          onChange={(e) => setSelectedTypelubrifiant(e.target.value)}
+          onChange={(e) => {
+            setSelectedTypelubrifiant(e.target.value)
+            setSelectedTypeLubName(
+              e.target.value !== '' ? e.target.options[e.target.selectedIndex].text : '',
+            )
+          }}
           disabled={getRapportSpecLub.isFetching}
         >
           <option value="">Liste des typelubrifiants</option>
@@ -86,6 +92,12 @@ const RapportSpecLub = () => {
         id="tbl_rapport_speclub"
       >
         <thead>
+          <tr>
+            <td colSpan={15}>
+              spécifique {selectedTypeLubName} par parc au mois :{' '}
+              {date.split('-').reverse().join('-')}
+            </td>
+          </tr>
           <tr>
             <th colSpan={3}>{year}</th>
 
