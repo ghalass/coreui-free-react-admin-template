@@ -20,6 +20,16 @@ const RapportIndispo = () => {
   const handleClick = () => {
     getRapportIndis.refetch() // 🔥 Déclenche la requête au clic
   }
+
+  // filter data
+  const [searchByParc, setSearchByParc] = useState('')
+  const [searchByTypeparc, setSearchByTypeparc] = useState('')
+  const filteredData = getRapportIndis?.data?.filter(
+    (item) =>
+      item.parc?.toLowerCase().includes(searchByParc.toLowerCase()) &&
+      item.typeparc?.toLowerCase().includes(searchByTypeparc.toLowerCase()),
+  )
+
   return (
     <div>
       <div className="row text-center">
@@ -63,6 +73,28 @@ const RapportIndispo = () => {
               <div> Générer le rapport</div>
             </div>
           </CButton>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Parc..."
+            value={searchByParc}
+            onChange={(e) => setSearchByParc(e.target.value)}
+          />
+        </div>
+
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Type de Parc..."
+            value={searchByTypeparc}
+            onChange={(e) => setSearchByTypeparc(e.target.value)}
+          />
         </div>
       </div>
 
@@ -123,7 +155,7 @@ const RapportIndispo = () => {
         </CTableHead>
         <CTableBody>
           {!getRapportIndis.isFetching &&
-            getRapportIndis.data?.map((rapp, i) => (
+            filteredData?.map((rapp, i) => (
               <CTableRow key={i}>
                 <CTableDataCell>{rapp?.typeparc}</CTableDataCell>
                 <CTableDataCell>{rapp?.parc}</CTableDataCell>

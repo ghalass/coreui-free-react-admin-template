@@ -23,6 +23,12 @@ const RapportRje = () => {
     generateRjeQuery.refetch() // 🔥 Déclenche la requête au clic
   }
 
+  // filter data
+  const [searchByEngin, setSearchByEngin] = useState('')
+  const filteredData = generateRjeQuery?.data?.filter((item) =>
+    item.engin?.toLowerCase().includes(searchByEngin.toLowerCase()),
+  )
+
   return (
     <div>
       <div className="row text-center">
@@ -67,6 +73,17 @@ const RapportRje = () => {
             </div>
           </CButton>
         </div>
+      </div>
+
+      <div className="mb-2">
+        <input
+          style={{ maxWidth: '200px' }}
+          type="search"
+          className="form-control form-control-sm"
+          placeholder="Engin..."
+          value={searchByEngin}
+          onChange={(e) => setSearchByEngin(e.target.value)}
+        />
       </div>
 
       <CTable
@@ -129,7 +146,7 @@ const RapportRje = () => {
         </CTableHead>
         <CTableBody className="text-end">
           {!generateRjeQuery.isFetching &&
-            generateRjeQuery.data?.map((r, i) => (
+            filteredData?.map((r, i) => (
               <CTableRow key={i}>
                 <CTableDataCell>{r?.engin}</CTableDataCell>
 

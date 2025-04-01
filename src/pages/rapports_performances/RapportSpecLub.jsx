@@ -19,6 +19,12 @@ const RapportSpecLub = () => {
     getRapportSpecLub.refetch() // 🔥 Déclenche la requête au clic
   }
 
+  // filter data
+  const [searchByParc, setSearchByParc] = useState('')
+  const filteredData = getRapportSpecLub?.data?.filter((item) =>
+    item.parc?.toLowerCase().includes(searchByParc.toLowerCase()),
+  )
+
   return (
     <div>
       <div className="row text-center">
@@ -86,6 +92,19 @@ const RapportSpecLub = () => {
               <div> Générer le rapport</div>
             </div>
           </CButton>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-sm mb-2">
+          <input
+            style={{ maxWidth: '200px' }}
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Parc..."
+            value={searchByParc}
+            onChange={(e) => setSearchByParc(e.target.value)}
+          />
         </div>
       </div>
 
@@ -206,7 +225,7 @@ const RapportSpecLub = () => {
         </thead>
         <tbody>
           {!getRapportSpecLub.isFetching &&
-            getRapportSpecLub.data?.map((item, i) => (
+            filteredData?.map((item, i) => (
               <tr key={i}>
                 <td>{item?.parc}</td>
                 <td>{item?.nombe_engin}</td>

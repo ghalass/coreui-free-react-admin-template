@@ -23,6 +23,13 @@ const UnitePhysique = () => {
   const handleClick = () => {
     generateUnitePhysiqueQuery.refetch() // 🔥 Déclenche la requête au clic
   }
+
+  // filter data
+  const [searchByParc, setSearchByParc] = useState('')
+  const filteredData = generateUnitePhysiqueQuery?.data?.filter((item) =>
+    item.parc?.toLowerCase().includes(searchByParc.toLowerCase()),
+  )
+
   return (
     <>
       <div className="row text-center">
@@ -70,6 +77,18 @@ const UnitePhysique = () => {
           </CButton>
         </div>
       </div>
+
+      <div className="mb-2">
+        <input
+          style={{ maxWidth: '200px' }}
+          type="search"
+          className="form-control form-control-sm"
+          placeholder="Parc..."
+          value={searchByParc}
+          onChange={(e) => setSearchByParc(e.target.value)}
+        />
+      </div>
+
       <CTable
         responsive
         striped
@@ -152,7 +171,7 @@ const UnitePhysique = () => {
         </CTableHead>
         <tbody>
           {!generateUnitePhysiqueQuery.isFetching &&
-            generateUnitePhysiqueQuery.data?.map((unitePhysique, i) => (
+            filteredData?.map((unitePhysique, i) => (
               <CTableRow key={i}>
                 <CTableDataCell>{unitePhysique?.parc}</CTableDataCell>
                 <CTableDataCell>{unitePhysique?.nombre_d_engin}</CTableDataCell>
