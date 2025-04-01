@@ -12,7 +12,6 @@ const SaisieRjeDonnees = () => {
   const [searchByParc, setSearchByParc] = useState('')
   const [searchByEngin, setSearchByEngin] = useState('')
   const [searchBySite, setSearchBySite] = useState('')
-  const [searchByPanne, setSearchByPanne] = useState('')
 
   const handleClick = () => {
     getSaisieHrmDay.refetch()
@@ -23,93 +22,99 @@ const SaisieRjeDonnees = () => {
       item.typeparc?.toLowerCase().includes(searchByTypeparc.toLowerCase()) &&
       item.parc?.toLowerCase().includes(searchByParc.toLowerCase()) &&
       item.engin?.toLowerCase().includes(searchByEngin.toLowerCase()) &&
-      item.site?.toLowerCase().includes(searchBySite.toLowerCase()) &&
-      item.panne?.toLowerCase().includes(searchByPanne.toLowerCase()),
+      item.site?.toLowerCase().includes(searchBySite.toLowerCase()),
   )
 
   return (
     <div>
-      <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-        <CButton
-          disabled={getSaisieHrmDay.isFetching || !!filteredData !== true}
-          onClick={() => exportExcel('tbl_donnees_saisies', 'Données saisies')}
-          size="sm"
-          color="success"
-          variant="outline"
-          className="rounded-pill"
-        >
-          Excel
-        </CButton>
+      <div className="row text-center">
+        <div className="col-sm mb-2">
+          <CButton
+            disabled={getSaisieHrmDay.isFetching || !!filteredData !== true}
+            onClick={() => exportExcel('tbl_donnees_saisies', 'Données saisies')}
+            size="sm"
+            color="success"
+            variant="outline"
+            className="rounded-pill"
+          >
+            Excel
+          </CButton>
+        </div>
 
-        <CFormInput
-          type="date"
-          id="floatingInputDate"
-          floatingClassName="mb-3"
-          floatingLabel="Date de saisie"
-          placeholder="pg11"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          disabled={getSaisieHrmDay.isFetching}
-        />
+        <div className="col-sm mb-2 ">
+          <CFormInput
+            type="date"
+            id="floatingInputDate"
+            floatingClassName=""
+            floatingLabel="Date de saisie"
+            placeholder="pg11"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            disabled={getSaisieHrmDay.isFetching}
+          />
+        </div>
 
-        <CButton
-          disabled={getSaisieHrmDay.isFetching}
-          onClick={handleClick}
-          size="sm"
-          color="secondary"
-          variant="outline"
-          className="rounded-pill"
-        >
-          <div className="d-flex gap-1">
-            {getSaisieHrmDay.isFetching && <CSpinner size="sm" />}
-            <div> Générer le rapport</div>
-          </div>
-        </CButton>
+        <div className="col-sm mb-2">
+          <CButton
+            disabled={getSaisieHrmDay.isFetching}
+            onClick={handleClick}
+            size="sm"
+            color="secondary"
+            variant="outline"
+            className="rounded-pill"
+          >
+            <div className="d-flex gap-1 align-items-center">
+              {getSaisieHrmDay.isFetching && <CSpinner size="sm" />}
+              <div> Générer le rapport</div>
+            </div>
+          </CButton>
+        </div>
       </div>
 
-      <div className="d-flex gap-1 mb-2">
-        <input
-          type="search"
-          className="form-control form-control-sm"
-          placeholder="Typeparc..."
-          value={searchByTypeparc}
-          onChange={(e) => setSearchByTypeparc(e.target.value)}
-        />
+      <div className="row text-center">
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Typeparc..."
+            value={searchByTypeparc}
+            onChange={(e) => setSearchByTypeparc(e.target.value)}
+          />
+        </div>
 
-        <input
-          type="search"
-          className="form-control form-control-sm"
-          placeholder="Parc..."
-          value={searchByParc}
-          onChange={(e) => setSearchByParc(e.target.value)}
-        />
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Parc..."
+            value={searchByParc}
+            onChange={(e) => setSearchByParc(e.target.value)}
+          />
+        </div>
 
-        <input
-          type="search"
-          className="form-control form-control-sm"
-          placeholder="Engin..."
-          value={searchByEngin}
-          onChange={(e) => setSearchByEngin(e.target.value)}
-        />
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Engin..."
+            value={searchByEngin}
+            onChange={(e) => setSearchByEngin(e.target.value)}
+          />
+        </div>
 
-        <input
-          type="search"
-          className="form-control form-control-sm"
-          placeholder="Site..."
-          value={searchBySite}
-          onChange={(e) => setSearchBySite(e.target.value)}
-        />
-
-        <input
-          type="search"
-          className="form-control form-control-sm"
-          placeholder="Panne..."
-          value={searchByPanne}
-          onChange={(e) => setSearchByPanne(e.target.value)}
-        />
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Site..."
+            value={searchBySite}
+            onChange={(e) => setSearchBySite(e.target.value)}
+          />
+        </div>
       </div>
 
       <CTable
+        responsive
         striped
         hover
         size="sm"

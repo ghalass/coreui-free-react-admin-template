@@ -25,8 +25,8 @@ const RapportRje = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-        <div>
+      <div className="row text-center">
+        <div className="col-sm mb-2">
           <CButton
             disabled={generateRjeQuery.isFetching || !!generateRjeQuery?.data !== true}
             onClick={() => exportExcel('tbl_rje', 'Rapport RJE')}
@@ -39,30 +39,34 @@ const RapportRje = () => {
           </CButton>
         </div>
 
-        <CFormInput
-          type="date"
-          id="floatingInpuCTableHeaderCellate"
-          floatingClassName="mb-3"
-          floatingLabel="Date de saisie"
-          placeholder="Date de saisie"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          disabled={generateRjeQuery.isFetching}
-        />
+        <div className="col-sm mb-2">
+          <CFormInput
+            type="date"
+            id="floatingInpuCTableHeaderCellate"
+            floatingClassName="mb-3"
+            floatingLabel="Date de saisie"
+            placeholder="Date de saisie"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            disabled={generateRjeQuery.isFetching}
+          />
+        </div>
 
-        <CButton
-          disabled={generateRjeQuery.isFetching}
-          onClick={handleClick}
-          size="sm"
-          color="success"
-          variant="outline"
-          className="rounded-pill"
-        >
-          <div className="d-flex gap-1">
-            {generateRjeQuery.isFetching && <CSpinner size="sm" />}
-            <div> Générer le rapport</div>
-          </div>
-        </CButton>
+        <div className="col-sm mb-2">
+          <CButton
+            disabled={generateRjeQuery.isFetching}
+            onClick={handleClick}
+            size="sm"
+            color="secondary"
+            variant="outline"
+            className="rounded-pill"
+          >
+            <div className="d-flex gap-1 align-items-center">
+              {generateRjeQuery.isFetching && <CSpinner size="sm" />}
+              <div> Générer le rapport</div>
+            </div>
+          </CButton>
+        </div>
       </div>
 
       <CTable

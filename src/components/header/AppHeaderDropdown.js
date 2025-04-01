@@ -52,15 +52,13 @@ const AppHeaderDropdown = () => {
   return (
     <CDropdown variant="nav-item" alignment="end">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
-        <div className='d-flex align-items-center gap-2'>
-          <div>Bienvenue</div>
-          <div className="text-uppercase fw-bold">{auth.user && auth.user?.name}</div>
-          <CBadge textBgColor="light" shape="rounded-pill">
-            {auth.user && auth.user?.role.replace("_", " ")}
-          </CBadge>
-
-          <CAvatar className='border border-secondary' src={avatar8} size="md" />
+        <div className='d-none d-sm-inline-block me-1'>Bienvenue</div>
+        <div className="d-none d-sm-inline-block text-uppercase fw-bold me-1">{auth.user && auth.user?.name}</div>
+        <div className='d-none d-sm-inline-block me-1'><CBadge className='col-sm' textBgColor="light" shape="rounded-pill">
+          {auth.user && auth.user?.role.replace("_", " ")}
+        </CBadge>
         </div>
+        <CAvatar className='border border-secondary col-sm' src={avatar8} size="md" />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
 

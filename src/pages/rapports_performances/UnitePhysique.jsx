@@ -25,8 +25,8 @@ const UnitePhysique = () => {
   }
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-        <div>
+      <div className="row text-center">
+        <div className="col-sm mb-2">
           <CButton
             disabled={
               generateUnitePhysiqueQuery.isFetching || !!generateUnitePhysiqueQuery?.data !== true
@@ -41,30 +41,34 @@ const UnitePhysique = () => {
           </CButton>
         </div>
 
-        <CFormInput
-          type="month"
-          id="floatingInpuCTableHeaderCellate"
-          floatingClassName="mb-3"
-          floatingLabel="Date de saisie"
-          placeholder="Date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          disabled={generateUnitePhysiqueQuery.isFetching}
-        />
+        <div className="col-sm mb-2">
+          <CFormInput
+            type="month"
+            id="floatingInpuCTableHeaderCellate"
+            floatingClassName="mb-3"
+            floatingLabel="Date de saisie"
+            placeholder="Date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            disabled={generateUnitePhysiqueQuery.isFetching}
+          />
+        </div>
 
-        <CButton
-          disabled={generateUnitePhysiqueQuery.isFetching}
-          onClick={handleClick}
-          size="sm"
-          color="secondary"
-          variant="outline"
-          className="rounded-pill"
-        >
-          <div className="d-flex gap-1">
-            {generateUnitePhysiqueQuery.isFetching && <CSpinner size="sm" />}
-            <div> Générer le rapport</div>
-          </div>
-        </CButton>
+        <div className="col-sm mb-2">
+          <CButton
+            disabled={generateUnitePhysiqueQuery.isFetching}
+            onClick={handleClick}
+            size="sm"
+            color="secondary"
+            variant="outline"
+            className="rounded-pill"
+          >
+            <div className="d-flex gap-1 align-items-center">
+              {generateUnitePhysiqueQuery.isFetching && <CSpinner size="sm" />}
+              <div> Générer le rapport</div>
+            </div>
+          </CButton>
+        </div>
       </div>
       <CTable
         responsive

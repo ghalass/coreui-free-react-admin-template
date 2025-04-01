@@ -23,8 +23,8 @@ const EtatMensuel = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-        <div>
+      <div className="row text-center">
+        <div className="col-sm mb-2">
           <CButton
             disabled={
               generateEtatMensuelQuery.isFetching || !!generateEtatMensuelQuery?.data !== true
@@ -39,30 +39,34 @@ const EtatMensuel = () => {
           </CButton>
         </div>
 
-        <CFormInput
-          type="month"
-          id="floatingInputDate"
-          floatingClassName="mb-3"
-          floatingLabel="Date de saisie"
-          placeholder="Date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          disabled={generateEtatMensuelQuery.isFetching}
-        />
+        <div className="col-sm mb-2">
+          <CFormInput
+            type="month"
+            id="floatingInputDate"
+            floatingClassName="mb-3"
+            floatingLabel="Date de saisie"
+            placeholder="Date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            disabled={generateEtatMensuelQuery.isFetching}
+          />
+        </div>
 
-        <CButton
-          disabled={generateEtatMensuelQuery.isFetching}
-          onClick={handleClick}
-          size="sm"
-          color="secondary"
-          variant="outline"
-          className="rounded-pill"
-        >
-          <div className="d-flex gap-1">
-            {generateEtatMensuelQuery.isFetching && <CSpinner size="sm" />}
-            <div> Générer le rapport</div>
-          </div>
-        </CButton>
+        <div className="col-sm mb-2">
+          <CButton
+            disabled={generateEtatMensuelQuery.isFetching}
+            onClick={handleClick}
+            size="sm"
+            color="secondary"
+            variant="outline"
+            className="rounded-pill"
+          >
+            <div className="d-flex gap-1 align-items-center">
+              {generateEtatMensuelQuery.isFetching && <CSpinner size="sm" />}
+              <div> Générer le rapport</div>
+            </div>
+          </CButton>
+        </div>
       </div>
 
       <CTable

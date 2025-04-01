@@ -11,7 +11,6 @@ export const apiRequest = async (endpoint, method = "GET", body = null, token = 
         };
 
         const baseUrl = import.meta.env.VITE_BASE_URL;
-        console.log(baseUrl);
         const url = `${baseUrl}${endpoint}`;
 
         const config = {

@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import {
   CAlert,
-  CBadge,
   CFormInput,
-  CPagination,
-  CPaginationItem,
   CSpinner,
   CTable,
   CTableBody,
@@ -14,12 +11,12 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
-import { cilCloudDownload, cilPenNib, cilPlus, cilTrash } from '@coreui/icons'
+import { cilPenNib, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { fecthSitesQuery, useCreateSite, useDeleteSite, useUpdateSite } from '../../hooks/useSites'
 import { toast } from 'react-toastify'
-import { exportExcel, getMultiplesOf } from '../../utils/func'
+import TableHead from './TableHead'
 
 const Sites = () => {
   const getAllQuery = useQuery(fecthSitesQuery())
@@ -110,108 +107,29 @@ const Sites = () => {
 
   return (
     <div>
-      <div className="my-1 d-flex justify-content-between ">
-        <div className="d-flex align-items-center gap-1 text-uppercase">
-          Liste des sites
-          <div>
-            <CBadge textBgColor="primary"> {getAllQuery.data?.length || 0}</CBadge>
-          </div>
-          {(getAllQuery.isLoading || getAllQuery.isPending || getAllQuery.isRefetching) && (
-            <CSpinner color="primary" size="sm" />
-          )}
-        </div>
+      <TableHead
+        title="Liste des sites"
+        getAllQuery={getAllQuery}
+        search={search}
+        handleSearch={handleSearch}
+        setEntity={setEntity}
+        initialVal={initialVal}
+        setVisible={setVisible}
+        visible={visible}
+        setOperation={setOperation}
+        tableId={'myTable'}
+        excelFileName={'Liste des sites'}
+        currentEntitys={currentEntitys}
+        entitysPerPage={entitysPerPage}
+        setEntitysPerPage={setEntitysPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
+        totalPages={totalPages}
+        filteredEntitys={filteredEntitys}
+      />
 
-        <div className="d-flex gap-1 justify-content-end">
-          <input
-            type="search"
-            placeholder="Chercher..."
-            className="form-control form-control-sm "
-            value={search}
-            onChange={handleSearch}
-          />
-
-          <CButton
-            size="sm"
-            color="primary"
-            variant="outline"
-            className="rounded-pill"
-            onClick={() => {
-              setEntity(initialVal)
-              setVisible(!visible)
-              setOperation('create')
-            }}
-          >
-            <CIcon icon={cilPlus} />
-          </CButton>
-        </div>
-      </div>
-
-      <div className="d-flex gap-1 justify-content-between align-items-center mb-1">
-        <div>
-          <CButton
-            size="sm"
-            color="success"
-            variant="outline"
-            onClick={() => exportExcel('myTable', 'Liste des sites')}
-            className="rounded-pill"
-            disabled={!!currentEntitys?.length !== true}
-          >
-            Excel <CIcon icon={cilCloudDownload} />
-          </CButton>
-        </div>
-
-        <div className="d-flex gap-1 justify-content-between align-items-center">
-          <div style={{ width: '50px' }}>
-            <select
-              className="form-control form-control-sm"
-              defaultValue={entitysPerPage}
-              onChange={(e) => {
-                setEntitysPerPage(e.target.value)
-                setCurrentPage(1)
-              }}
-            >
-              {getMultiplesOf(filteredEntitys?.length, 5)?.map((item, i) => (
-                <option key={i} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <CPagination size="sm" aria-label="Page navigation example" className="mb-0">
-              <CPaginationItem
-                aria-label="Previous"
-                disabled={currentPage === 1}
-                onClick={() => handlePageChange(currentPage - 1)}
-              >
-                <span aria-hidden="true">&laquo;</span>
-              </CPaginationItem>
-
-              {Array.from({ length: totalPages }, (_, index) => (
-                <CPaginationItem
-                  key={index}
-                  active={index + 1 === currentPage}
-                  size="sm"
-                  onClick={() => handlePageChange(index + 1)}
-                >
-                  {index + 1}
-                </CPaginationItem>
-              ))}
-
-              <CPaginationItem
-                aria-label="Next"
-                disabled={currentPage === totalPages}
-                onClick={() => handlePageChange(currentPage + 1)}
-              >
-                <span aria-hidden="true">&raquo;</span>
-              </CPaginationItem>
-            </CPagination>
-          </div>
-        </div>
-      </div>
-
-      <CTable striped hover id="myTable">
+      <CTable responsive striped hover id="myTable">
         <CTableHead>
           <CTableRow>
             <CTableHeaderCell scope="col">Nom du site</CTableHeaderCell>

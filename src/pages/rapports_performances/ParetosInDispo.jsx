@@ -22,52 +22,58 @@ const ParetosInDispo = () => {
   }
   return (
     <div>
-      <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-        <CFormSelect
-          id="floatingSelect"
-          floatingClassName="mb-3"
-          floatingLabel="Choisir un parc"
-          aria-label="Floating label select example"
-          value={selectedParc}
-          onChange={(e) => {
-            setSelectedParc(e.target.value)
-            setSelectedParcName(
-              e.target.value !== '' ? e.target.options[e.target.selectedIndex].text : '',
-            )
-          }}
-          disabled={getParetoIndispParc.isFetching}
-        >
-          <option value="">Liste des parc</option>
-          {getAllParcsQuery.data?.map((item, index) => (
-            <option key={index} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </CFormSelect>
+      <div className="row text-center">
+        <div className="col-sm mb-2">
+          <CFormSelect
+            id="floatingSelect"
+            floatingClassName="mb-3"
+            floatingLabel="Choisir un parc"
+            aria-label="Floating label select example"
+            value={selectedParc}
+            onChange={(e) => {
+              setSelectedParc(e.target.value)
+              setSelectedParcName(
+                e.target.value !== '' ? e.target.options[e.target.selectedIndex].text : '',
+              )
+            }}
+            disabled={getParetoIndispParc.isFetching}
+          >
+            <option value="">Liste des parc</option>
+            {getAllParcsQuery.data?.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </CFormSelect>
+        </div>
 
-        <CFormInput
-          type="month"
-          id="floatingInputDate"
-          floatingClassName="mb-3"
-          floatingLabel="Date"
-          placeholder="Date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          disabled={getParetoIndispParc.isFetching}
-        />
+        <div className="col-sm mb-2">
+          <CFormInput
+            type="month"
+            id="floatingInputDate"
+            floatingClassName="mb-3"
+            floatingLabel="Date"
+            placeholder="Date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            disabled={getParetoIndispParc.isFetching}
+          />
+        </div>
 
-        <CButton
-          disabled={getParetoIndispParc.isFetching || selectedParc == ''}
-          onClick={handleClick}
-          size="sm"
-          color="secondary"
-          variant="outline"
-          className="rounded-pill"
-        >
-          <div className="d-flex gap-1">
-            <div> Générer le rapport</div>
-          </div>
-        </CButton>
+        <div className="col-sm mb-2">
+          <CButton
+            disabled={getParetoIndispParc.isFetching || selectedParc == ''}
+            onClick={handleClick}
+            size="sm"
+            color="secondary"
+            variant="outline"
+            className="rounded-pill"
+          >
+            <div className="d-flex gap-1 align-items-center">
+              <div> Générer le rapport</div>
+            </div>
+          </CButton>
+        </div>
       </div>
 
       <div className="row">

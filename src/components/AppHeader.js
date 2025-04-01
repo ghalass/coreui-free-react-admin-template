@@ -45,9 +45,6 @@ const AppHeader = () => {
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
 
-
-
-
         <CHeaderNav>
 
           <CDropdown variant="nav-item" placement="bottom-end">

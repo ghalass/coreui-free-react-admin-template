@@ -18,8 +18,8 @@ const SaisieRjeTable = () => {
   const isloading = saisieRjeQueryStore?.isLoading
 
   return (
-    <div className="d-flex justify-content-center">
-      <CTable striped hover>
+    <div className="d-flex justify-content-center mx-auto">
+      <CTable responsive striped hover>
         <CTableHead>
           <CTableRow>
             <CTableHeaderCell scope="col">Panne</CTableHeaderCell>

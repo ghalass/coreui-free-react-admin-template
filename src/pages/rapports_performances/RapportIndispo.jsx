@@ -22,8 +22,8 @@ const RapportIndispo = () => {
   }
   return (
     <div>
-      <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-        <div>
+      <div className="row text-center">
+        <div className="col-sm mb-2">
           <CButton
             disabled={getRapportIndis.isFetching || !!getRapportIndis?.data !== true}
             onClick={() => exportExcel('tbl_rapportindispo', "Rapport D'indisponibilité")}
@@ -36,30 +36,34 @@ const RapportIndispo = () => {
           </CButton>
         </div>
 
-        <CFormInput
-          type="month"
-          id="floatingInputDate"
-          floatingClassName="mb-3"
-          floatingLabel="Date de saisie"
-          placeholder="Date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          disabled={getRapportIndis.isFetching}
-        />
+        <div className="col-sm mb-2">
+          <CFormInput
+            type="month"
+            id="floatingInputDate"
+            floatingClassName="mb-3"
+            floatingLabel="Date de saisie"
+            placeholder="Date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            disabled={getRapportIndis.isFetching}
+          />
+        </div>
 
-        <CButton
-          disabled={getRapportIndis.isFetching}
-          onClick={handleClick}
-          size="sm"
-          color="secondary"
-          variant="outline"
-          className="rounded-pill"
-        >
-          <div className="d-flex gap-1">
-            {getRapportIndis.isFetching && <CSpinner size="sm" />}
-            <div> Générer le rapport</div>
-          </div>
-        </CButton>
+        <div className="col-sm mb-2">
+          <CButton
+            disabled={getRapportIndis.isFetching}
+            onClick={handleClick}
+            size="sm"
+            color="secondary"
+            variant="outline"
+            className="rounded-pill"
+          >
+            <div className="d-flex gap-1 align-items-center">
+              {getRapportIndis.isFetching && <CSpinner size="sm" />}
+              <div> Générer le rapport</div>
+            </div>
+          </CButton>
+        </div>
       </div>
 
       <CTable

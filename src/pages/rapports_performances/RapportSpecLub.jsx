@@ -21,8 +21,8 @@ const RapportSpecLub = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-        <div>
+      <div className="row text-center">
+        <div className="col-sm mb-2">
           <CButton
             disabled={getRapportSpecLub.isFetching || !!getRapportSpecLub?.data !== true}
             onClick={() => exportExcel('tbl_rapport_speclub', 'Rapport Spéc Lub')}
@@ -35,52 +35,58 @@ const RapportSpecLub = () => {
           </CButton>
         </div>
 
-        <CFormSelect
-          id="floatingSelect"
-          floatingClassName="mb-3"
-          floatingLabel="Choisir un lubrifiant"
-          aria-label="Floating label select example"
-          value={selectedTypelubrifiant}
-          onChange={(e) => {
-            setSelectedTypelubrifiant(e.target.value)
-            setSelectedTypeLubName(
-              e.target.value !== '' ? e.target.options[e.target.selectedIndex].text : '',
-            )
-          }}
-          disabled={getRapportSpecLub.isFetching}
-        >
-          <option value="">Liste des typelubrifiants</option>
-          {getAllTypelubrifiantsQuery.data?.map((item, index) => (
-            <option key={index} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </CFormSelect>
+        <div className="col-sm mb-2">
+          <CFormSelect
+            id="floatingSelect"
+            floatingClassName="mb-3"
+            floatingLabel="Choisir un lubrifiant"
+            aria-label="Floating label select example"
+            value={selectedTypelubrifiant}
+            onChange={(e) => {
+              setSelectedTypelubrifiant(e.target.value)
+              setSelectedTypeLubName(
+                e.target.value !== '' ? e.target.options[e.target.selectedIndex].text : '',
+              )
+            }}
+            disabled={getRapportSpecLub.isFetching}
+          >
+            <option value="">Liste des typelubrifiants</option>
+            {getAllTypelubrifiantsQuery.data?.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </CFormSelect>
+        </div>
 
-        <CFormInput
-          type="month"
-          id="floatingInputDate"
-          floatingClassName="mb-3"
-          floatingLabel="Date de saisie"
-          placeholder="Date de saisie"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          disabled={getRapportSpecLub.isFetching}
-        />
+        <div className="col-sm mb-2">
+          <CFormInput
+            type="month"
+            id="floatingInputDate"
+            floatingClassName="mb-3"
+            floatingLabel="Date de saisie"
+            placeholder="Date de saisie"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            disabled={getRapportSpecLub.isFetching}
+          />
+        </div>
 
-        <CButton
-          disabled={getRapportSpecLub.isFetching || selectedTypelubrifiant == ''}
-          onClick={handleClick}
-          size="sm"
-          color="success"
-          variant="outline"
-          className="rounded-pill"
-        >
-          <div className="d-flex gap-1">
-            {getRapportSpecLub.isFetching && <CSpinner size="sm" />}
-            <div> Générer le rapport</div>
-          </div>
-        </CButton>
+        <div className="col-sm mb-2">
+          <CButton
+            disabled={getRapportSpecLub.isFetching || selectedTypelubrifiant == ''}
+            onClick={handleClick}
+            size="sm"
+            color="secondary"
+            variant="outline"
+            className="rounded-pill"
+          >
+            <div className="d-flex gap-1 align-items-center">
+              {getRapportSpecLub.isFetching && <CSpinner size="sm" />}
+              <div> Générer le rapport</div>
+            </div>
+          </CButton>
+        </div>
       </div>
 
       <CTable
