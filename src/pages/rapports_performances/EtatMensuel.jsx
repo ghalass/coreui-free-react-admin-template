@@ -186,7 +186,7 @@ const EtatMensuel = () => {
         </CTableHead>
         <tbody>
           {!generateEtatMensuelQuery.isFetching &&
-            filteredData.map((item, index) => (
+            filteredData?.map((item, index) => (
               <CTableRow key={index}>
                 <CTableDataCell>{item?.typeparc}</CTableDataCell>
                 <CTableDataCell>{item?.parc}</CTableDataCell>
