@@ -45,7 +45,7 @@ const AppHeaderDropdown = () => {
     logoutApi();
 
     // REDIRECT TO LOGIN PAGE
-    navigate("/login");
+    navigate("/#/login");
   };
 
 

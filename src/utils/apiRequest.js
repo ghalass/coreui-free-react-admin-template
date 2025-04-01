@@ -35,7 +35,7 @@ export const apiRequest = async (endpoint, method = "GET", body = null, token = 
         // CHECK IF AUTHENTICATED USER
         if (response?.status === 401) {
             // Redirection vers la page de connexion
-            window.location.href = "/login";
+            window.location.href = "/#/login";
         } else {
             console.error(`API Error (${response?.status ?? "UNKNOWN"}):`,
                 error.message);
