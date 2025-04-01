@@ -76,7 +76,7 @@ const RapportIndispo = () => {
       >
         <CTableHead>
           <CTableRow>
-            <CTableDataCell colSpan={14}>
+            <CTableDataCell colSpan={14} className="text-start">
               rapport indisponibilité du {date.split('-').reverse().join('-')}
             </CTableDataCell>
           </CTableRow>

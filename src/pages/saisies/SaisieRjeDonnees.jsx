@@ -123,7 +123,7 @@ const SaisieRjeDonnees = () => {
       >
         <thead>
           <tr>
-            <td colSpan={10}>
+            <td colSpan={10} className="text-start">
               les données hrm/him saisies pour la journée du {date.split('-').reverse().join('-')}
             </td>
           </tr>

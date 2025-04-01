@@ -79,7 +79,7 @@ const RapportRje = () => {
       >
         <CTableHead>
           <CTableRow>
-            <CTableHeaderCell colSpan={22}>
+            <CTableHeaderCell colSpan={22} className="text-start">
               Rapport Journalier Engins RJE du {date.split('-').reverse().join('-')}
             </CTableHeaderCell>
           </CTableRow>

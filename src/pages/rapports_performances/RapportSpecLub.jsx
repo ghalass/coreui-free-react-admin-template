@@ -99,7 +99,7 @@ const RapportSpecLub = () => {
       >
         <thead>
           <tr>
-            <td colSpan={15}>
+            <td colSpan={15} className="text-start">
               spécifique {selectedTypeLubName} par parc au mois :{' '}
               {date.split('-').reverse().join('-')}
             </td>

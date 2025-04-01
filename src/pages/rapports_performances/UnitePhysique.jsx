@@ -80,7 +80,10 @@ const UnitePhysique = () => {
       >
         <CTableHead>
           <CTableRow>
-            <CTableHeaderCell colSpan={Number(4 * getAllSitesQuery?.data?.length + 6) || 1}>
+            <CTableHeaderCell
+              colSpan={Number(4 * getAllSitesQuery?.data?.length + 6) || 1}
+              className="text-start"
+            >
               Unité Physique du {date.split('-').reverse().join('-')}
             </CTableHeaderCell>
           </CTableRow>

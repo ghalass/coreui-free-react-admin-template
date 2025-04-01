@@ -62,7 +62,7 @@ const _nav = [
         to: '/rapport/etat-mensuel',
       }, {
         component: CNavItem,
-        name: 'Indispo',
+        name: "Rapport d'indisponibilité",
         to: '/rapport/rapport-indispo',
       }, {
         component: CNavItem,

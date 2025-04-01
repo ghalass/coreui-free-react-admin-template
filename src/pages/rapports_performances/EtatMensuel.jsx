@@ -79,7 +79,7 @@ const EtatMensuel = () => {
       >
         <CTableHead>
           <CTableRow>
-            <CTableDataCell colSpan={23}>
+            <CTableDataCell colSpan={23} className="text-start">
               état mensuel du {date.split('-').reverse().join('-')}
             </CTableDataCell>
           </CTableRow>

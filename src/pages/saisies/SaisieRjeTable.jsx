@@ -46,7 +46,7 @@ const SaisieRjeTable = () => {
               {!isloading && (
                 <CTableRow>
                   <CTableDataCell colSpan={6} className="text-center">
-                    <h6 className="text-center">Aucune panne n'ai saisie</h6>
+                    <h6 className="text-start">Aucune panne n'ai saisie</h6>
                   </CTableDataCell>
                 </CTableRow>
               )}

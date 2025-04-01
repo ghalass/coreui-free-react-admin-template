@@ -80,7 +80,7 @@ const HeuresChassis = () => {
       >
         <CTableHead>
           <CTableRow>
-            <CTableDataCell colSpan={6}>
+            <CTableDataCell colSpan={6} className="text-start">
               rapport heures châssis du {date.split('-').reverse().join('-')}
             </CTableDataCell>
           </CTableRow>
