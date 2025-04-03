@@ -146,11 +146,15 @@ const SaisieRjeSelects = () => {
             <option></option>
             {enginsQuery.data &&
               enginsQuery.data?.length > 0 &&
-              enginsQuery.data?.map((engin, indx) => (
-                <option key={indx} value={engin?.id}>
-                  {engin?.name}
-                </option>
-              ))}
+              enginsQuery.data?.map(
+                (engin, indx) =>
+                  // NOT DISPLAY ENGIN IF NOT ACTIVE
+                  engin?.active && (
+                    <option key={indx} value={engin?.id}>
+                      {engin?.name}
+                    </option>
+                  ),
+              )}
           </CFormSelect>
         </div>
       </div>

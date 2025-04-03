@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { useTypelubrifiants } from '../../hooks/useTypelubrifiants'
 import { useQuery } from '@tanstack/react-query'
 import { getRapportSpecLubOptions } from '../../hooks/useRapports'
-import { CButton, CFormInput, CFormSelect, CSpinner, CTable } from '@coreui/react'
+import { CBadge, CButton, CFormInput, CFormSelect, CSpinner, CTable } from '@coreui/react'
+import { exportExcel } from '../../utils/func'
 
 const RapportSpecLub = () => {
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 7))
-  const year = date.split('-')[0] // Extrait l'année
+  const [date, setDate] = useState(new Date().getFullYear())
+  // const year = date.split('-')[0] // Extrait l'année
+  const year = date // Extrait l'année
   const [selectedTypeLubName, setSelectedTypeLubName] = useState('')
 
   const [selectedTypelubrifiant, setSelectedTypelubrifiant] = useState('')
@@ -65,13 +67,15 @@ const RapportSpecLub = () => {
           </CFormSelect>
         </div>
 
-        <div className="col-sm mb-2">
+        <div className="col-sm mb-2" style={{ maxWidth: '150px' }}>
           <CFormInput
-            type="month"
+            type="number"
             id="floatingInputDate"
+            min={2000}
+            max={2040}
             floatingClassName="mb-3"
-            floatingLabel="Date de saisie"
-            placeholder="Date de saisie"
+            floatingLabel="Année"
+            placeholder="Année"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             disabled={getRapportSpecLub.isFetching}
@@ -118,9 +122,15 @@ const RapportSpecLub = () => {
       >
         <thead>
           <tr>
-            <td colSpan={15} className="text-start">
-              spécifique {selectedTypeLubName} par parc au mois :{' '}
-              {date.split('-').reverse().join('-')}
+            <td colSpan={12 * 3 + 6} className="text-start">
+              évolution du spécifique
+              <CBadge color="info" shape="rounded-pill" className="fw-bold fst-italic mx-2">
+                {selectedTypeLubName}
+              </CBadge>
+              par parc : {/* {date.split('-').reverse().join('-')} */}
+              <CBadge textBgColor="light" shape="rounded-pill" className="fw-bold fst-italic mx-2">
+                {date}
+              </CBadge>
             </td>
           </tr>
           <tr>

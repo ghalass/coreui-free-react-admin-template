@@ -26,7 +26,7 @@ const PersistLogin = () => {
         setisLoading(false)
       }
     }
-    !token && location?.pathname !== '/#/login' ? refreshToken() : setisLoading(false)
+    !token && location?.pathname !== '/login' ? refreshToken() : setisLoading(false)
   }, [])
 
   return isLoading ? (

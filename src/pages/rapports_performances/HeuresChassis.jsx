@@ -26,9 +26,13 @@ const HeuresChassis = () => {
   // filter data
   const [searchByParc, setSearchByParc] = useState('')
   const [searchByTypeparc, setSearchByTypeparc] = useState('')
+  const [searchByEngin, setSearchByEngin] = useState('')
+  const [searchBySite, setSearchBySite] = useState('')
   const filteredData = getRapportHeuresChassis?.data?.filter(
     (item) =>
       item.parc?.toLowerCase().includes(searchByParc.toLowerCase()) &&
+      item.engin?.toLowerCase().includes(searchByEngin.toLowerCase()) &&
+      item.site?.toLowerCase().includes(searchBySite.toLowerCase()) &&
       item.typeparc?.toLowerCase().includes(searchByTypeparc.toLowerCase()),
   )
 
@@ -85,6 +89,16 @@ const HeuresChassis = () => {
           <input
             type="search"
             className="form-control form-control-sm"
+            placeholder="Type de Parc..."
+            value={searchByTypeparc}
+            onChange={(e) => setSearchByTypeparc(e.target.value)}
+          />
+        </div>
+
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
             placeholder="Parc..."
             value={searchByParc}
             onChange={(e) => setSearchByParc(e.target.value)}
@@ -95,9 +109,19 @@ const HeuresChassis = () => {
           <input
             type="search"
             className="form-control form-control-sm"
-            placeholder="Type de Parc..."
-            value={searchByTypeparc}
-            onChange={(e) => setSearchByTypeparc(e.target.value)}
+            placeholder="Engin..."
+            value={searchByEngin}
+            onChange={(e) => setSearchByEngin(e.target.value)}
+          />
+        </div>
+
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Site..."
+            value={searchBySite}
+            onChange={(e) => setSearchBySite(e.target.value)}
           />
         </div>
       </div>
