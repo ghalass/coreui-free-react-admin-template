@@ -74,6 +74,16 @@ export const API_PATHS = {
         DELETE_LUBRIFIANT: (lubrifiantId) => `/lubrifiants/${lubrifiantId}`,
         DOWNLOAD_LUBRIFIANTS: "/lubrifiants/downloadexcel",
     },
+    TYPECONSOMMATIONLUBS: {
+        GET_ALL_TYPECONSOMMATIONLUBS: "/typeconsommationlubs",
+        ADD_TYPECONSOMMATIONLUBS: "/typeconsommationlubs",
+        UPDATE_TYPECONSOMMATIONLUBS: (typeconsommationlubId) => `/typeconsommationlubs/${typeconsommationlubId}`,
+        DELETE_TYPECONSOMMATIONLUBS: (typeconsommationlubId) => `/typeconsommationlubs/${typeconsommationlubId}`,
+        DOWNLOAD_YPECONSOMMATIONLUBS: "/typeconsommationlubs/downloadexcel",
+        // AFFECT PARC TO CODE
+        ADD_PARC_TO_CODE: "/typeconsommationlubs/affectparctocode",
+        DELETE_PARC_TO_CODE: "/typeconsommationlubs/affectparctocode/delete",
+    },
     SAISIE_RJE: {
         GET_SAISIE_RJE: "/saisiehrm/getSaisieHrm",
         GET_SAISIE_RJE_DAY: "/saisiehrm/getSaisieHrmDay",

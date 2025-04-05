@@ -123,6 +123,10 @@ const _nav = [
         to: '/configs/typelubrifiants',
       }, {
         component: CNavItem,
+        name: 'Codes consommation lub',
+        to: '/configs/typeconsommationlubs',
+      }, {
+        component: CNavItem,
         name: 'Lubrifiants',
         to: '/configs/lubrifiants',
       }, {

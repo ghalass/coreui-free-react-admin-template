@@ -20,6 +20,7 @@ const Page404 = React.lazy(() => import('./pages/page404/Page404'))
 const Users = React.lazy(() => import('./pages/configs/Users'))
 const Typepannes = React.lazy(() => import('./pages/configs/Typepannes'))
 const Pannes = React.lazy(() => import('./pages/configs/Pannes'))
+const Typeconsommationlubs = React.lazy(() => import('./pages/configs/Typeconsommationlubs'))
 
 const routes = [
   { path: '/', name: 'Home', element: Home },
@@ -36,6 +37,8 @@ const routes = [
   { path: '/configs/pannes', name: 'Pannes', element: Pannes },
   { path: '/configs/typelubrifiants', name: 'Typelubrifiants', element: Typelubrifiants },
   { path: '/configs/lubrifiants', name: 'lubrifiants', element: Lubrifiants },
+  { path: '/configs/typeconsommationlubs', name: 'typeconsommationlubs', element: Typeconsommationlubs },
+
 
   { path: '/saisie/rje', name: 'SaisieRje', element: SaisieRje },
   { path: '/saisie/donnees-rje', name: 'Données RJE saisie', element: SaisieRjeDonnees },
