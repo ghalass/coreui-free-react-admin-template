@@ -50,6 +50,9 @@ export const API_PATHS = {
         UPDATE_TYPEPANNE: (typepanneId) => `/typepannes/${typepanneId}`,
         DELETE_TYPEPANNE: (typepanneId) => `/typepannes/${typepanneId}`,
         DOWNLOAD_TYPEPANNES: "/typepannes/downloadexcel",
+        // AFFECT PARC TO CODE
+        ADD_PARC_TO_TYPEPANNE: "/typepannes/affectparctotypepanne",
+        DELETE_PARC_TO_TYPEPANNE: "/typepannes/affectparctotypepanne/delete",
     },
     PANNES: {
         GET_ALL_PANNES: "/pannes",
@@ -73,6 +76,7 @@ export const API_PATHS = {
         UPDATE_LUBRIFIANT: (lubrifiantId) => `/lubrifiants/${lubrifiantId}`,
         DELETE_LUBRIFIANT: (lubrifiantId) => `/lubrifiants/${lubrifiantId}`,
         DOWNLOAD_LUBRIFIANTS: "/lubrifiants/downloadexcel",
+
     },
     TYPECONSOMMATIONLUBS: {
         GET_ALL_TYPECONSOMMATIONLUBS: "/typeconsommationlubs",
@@ -83,6 +87,8 @@ export const API_PATHS = {
         // AFFECT PARC TO CODE
         ADD_PARC_TO_CODE: "/typeconsommationlubs/affectparctocode",
         DELETE_PARC_TO_CODE: "/typeconsommationlubs/affectparctocode/delete",
+        // 
+        GET_ALL_TYPE_CONSOM_LUBRIFIANTS_BY_PARCID: (id) => `/typeconsommationlubs/affectparctocode/byparcid/${id}`,
     },
     SAISIE_RJE: {
         GET_SAISIE_RJE: "/saisiehrm/getSaisieHrm",

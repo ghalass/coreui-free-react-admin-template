@@ -17,3 +17,7 @@ export const updateLubrifiant = async (updatedLubrifiant) => {
 export const deleteLubrifiant = async (lubrifiantToDelete) => {
     return apiRequest(API_PATHS.LUBRIFIANTS.DELETE_LUBRIFIANT(lubrifiantToDelete.id), "DELETE");
 };
+
+export const getAllTypeconsommationlubsByParcId = async (parcId) => {
+    return apiRequest(API_PATHS.TYPECONSOMMATIONLUBS.GET_ALL_TYPE_CONSOM_LUBRIFIANTS_BY_PARCID(parcId), "GET");
+};

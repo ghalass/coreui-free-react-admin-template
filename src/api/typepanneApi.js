@@ -17,3 +17,11 @@ export const updateTypepanne = async (updatedTypepanne) => {
 export const deleteTypepanne = async (typepanne) => {
     return apiRequest(API_PATHS.TYPEPANNES.DELETE_TYPEPANNE(typepanne.id), "DELETE", typepanne);
 };
+
+// /************** AFFECTATION DE PARC AU CODE *********************** */
+export const createAffectParcToTypepanne = async (data) => {
+    return apiRequest(API_PATHS.TYPEPANNES.ADD_PARC_TO_TYPEPANNE, "POST", data);
+};
+export const deleteAffectParcToTypepanne = async (data) => {
+    return apiRequest(API_PATHS.TYPEPANNES.DELETE_PARC_TO_TYPEPANNE, "DELETE", data);
+};

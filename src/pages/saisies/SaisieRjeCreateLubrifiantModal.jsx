@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
-import { fecthLubrifiantsQuery } from '../../hooks/useLubrifiants'
+import {
+  fecthLubrifiantsQuery,
+  useGetAllTypeconsommationlubsByParcId,
+} from '../../hooks/useLubrifiants'
 import {
   useCreateSaisieLubrifiant,
   useDeleteSaisieLubrifiant,
@@ -26,6 +29,7 @@ const SaisieRjeCreateLubrifiantModal = () => {
     handleCloseLubModal,
     showLubModal,
     setSelectedSaisieHim,
+    selectedFields,
   } = useSaisieRjeStore()
   const [error, setError] = useState('')
 
@@ -40,10 +44,14 @@ const SaisieRjeCreateLubrifiantModal = () => {
   }, [showLubModal, saisieRjeQueryStore?.data])
 
   const [selectedLubrifiant, setSelectedLubrifiant] = useState('')
+  const [selectedLubrifiantConsomCode, setSelectedLubrifiantConsomCode] = useState('')
   const [qte, setQte] = useState('')
   const [obs, setObs] = useState('')
 
   const getAllLubrifiantsQuery = useQuery(fecthLubrifiantsQuery())
+  const getAllTypeconsommationlubsByParcId = useQuery(
+    useGetAllTypeconsommationlubsByParcId(selectedFields?.parcId),
+  )
 
   const createSaisieLubrifiant = useCreateSaisieLubrifiant()
   const deleteSaisieLubrifiant = useDeleteSaisieLubrifiant()
@@ -55,8 +63,8 @@ const SaisieRjeCreateLubrifiantModal = () => {
       qte,
       obs,
       saisiehimId: selectedSaisieHim?.id,
+      typeconsommationlubId: selectedLubrifiantConsomCode,
     }
-
     createSaisieLubrifiant.mutate(newSaisieLubrifiant, {
       onSuccess: (res) => {
         setQte('')
@@ -102,6 +110,7 @@ const SaisieRjeCreateLubrifiantModal = () => {
           //   handleResetAll()
         }}
         aria-labelledby="StaticBackdropExampleLabel"
+        size="xl"
       >
         <CModalHeader>
           <CModalTitle id="StaticBackdropExampleLabel">
@@ -110,7 +119,7 @@ const SaisieRjeCreateLubrifiantModal = () => {
         </CModalHeader>
         <CModalBody>
           <div className="row">
-            <div className="col-lg">
+            <div className="col-xl">
               <div className="mb-2">
                 <p className="mb-0">
                   <strong>Panne :</strong>{' '}
@@ -137,6 +146,27 @@ const SaisieRjeCreateLubrifiantModal = () => {
                     >
                       <option value="">Liste des Lubrifiants</option>
                       {getAllLubrifiantsQuery.data?.map((item, index) => (
+                        <option key={index} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </CFormSelect>
+                  </div>
+
+                  <div className="col">
+                    <CFormSelect
+                      id="floatingSelect"
+                      floatingClassName="mb-3"
+                      floatingLabel="Code Consommation"
+                      aria-label="Floating label select example"
+                      value={selectedLubrifiantConsomCode}
+                      onChange={(e) => setSelectedLubrifiantConsomCode(e.target.value)}
+                      disabled={
+                        createSaisieLubrifiant.isPending || deleteSaisieLubrifiant.isPending
+                      }
+                    >
+                      <option value="">Liste des codes</option>
+                      {getAllTypeconsommationlubsByParcId.data?.map((item, index) => (
                         <option key={index} value={item.id}>
                           {item.name}
                         </option>
@@ -198,13 +228,14 @@ const SaisieRjeCreateLubrifiantModal = () => {
               )}
             </div>
 
-            <div className="col-lg">
+            <div className="col-xl">
               <table className="table table-sm table-hover">
                 <thead>
                   <tr>
                     <td>Lubrifiant</td>
                     <td>Type</td>
                     <td>Qté</td>
+                    <td>Code</td>
                     <td>OBS</td>
                   </tr>
                 </thead>
@@ -228,6 +259,7 @@ const SaisieRjeCreateLubrifiantModal = () => {
                       </td>
                       <td>{saisie_lub?.Lubrifiant?.Typelubrifiant?.name}</td>
                       <td>{saisie_lub?.qte}</td>
+                      <td>{saisie_lub?.Typeconsommationlub?.name}</td>
                       <td>{saisie_lub?.obs}</td>
                     </tr>
                   ))}

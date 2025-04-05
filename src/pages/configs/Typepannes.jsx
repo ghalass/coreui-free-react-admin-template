@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import {
   CAlert,
   CBadge,
+  CCard,
+  CCardBody,
   CFormInput,
+  CFormSelect,
   CPagination,
   CPaginationItem,
   CSpinner,
@@ -14,18 +17,20 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
-import { cilCloudDownload, cilPenNib, cilPlus, cilTrash } from '@coreui/icons'
+import { cilPenNib, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import { exportExcel, getMultiplesOf } from '../../utils/func'
 import {
+  useCreateAffectParcToTypepanne,
   useCreateTypepanne,
+  useDeleteAffectParcToTypepanne,
   useDeleteTypepanne,
   useTypepannes,
   useUpdateTypepanne,
 } from '../../hooks/useTypepannes'
 import TableHead from './TableHead'
+import { useParcs } from '../../hooks/useParcs'
 
 const Typepannes = () => {
   const getAllQuery = useQuery(useTypepannes())
@@ -115,6 +120,66 @@ const Typepannes = () => {
   // Calculate total pages
   const totalPages = Math.ceil(filteredEntitys?.length / entitysPerPage)
 
+  //
+  //
+  //***************** PARC => TYPEPANNE *********************************************************** */
+  //
+  const getAllParcsQuery = useQuery(useParcs())
+  const [selectedParc, setSelectedParc] = useState('')
+  const [visibleListParcs, setVisibleListParcs] = useState(false)
+  const [selectedParcsByTypepanne, setSelectedParcsByTypepanne] = useState(null)
+
+  const affectParcTypepanneMutation = useCreateAffectParcToTypepanne()
+  const deleteAffectParcToTypepanneMutation = useDeleteAffectParcToTypepanne()
+
+  const handleAffecter = () => {
+    handleResetAllAffectModal()
+    const data = {
+      parc_id: selectedParc,
+      typepanne_id: selectedParcsByTypepanne?.id,
+    }
+    affectParcTypepanneMutation.mutate(data, {
+      onSuccess: (newData) => {
+        toast.success('Affecté avec succès.')
+        // console.log(newData)
+        const newParc = {
+          id: newData?.parc?.id,
+          name: newData?.parc?.name,
+        }
+        // Update state immutably
+        setSelectedParcsByTypepanne((prev) => ({
+          ...prev,
+          parcs: [...prev.parcs, newParc], // Add new parc to existing array
+        }))
+      },
+    })
+  }
+  const handleDeleteAffecter = (affectation) => {
+    handleResetAllAffectModal()
+
+    const data = {
+      parc_id: affectation?.id,
+      typepanne_id: selectedParcsByTypepanne?.id,
+    }
+
+    console.log(data)
+
+    deleteAffectParcToTypepanneMutation.mutate(data, {
+      onSuccess: () => {
+        toast.success('Supprimé avec succès.')
+        const updatedData = {
+          ...selectedParcsByTypepanne,
+          parcs: selectedParcsByTypepanne.parcs.filter((parc) => parc.id !== affectation?.id),
+        }
+        setSelectedParcsByTypepanne(updatedData)
+      },
+    })
+  }
+  const handleResetAllAffectModal = () => {
+    affectParcTypepanneMutation.reset()
+    deleteAffectParcToTypepanneMutation.reset()
+  }
+
   return (
     <div>
       <TableHead
@@ -143,6 +208,7 @@ const Typepannes = () => {
         <CTableHead>
           <CTableRow>
             <CTableHeaderCell scope="col">Nom du type de panne</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Parcs</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
@@ -177,6 +243,27 @@ const Typepannes = () => {
                     <CIcon icon={cilPenNib} />
                   </CButton>{' '}
                   {item?.name}
+                </CTableDataCell>
+
+                <CTableDataCell>
+                  <CButton
+                    size="sm"
+                    color="primary"
+                    variant="outline"
+                    className="rounded-pill"
+                    onClick={() => {
+                      console.log(item)
+
+                      setSelectedParcsByTypepanne(item)
+                      // // setOperation('update')
+                      setVisibleListParcs(!visibleListParcs)
+                    }}
+                  >
+                    <CIcon icon={cilPenNib} />
+                  </CButton>{' '}
+                  {item?.parcs &&
+                    item?.parcs?.length > 0 &&
+                    item?.parcs?.map((p, i) => <span key={i}>{p?.name} | </span>)}
                 </CTableDataCell>
               </CTableRow>
             ))
@@ -270,6 +357,110 @@ const Typepannes = () => {
             </CButton>
           )}
         </CModalFooter>
+      </CModal>
+
+      {/* PARC => CODE */}
+      <CModal
+        backdrop="static"
+        visible={visibleListParcs}
+        onClose={() => {
+          setVisibleListParcs(false)
+          handleResetAllAffectModal()
+        }}
+        aria-labelledby="StaticBackdropExampleLabel"
+        size="lg"
+      >
+        <CModalHeader>
+          <CModalTitle id="StaticBackdropExampleLabel">Gestion des parcs</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <p className="text-center text-info">{selectedParcsByTypepanne?.name}</p>
+
+          <div className="row">
+            <div className="col-4">
+              <div className="">
+                <CFormSelect
+                  id="floatingSelect"
+                  floatingClassName="mb-3"
+                  floatingLabel="Choisir un parc"
+                  aria-label="Floating label select example"
+                  value={selectedParc}
+                  onChange={(e) => {
+                    setSelectedParc(e.target.value)
+                  }}
+                  // disabled={getParetoIndispParc.isFetching}
+                >
+                  <option value="">Liste des parc</option>
+                  {getAllParcsQuery.data?.map((item, index) => (
+                    <option key={index} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </CFormSelect>
+              </div>
+              <div className="">
+                <CButton
+                  disabled={
+                    affectParcTypepanneMutation.isPending ||
+                    deleteAffectParcToTypepanneMutation.isPending ||
+                    affectParcTypepanneMutation.isPending
+                  }
+                  onClick={handleAffecter}
+                  size="sm"
+                  color="success"
+                  variant="outline"
+                >
+                  <div className="d-flex gap-1 align-items-center justify-content-end">
+                    {(affectParcTypepanneMutation.isPending ||
+                      deleteAffectParcToTypepanneMutation.isPending) && <CSpinner size="sm" />}
+                    <span>Affecter</span>
+                  </div>
+                </CButton>
+              </div>
+            </div>
+
+            <div className="col-8">
+              <div className="d-flex flex-wrap gap-2 align-content-start">
+                {selectedParcsByTypepanne?.parcs && selectedParcsByTypepanne?.parcs?.length > 0 ? (
+                  selectedParcsByTypepanne?.parcs?.map((item, index) => (
+                    <CCard key={index}>
+                      <CCardBody className="py-1 px-2">
+                        <div className="d-flex gap-2">
+                          {item?.name}{' '}
+                          <i
+                            className="bi bi-trash3 text-danger"
+                            role="button"
+                            onClick={() => handleDeleteAffecter(item)}
+                          ></i>
+                        </div>
+                      </CCardBody>
+                    </CCard>
+                  ))
+                ) : (
+                  <p>Aucune donnée trouvée.</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {affectParcTypepanneMutation.isError && (
+            <CAlert color="danger" className="mb-0 mt-2 py-2">
+              {affectParcTypepanneMutation.error.message}
+            </CAlert>
+          )}
+
+          {updateMutation.isError && (
+            <CAlert color="danger" className="mb-0 mt-2 py-2">
+              {updateMutation.error.message}
+            </CAlert>
+          )}
+
+          {deleteAffectParcToTypepanneMutation.isError && (
+            <CAlert color="danger" className="mb-0 mt-2 py-2">
+              {deleteAffectParcToTypepanneMutation.error.message}
+            </CAlert>
+          )}
+        </CModalBody>
       </CModal>
     </div>
   )
