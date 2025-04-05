@@ -85,6 +85,11 @@ const _nav = [
     items: [
       {
         component: CNavItem,
+        name: 'Ventilation Lub',
+        to: '/rapport/rapport-ventilation',
+      },
+      {
+        component: CNavItem,
         name: 'Spéc Lub',
         to: '/rapport/rapport-speclub',
       },

@@ -18,6 +18,11 @@ export const deleteSaisieLubrifiant = async (data) => {
     return await apiRequest(API_PATHS.SAISIE_LUBRIFIANT.DELETE_SAISIE_LUBRIFIANT, "DELETE", data);
 };
 
+export const getAllSaisieLubrifiantByMonth = async (data) => {
+    return await apiRequest(API_PATHS.SAISIE_LUBRIFIANT.GET_ALL_SAISIE_LUBRIFIANT_BY_MONTH, "POST", data);
+};
+
+
 // export const loginUser = async (data) => {
 //     return await apiRequest(API_PATHS.AUTH.LOGIN, "POST", data);
 // };

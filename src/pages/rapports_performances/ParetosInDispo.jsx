@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 import { CButton, CFormInput, CFormSelect, CSpinner, CTable } from '@coreui/react'
 import { useParcs } from '../../hooks/useParcs'
 import ChartCustom from '../../components/ChartCustom'
-import { getYear, getMonth, parseISO } from 'date-fns'
 
 const ParetosInDispo = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 7))

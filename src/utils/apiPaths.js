@@ -108,6 +108,7 @@ export const API_PATHS = {
     SAISIE_LUBRIFIANT: {
         ADD_SAISIE_LUBRIFIANT: `/saisielubrifiant/createSaisieLubrifiant`,
         DELETE_SAISIE_LUBRIFIANT: `/saisielubrifiant/deleteSaisieLubrifiant`,
+        GET_ALL_SAISIE_LUBRIFIANT_BY_MONTH: `/saisielubrifiant/getallsaisielubbymonth`,
     },
     RAPPORTS: {
         GENERATE_RJE: "/rapports/getRapportRje",

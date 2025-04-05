@@ -1,6 +1,6 @@
 // hooks/useSaisieLubrifiant.js
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createSaisieLubrifiant, deleteSaisieLubrifiant } from '../api/saisieLubrifiantApi';
+import { createSaisieLubrifiant, deleteSaisieLubrifiant, getAllSaisieLubrifiantByMonth } from '../api/saisieLubrifiantApi';
 
 export const useCreateSaisieLubrifiant = () => {
     const queryClient = useQueryClient();
@@ -20,4 +20,12 @@ export const useDeleteSaisieLubrifiant = () => {
             queryClient.invalidateQueries({ queryKey: ["saisieRjeList"] });
         }
     });
+};
+
+export const useGetAllSaisieLubrifiantByMonth = (date) => {
+    return queryOptions({
+        queryKey: ["rapportVentilationLub"],
+        queryFn: () => getAllSaisieLubrifiantByMonth(date),
+        enabled: false
+    })
 };

@@ -12,3 +12,6 @@
   [] possibilité d'analyser les pannes par engins, par NI, ... (comme indiqué dans le deuxième exemple ci-joint).
   []
   []
+
+- GHALASS
+  [x] Ventilation lub par mois
