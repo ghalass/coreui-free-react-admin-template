@@ -1,6 +1,9 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
+  cilChartLine,
+  cilDrop,
+  cilKeyboard,
   cilSettings,
   cilSpeedometer,
 } from '@coreui/icons'
@@ -23,7 +26,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Journalier',
-    icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilKeyboard} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -37,7 +40,7 @@ const _nav = [
     ],
   },
 
-  // SAISIES
+  // RAPPORTS
   {
     component: CNavTitle,
     name: 'rapports',
@@ -45,7 +48,7 @@ const _nav = [
   {
     component: CNavGroup,
     name: 'Performances',
-    icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -70,12 +73,25 @@ const _nav = [
         to: '/rapport/heure-schassis',
       }, {
         component: CNavItem,
-        name: 'Spéc Lub',
-        to: '/rapport/rapport-speclub',
-      }, {
-        component: CNavItem,
         name: 'Paretos indispo',
         to: '/rapport/pareto-indispo',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Lubrifiants',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Spéc Lub',
+        to: '/rapport/rapport-speclub',
+      },
+      {
+        component: CNavItem,
+        name: 'Spéc Par Période',
+        to: '/analyse/speclub_par_parc_periode',
       },
     ],
   },

@@ -1,6 +1,6 @@
 // hooks/useRapports.js
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getParetoIndispParc, getParetoMtbfParc, getRapportEtatMensuel, getRapportHeuresChassis, getRapportIndispo, getRapportRje, getRapportSpecLub, getRapportUnitePhysique } from '../api/rapportsApi';
+import { getAnalyseSpcPeriodParcTypeConsom, getParetoIndispParc, getParetoMtbfParc, getRapportEtatMensuel, getRapportHeuresChassis, getRapportIndispo, getRapportRje, getRapportSpecLub, getRapportUnitePhysique } from '../api/rapportsApi';
 
 export const generateRjeQueryOptions = (du) => {
     return queryOptions({
@@ -62,6 +62,14 @@ export const getParetoMtbfParcOptions = (parcId, date) => {
     return queryOptions({
         queryKey: ["rapportParetoMtbfParc"],
         queryFn: () => getParetoMtbfParc(parcId, date),
+        enabled: false
+    })
+}
+
+export const getAnalyseSpcPeriodParcTypeConsommOptions = (parcId, dateDu, dateAu, selectedTypelubrifiantId) => {
+    return queryOptions({
+        queryKey: ["rapportPnalyseSpcPeriodParc"],
+        queryFn: () => getAnalyseSpcPeriodParcTypeConsom(parcId, dateDu, dateAu, selectedTypelubrifiantId),
         enabled: false
     })
 }

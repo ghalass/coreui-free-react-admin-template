@@ -44,8 +44,6 @@ const SaisieRjeCreatePanneModal = () => {
       him,
       ni,
     }
-    console.log(panneToAdd)
-
     mutationAddPanneHRM.mutate(panneToAdd, {
       onSuccess: () => {
         handleClosePanneModal()

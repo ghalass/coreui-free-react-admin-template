@@ -33,3 +33,7 @@ export const getParetoIndispParc = async (parcId, date) => {
 export const getParetoMtbfParc = async (parcId, date) => {
     return await apiRequest(API_PATHS.RAPPORTS.GENERATE_PARETO_MTBF_PARC, "POST", { parcId, date });
 };
+
+export const getAnalyseSpcPeriodParcTypeConsom = async (parcId, dateDu, dateAu, selectedTypelubrifiant) => {
+    return await apiRequest(API_PATHS.RAPPORTS.GENERATE_ANALYSE_LUB_PERIOD_PARC, "POST", { parcId, dateDu, dateAu, typelubrifiantId: selectedTypelubrifiant });
+};

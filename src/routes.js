@@ -21,6 +21,7 @@ const Users = React.lazy(() => import('./pages/configs/Users'))
 const Typepannes = React.lazy(() => import('./pages/configs/Typepannes'))
 const Pannes = React.lazy(() => import('./pages/configs/Pannes'))
 const Typeconsommationlubs = React.lazy(() => import('./pages/configs/Typeconsommationlubs'))
+const SpeByParcByLubByTypeConsomm = React.lazy(() => import('./pages/analyses/lubrifiants/SpeByParcByLubByTypeConsomm'))
 
 const routes = [
   { path: '/', name: 'Home', element: Home },
@@ -39,6 +40,7 @@ const routes = [
   { path: '/configs/lubrifiants', name: 'lubrifiants', element: Lubrifiants },
   { path: '/configs/typeconsommationlubs', name: 'typeconsommationlubs', element: Typeconsommationlubs },
 
+  { path: '/analyse/speclub_par_parc_periode', name: 'analyse_speclub_par_parc_periode', element: SpeByParcByLubByTypeConsomm },
 
   { path: '/saisie/rje', name: 'SaisieRje', element: SaisieRje },
   { path: '/saisie/donnees-rje', name: 'Données RJE saisie', element: SaisieRjeDonnees },
