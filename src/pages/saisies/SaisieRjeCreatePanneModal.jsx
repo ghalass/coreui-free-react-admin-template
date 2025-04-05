@@ -13,20 +13,21 @@ import {
 import React, { useEffect, useState } from 'react'
 import useSaisieRjeStore from '../../stores/useSaisieRjeStore'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useTypepannes } from '../../hooks/useTypepannes'
+import { useGetAllTypepannesByParcId, useTypepannes } from '../../hooks/useTypepannes'
 import { usePannesByTypePanne } from '../../hooks/usePannes'
 import { addPanneQueryOptions } from '../../hooks/useSaisieRje'
 import { toast } from 'react-toastify'
 
 const SaisieRjeCreatePanneModal = () => {
-  const { showPanneModal, handleClosePanneModal, saisieRjeQueryStore } = useSaisieRjeStore()
+  const { showPanneModal, handleClosePanneModal, saisieRjeQueryStore, selectedFields } =
+    useSaisieRjeStore()
 
   const [selectedTypepanne, setSelectedTypepanne] = useState('')
   const [selectedPanne, setSelectedPanne] = useState('')
   const [him, setHim] = useState('')
   const [ni, setNi] = useState('')
 
-  const typepannesQuery = useQuery(useTypepannes())
+  const typepannesQuery = useQuery(useGetAllTypepannesByParcId(selectedFields?.parcId))
   const pannesByTypepanneQuery = useQuery(usePannesByTypePanne(selectedTypepanne))
   const mutationAddPanneHRM = useMutation(addPanneQueryOptions(handleClosePanneModal))
 

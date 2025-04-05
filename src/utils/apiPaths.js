@@ -53,6 +53,8 @@ export const API_PATHS = {
         // AFFECT PARC TO CODE
         ADD_PARC_TO_TYPEPANNE: "/typepannes/affectparctotypepanne",
         DELETE_PARC_TO_TYPEPANNE: "/typepannes/affectparctotypepanne/delete",
+        // 
+        GET_ALL_TYPEPANNES_BY_PARCID: (id) => `/typepannes/affectparctotypepanne/byparcid/${id}`,
     },
     PANNES: {
         GET_ALL_PANNES: "/pannes",

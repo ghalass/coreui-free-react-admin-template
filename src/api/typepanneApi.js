@@ -25,3 +25,6 @@ export const createAffectParcToTypepanne = async (data) => {
 export const deleteAffectParcToTypepanne = async (data) => {
     return apiRequest(API_PATHS.TYPEPANNES.DELETE_PARC_TO_TYPEPANNE, "DELETE", data);
 };
+export const getAllTypepannesByParcId = async (parcId) => {
+    return apiRequest(API_PATHS.TYPEPANNES.GET_ALL_TYPEPANNES_BY_PARCID(parcId), "GET");
+};

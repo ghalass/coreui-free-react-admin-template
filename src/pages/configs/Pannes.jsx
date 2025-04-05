@@ -100,7 +100,7 @@ const Pannes = () => {
   const filteredEntitys = getAllQuery.data?.filter(
     (el) =>
       el?.name.toLowerCase().includes(search.toLowerCase()) ||
-      el?.Typeparc?.name.toLowerCase().includes(search.toLowerCase()),
+      el?.Typepanne?.name.toLowerCase().includes(search.toLowerCase()),
   )
 
   // Pagination States
@@ -144,8 +144,8 @@ const Pannes = () => {
       <CTable responsive striped hover id="myTable">
         <CTableHead>
           <CTableRow>
-            <CTableHeaderCell scope="col">Nom du parc</CTableHeaderCell>
-            <CTableHeaderCell scope="col">Type de parc</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Nom de la panne</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Type de panne</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
@@ -182,7 +182,7 @@ const Pannes = () => {
                   {item?.name}
                 </CTableDataCell>
 
-                <CTableDataCell> {item?.Typeparc?.name}</CTableDataCell>
+                <CTableDataCell> {item?.Typepanne?.name}</CTableDataCell>
               </CTableRow>
             ))
           ) : (
@@ -204,7 +204,7 @@ const Pannes = () => {
         aria-labelledby="StaticBackdropExampleLabel"
       >
         <CModalHeader>
-          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'un parc</CModalTitle>
+          <CModalTitle id="StaticBackdropExampleLabel">Gestion d'une panne</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormInput

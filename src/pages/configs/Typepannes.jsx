@@ -252,8 +252,6 @@ const Typepannes = () => {
                     variant="outline"
                     className="rounded-pill"
                     onClick={() => {
-                      console.log(item)
-
                       setSelectedParcsByTypepanne(item)
                       // // setOperation('update')
                       setVisibleListParcs(!visibleListParcs)
@@ -371,7 +369,9 @@ const Typepannes = () => {
         size="lg"
       >
         <CModalHeader>
-          <CModalTitle id="StaticBackdropExampleLabel">Gestion des parcs</CModalTitle>
+          <CModalTitle id="StaticBackdropExampleLabel">
+            Gestion des types pannes par parc
+          </CModalTitle>
         </CModalHeader>
         <CModalBody>
           <p className="text-center text-info">{selectedParcsByTypepanne?.name}</p>

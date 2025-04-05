@@ -1,7 +1,7 @@
 // hooks/useTypeparcs.js
 import { useQuery, useMutation, useQueryClient, queryOptions } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { createAffectParcToTypepanne, createTypepanne, deleteAffectParcToTypepanne, deleteTypepanne, fetchTypepannes, updateTypepanne } from '../api/typepanneApi';
+import { createAffectParcToTypepanne, createTypepanne, deleteAffectParcToTypepanne, deleteTypepanne, fetchTypepannes, getAllTypepannesByParcId, updateTypepanne } from '../api/typepanneApi';
 
 export const useTypepannes = () => {
     return queryOptions({
@@ -77,5 +77,12 @@ export const useDeleteAffectParcToTypepanne = () => {
         onError: () => {
             // toast.error('Erreur lors de la suppression du typeconsommationlubs.'); // Notification d'erreur
         },
+    });
+};
+export const useGetAllTypepannesByParcId = (parcId) => {
+    return queryOptions({
+        queryKey: ["typepannesbyparc", parcId], // Clé de requête
+        queryFn: () => getAllTypepannesByParcId(parcId),
+        enabled: !!(parcId !== "") && !!(parcId !== undefined)
     });
 };
