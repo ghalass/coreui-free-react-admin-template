@@ -16,6 +16,7 @@ import {
 } from '@coreui/react'
 import { getIndispoParcPeriodeOptions } from '../../../hooks/useRapports'
 import { toast } from 'react-toastify'
+import { exportExcel } from '../../../utils/func'
 
 const IndispoParcPeriode = () => {
   const [dateDu, setDateDu] = useState(new Date().toISOString().split('T')[0])
@@ -45,7 +46,9 @@ const IndispoParcPeriode = () => {
         <div className="col-sm mb-2">
           <CButton
             disabled={getIndispoParcPeriode.isFetching || !!getIndispoParcPeriode?.data !== true}
-            // onClick={() => exportExcel('tbl_rapportindispo', "Rapport D'indisponibilité")}
+            onClick={() =>
+              exportExcel('tbl_indispo_parc_periode', "Analyse D'indisponibilité par parc")
+            }
             size="sm"
             color="success"
             variant="outline"
@@ -147,7 +150,7 @@ const IndispoParcPeriode = () => {
               hover
               size="sm"
               className="text-center text-uppercase"
-              id="tbl_heures_chassis"
+              id="tbl_indispo_parc_periode"
             >
               <CTableHead>
                 <CTableRow>

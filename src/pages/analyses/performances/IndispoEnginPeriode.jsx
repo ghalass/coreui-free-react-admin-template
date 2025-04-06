@@ -1,31 +1,45 @@
-import { CButton, CFormInput, CFormSelect, CSpinner } from '@coreui/react'
+import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import { useParcs } from '../../../hooks/useParcs'
-import { useQuery } from '@tanstack/react-query'
+import {
+  CAlert,
+  CButton,
+  CFormInput,
+  CFormSelect,
+  CSpinner,
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+} from '@coreui/react'
+import { getIndispoEnginsPeriodeOptions } from '../../../hooks/useRapports'
+import { toast } from 'react-toastify'
+import { exportExcel } from '../../../utils/func'
 
 const IndispoEnginPeriode = () => {
   const [dateDu, setDateDu] = useState(new Date().toISOString().split('T')[0])
   const [dateAu, setDateAu] = useState(new Date().toISOString().split('T')[0])
   const [selectedParc, setSelectedParc] = useState('')
-  const [selectedTypelubrifiant, setSelectedTypelubrifiant] = useState('')
+  const [selectedParcName, setSelectedParcName] = useState('')
+
   const getAllParcsQuery = useQuery(useParcs())
 
+  const getIndispoEnginsPeriode = useQuery(
+    getIndispoEnginsPeriodeOptions(selectedParc, dateDu, dateAu),
+  )
+
+  const [error, setError] = useState(null)
+
   const handleClick = () => {
-    //   setError(null)
-    //   const data = {
-    //     dateDu,
-    //     dateAu,
-    //     selectedParc,
-    //     selectedTypelubrifiant,
-    //   }
-    //   if (dateDu > dateAu) {
-    //     setError('Attention la date Du doit être >= dateAu')
-    //     toast.warn('Attention la date Du doit être >= dateAu')
-    //     getAnalyse.reset()
-    //     return
-    //   }
-    //   // console.log(data)
-    //   getAnalyse.refetch()
+    setError(null)
+    if (dateDu > dateAu) {
+      setError('Attention la date Du doit être >= dateAu')
+      toast.warn('Attention la date Du doit être >= dateAu')
+      return
+    }
+    getIndispoEnginsPeriode.refetch()
   }
 
   return (
@@ -33,8 +47,12 @@ const IndispoEnginPeriode = () => {
       <div className="row text-center">
         <div className="col-sm mb-2">
           <CButton
-            // disabled={getAnalyse.isFetching || !!getAnalyse?.data !== true}
-            // onClick={() => exportExcel('tbl_rapportindispo', "Rapport D'indisponibilité")}
+            disabled={
+              getIndispoEnginsPeriode.isFetching || !!getIndispoEnginsPeriode?.data !== true
+            }
+            onClick={() =>
+              exportExcel('tbl_indispo_engin_periode', "Analyse D'indisponibilité par engin")
+            }
             size="sm"
             color="success"
             variant="outline"
@@ -53,9 +71,9 @@ const IndispoEnginPeriode = () => {
             value={selectedParc}
             onChange={(e) => {
               setSelectedParc(e.target.value)
-              // setSelectedParcName(
-              //   e.target.value !== '' ? e.target.options[e.target.selectedIndex].text : '',
-              // )
+              setSelectedParcName(
+                e.target.value !== '' ? e.target.options[e.target.selectedIndex].text : '',
+              )
             }}
             // disabled={getParetoIndispParc.isFetching}
           >
@@ -77,7 +95,7 @@ const IndispoEnginPeriode = () => {
             placeholder="Date"
             value={dateDu}
             onChange={(e) => setDateDu(e.target.value)}
-            // disabled={getAnalyse.isFetching}
+            disabled={getIndispoEnginsPeriode.isFetching}
           />
         </div>
 
@@ -90,15 +108,17 @@ const IndispoEnginPeriode = () => {
             placeholder="Date"
             value={dateAu}
             onChange={(e) => setDateAu(e.target.value)}
-            // disabled={getAnalyse.isFetching}
+            disabled={getIndispoEnginsPeriode.isFetching}
           />
         </div>
 
         <div className="col-sm mb-2">
           <CButton
             disabled={
-              //   getAnalyse.isFetching ||
-              selectedParc === '' || dateDu === '' || dateAu === ''
+              getIndispoEnginsPeriode.isFetching ||
+              selectedParc === '' ||
+              dateDu === '' ||
+              dateAu === ''
             }
             onClick={handleClick}
             size="sm"
@@ -107,12 +127,92 @@ const IndispoEnginPeriode = () => {
             className="rounded-pill"
           >
             <div className="d-flex gap-1 align-items-center">
-              {/* {getAnalyse.isFetching && <CSpinner size="sm" />} */}
+              {getIndispoEnginsPeriode.isFetching && <CSpinner size="sm" />}
               <div> Générer le rapport</div>
             </div>
           </CButton>
         </div>
       </div>
+
+      {error && (
+        <div className="d-flex justify-content-center">
+          <CAlert color="danger" className="text-center py-2">
+            {error}
+          </CAlert>
+        </div>
+      )}
+
+      {!getIndispoEnginsPeriode.isFetching &&
+        !error &&
+        selectedParc !== '' &&
+        getIndispoEnginsPeriode?.data &&
+        getIndispoEnginsPeriode?.data?.length > 0 && (
+          <div>
+            <CTable
+              responsive
+              striped
+              hover
+              size="sm"
+              className="text-center text-uppercase"
+              id="tbl_indispo_engin_periode"
+            >
+              <CTableHead>
+                <CTableRow>
+                  <CTableDataCell colSpan={6} className="text-start">
+                    anlayse d'indispo par engin pour le parc {selectedParcName} du{' '}
+                    {dateDu.split('-').reverse().join('-')} au{' '}
+                    {dateAu.split('-').reverse().join('-')}
+                  </CTableDataCell>
+                </CTableRow>
+              </CTableHead>
+              <CTableBody className="text-start">
+                <CTableRow>
+                  <CTableHeaderCell>Engin</CTableHeaderCell>
+                  <CTableHeaderCell>TypePanne</CTableHeaderCell>
+                  <CTableHeaderCell>Panne</CTableHeaderCell>
+                  <CTableHeaderCell>NI_M</CTableHeaderCell>
+                  <CTableHeaderCell>NI_A</CTableHeaderCell>
+                  <CTableHeaderCell>HIM_M</CTableHeaderCell>
+                  <CTableHeaderCell>HIM_A</CTableHeaderCell>
+                </CTableRow>
+
+                {getIndispoEnginsPeriode?.data?.map((item, index) => (
+                  <CTableRow key={index}>
+                    <CTableDataCell>{item?.engin}</CTableDataCell>
+                    <CTableDataCell>{item?.typepanne}</CTableDataCell>
+                    <CTableDataCell>{item?.panne}</CTableDataCell>
+                    <CTableDataCell>{item?.ni_m}</CTableDataCell>
+                    <CTableDataCell>{item?.ni_a}</CTableDataCell>
+                    <CTableDataCell>{item?.him_m}</CTableDataCell>
+                    <CTableDataCell>{item?.him_a}</CTableDataCell>
+                  </CTableRow>
+                ))}
+              </CTableBody>
+            </CTable>
+          </div>
+        )}
+
+      {!getIndispoEnginsPeriode.isFetching &&
+        getIndispoEnginsPeriode?.data?.length === 0 &&
+        !error && (
+          <>
+            <div className="text-center text-primary">
+              Aucune données n'est enregistrée pour ce parc à cette période.
+            </div>
+          </>
+        )}
+
+      {getIndispoEnginsPeriode.isFetching && (
+        <>
+          <div className="text-center text-primary">
+            {getIndispoEnginsPeriode.isFetching && (
+              <div>
+                <CSpinner size="sm" /> Chargement...
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   )
 }
