@@ -40,6 +40,15 @@ const IndispoParcPeriode = () => {
     getIndispoParcPeriode.refetch()
   }
 
+  // filter data
+  const [searchByPanne, setSearchByPanne] = useState('')
+  const [searchByTypepanne, setSearchByTypepanne] = useState('')
+  const filteredData = getIndispoParcPeriode?.data?.filter(
+    (item) =>
+      item.panne?.toLowerCase().includes(searchByPanne.toLowerCase()) &&
+      item.typepanne?.toLowerCase().includes(searchByTypepanne.toLowerCase()),
+  )
+
   return (
     <div>
       <div className="row text-center">
@@ -138,6 +147,28 @@ const IndispoParcPeriode = () => {
         </div>
       )}
 
+      <div className="row">
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Type de panne..."
+            value={searchByTypepanne}
+            onChange={(e) => setSearchByTypepanne(e.target.value)}
+          />
+        </div>
+
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Panne..."
+            value={searchByPanne}
+            onChange={(e) => setSearchByPanne(e.target.value)}
+          />
+        </div>
+      </div>
+
       {!getIndispoParcPeriode.isFetching &&
         !error &&
         selectedParc !== '' &&
@@ -171,7 +202,7 @@ const IndispoParcPeriode = () => {
                   {/* <CTableHeaderCell>HIM_A</CTableHeaderCell> */}
                 </CTableRow>
 
-                {getIndispoParcPeriode?.data?.map((item, index) => (
+                {filteredData?.map((item, index) => (
                   <CTableRow key={index}>
                     <CTableDataCell>{item?.typepanne}</CTableDataCell>
                     <CTableDataCell>{item?.panne}</CTableDataCell>

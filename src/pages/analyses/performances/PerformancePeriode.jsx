@@ -14,10 +14,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import {
-  getIndispoEnginsPeriodeOptions,
-  getPerformancesEnginsPeriodeOptions,
-} from '../../../hooks/useRapports'
+import { getPerformancesEnginsPeriodeOptions } from '../../../hooks/useRapports'
 import { toast } from 'react-toastify'
 import { exportExcel } from '../../../utils/func'
 
@@ -29,7 +26,7 @@ const PerformancePeriode = () => {
 
   const getAllParcsQuery = useQuery(useParcs())
 
-  const getIndispoEnginsPeriode = useQuery(
+  const getPerformancesEnginsPeriode = useQuery(
     getPerformancesEnginsPeriodeOptions(selectedParc, dateDu, dateAu),
   )
 
@@ -42,8 +39,14 @@ const PerformancePeriode = () => {
       toast.warn('Attention la date Du doit être >= dateAu')
       return
     }
-    getIndispoEnginsPeriode.refetch()
+    getPerformancesEnginsPeriode.refetch()
   }
+
+  // filter data
+  const [searchByEngin, setSearchByEngin] = useState('')
+  const filteredData = getPerformancesEnginsPeriode?.data?.filter((item) =>
+    item.engin?.toLowerCase().includes(searchByEngin.toLowerCase()),
+  )
 
   return (
     <div>
@@ -51,7 +54,8 @@ const PerformancePeriode = () => {
         <div className="col-sm mb-2">
           <CButton
             disabled={
-              getIndispoEnginsPeriode.isFetching || !!getIndispoEnginsPeriode?.data !== true
+              getPerformancesEnginsPeriode.isFetching ||
+              !!getPerformancesEnginsPeriode?.data !== true
             }
             onClick={() =>
               exportExcel('tbl_performances_engin_periode', "Analyse D'indisponibilité par engin")
@@ -98,7 +102,7 @@ const PerformancePeriode = () => {
             placeholder="Date"
             value={dateDu}
             onChange={(e) => setDateDu(e.target.value)}
-            disabled={getIndispoEnginsPeriode.isFetching}
+            disabled={getPerformancesEnginsPeriode.isFetching}
           />
         </div>
 
@@ -111,14 +115,14 @@ const PerformancePeriode = () => {
             placeholder="Date"
             value={dateAu}
             onChange={(e) => setDateAu(e.target.value)}
-            disabled={getIndispoEnginsPeriode.isFetching}
+            disabled={getPerformancesEnginsPeriode.isFetching}
           />
         </div>
 
         <div className="col-sm mb-2">
           <CButton
             disabled={
-              getIndispoEnginsPeriode.isFetching ||
+              getPerformancesEnginsPeriode.isFetching ||
               selectedParc === '' ||
               dateDu === '' ||
               dateAu === ''
@@ -130,7 +134,7 @@ const PerformancePeriode = () => {
             className="rounded-pill"
           >
             <div className="d-flex gap-1 align-items-center">
-              {getIndispoEnginsPeriode.isFetching && <CSpinner size="sm" />}
+              {getPerformancesEnginsPeriode.isFetching && <CSpinner size="sm" />}
               <div> Générer le rapport</div>
             </div>
           </CButton>
@@ -145,11 +149,23 @@ const PerformancePeriode = () => {
         </div>
       )}
 
-      {!getIndispoEnginsPeriode.isFetching &&
+      <div className="row">
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Engin..."
+            value={searchByEngin}
+            onChange={(e) => setSearchByEngin(e.target.value)}
+          />
+        </div>
+      </div>
+
+      {!getPerformancesEnginsPeriode.isFetching &&
         !error &&
         selectedParc !== '' &&
-        getIndispoEnginsPeriode?.data &&
-        getIndispoEnginsPeriode?.data?.length > 0 && (
+        getPerformancesEnginsPeriode?.data &&
+        getPerformancesEnginsPeriode?.data?.length > 0 && (
           <div>
             <CTable
               responsive
@@ -180,7 +196,7 @@ const PerformancePeriode = () => {
                   <CTableHeaderCell>UTIL</CTableHeaderCell>
                 </CTableRow>
 
-                {getIndispoEnginsPeriode?.data?.map((item, index) => (
+                {filteredData?.map((item, index) => (
                   <CTableRow key={index}>
                     <CTableDataCell>{item?.engin}</CTableDataCell>
                     <CTableDataCell>{item?.nho}</CTableDataCell>
@@ -197,8 +213,8 @@ const PerformancePeriode = () => {
           </div>
         )}
 
-      {!getIndispoEnginsPeriode.isFetching &&
-        getIndispoEnginsPeriode?.data?.length === 0 &&
+      {!getPerformancesEnginsPeriode.isFetching &&
+        getPerformancesEnginsPeriode?.data?.length === 0 &&
         !error && (
           <>
             <div className="text-center text-primary">
@@ -207,10 +223,10 @@ const PerformancePeriode = () => {
           </>
         )}
 
-      {getIndispoEnginsPeriode.isFetching && (
+      {getPerformancesEnginsPeriode.isFetching && (
         <>
           <div className="text-center text-primary">
-            {getIndispoEnginsPeriode.isFetching && (
+            {getPerformancesEnginsPeriode.isFetching && (
               <div>
                 <CSpinner size="sm" /> Chargement...
               </div>

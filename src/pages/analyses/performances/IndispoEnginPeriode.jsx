@@ -42,6 +42,17 @@ const IndispoEnginPeriode = () => {
     getIndispoEnginsPeriode.refetch()
   }
 
+  // filter data
+  const [searchByPanne, setSearchByPanne] = useState('')
+  const [searchByTypepanne, setSearchByTypepanne] = useState('')
+  const [searchByEngin, setSearchByEngin] = useState('')
+  const filteredData = getIndispoEnginsPeriode?.data?.filter(
+    (item) =>
+      item.panne?.toLowerCase().includes(searchByPanne.toLowerCase()) &&
+      item.typepanne?.toLowerCase().includes(searchByTypepanne.toLowerCase()) &&
+      item.engin?.toLowerCase().includes(searchByEngin.toLowerCase()),
+  )
+
   return (
     <div>
       <div className="row text-center">
@@ -142,6 +153,38 @@ const IndispoEnginPeriode = () => {
         </div>
       )}
 
+      <div className="row">
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Engin..."
+            value={searchByEngin}
+            onChange={(e) => setSearchByEngin(e.target.value)}
+          />
+        </div>
+
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Type de panne..."
+            value={searchByTypepanne}
+            onChange={(e) => setSearchByTypepanne(e.target.value)}
+          />
+        </div>
+
+        <div className="col-sm mb-2">
+          <input
+            type="search"
+            className="form-control form-control-sm"
+            placeholder="Panne..."
+            value={searchByPanne}
+            onChange={(e) => setSearchByPanne(e.target.value)}
+          />
+        </div>
+      </div>
+
       {!getIndispoEnginsPeriode.isFetching &&
         !error &&
         selectedParc !== '' &&
@@ -176,7 +219,7 @@ const IndispoEnginPeriode = () => {
                   {/* <CTableHeaderCell>HIM_A</CTableHeaderCell> */}
                 </CTableRow>
 
-                {getIndispoEnginsPeriode?.data?.map((item, index) => (
+                {filteredData?.map((item, index) => (
                   <CTableRow key={index}>
                     <CTableDataCell>{item?.engin}</CTableDataCell>
                     <CTableDataCell>{item?.typepanne}</CTableDataCell>
