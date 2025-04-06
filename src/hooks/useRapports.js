@@ -1,6 +1,6 @@
 // hooks/useRapports.js
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getAnalyseSpcPeriodParcTypeConsom, getIndispoEnginsPeriode, getIndispoParcPeriode, getParetoIndispParc, getParetoMtbfParc, getRapportEtatMensuel, getRapportHeuresChassis, getRapportIndispo, getRapportRje, getRapportSpecLub, getRapportUnitePhysique } from '../api/rapportsApi';
+import { getAnalyseSpcPeriodParcTypeConsom, getIndispoEnginsPeriode, getIndispoParcPeriode, getParetoIndispParc, getParetoMtbfParc, getPerformancesEnginsPeriode, getRapportEtatMensuel, getRapportHeuresChassis, getRapportIndispo, getRapportRje, getRapportSpecLub, getRapportUnitePhysique } from '../api/rapportsApi';
 
 export const generateRjeQueryOptions = (du) => {
     return queryOptions({
@@ -86,6 +86,14 @@ export const getIndispoEnginsPeriodeOptions = (selectedParc, dateDu, dateAu) => 
     return queryOptions({
         queryKey: ["analyseIndispoEnginsPeriode"],
         queryFn: () => getIndispoEnginsPeriode(selectedParc, dateDu, dateAu),
+        enabled: false
+    })
+}
+
+export const getPerformancesEnginsPeriodeOptions = (selectedParc, dateDu, dateAu) => {
+    return queryOptions({
+        queryKey: ["analysePerformancesEnginsPeriode"],
+        queryFn: () => getPerformancesEnginsPeriode(selectedParc, dateDu, dateAu),
         enabled: false
     })
 }

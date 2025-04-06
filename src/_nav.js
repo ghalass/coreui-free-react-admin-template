@@ -94,6 +94,11 @@ const _nav = [
         name: 'Indispo Engin-Période',
         to: '/analyse/indispo_engin_periode',
       },
+      {
+        component: CNavItem,
+        name: 'Perfor. Engin-Période',
+        to: '/analyse/performances_engin_periode',
+      },
     ],
   },
   {

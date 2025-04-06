@@ -170,10 +170,10 @@ const IndispoEnginPeriode = () => {
                   <CTableHeaderCell>Engin</CTableHeaderCell>
                   <CTableHeaderCell>TypePanne</CTableHeaderCell>
                   <CTableHeaderCell>Panne</CTableHeaderCell>
-                  <CTableHeaderCell>NI_M</CTableHeaderCell>
-                  <CTableHeaderCell>NI_A</CTableHeaderCell>
-                  <CTableHeaderCell>HIM_M</CTableHeaderCell>
-                  <CTableHeaderCell>HIM_A</CTableHeaderCell>
+                  <CTableHeaderCell>NI</CTableHeaderCell>
+                  {/* <CTableHeaderCell>NI_A</CTableHeaderCell> */}
+                  <CTableHeaderCell>HIM</CTableHeaderCell>
+                  {/* <CTableHeaderCell>HIM_A</CTableHeaderCell> */}
                 </CTableRow>
 
                 {getIndispoEnginsPeriode?.data?.map((item, index) => (
@@ -182,9 +182,9 @@ const IndispoEnginPeriode = () => {
                     <CTableDataCell>{item?.typepanne}</CTableDataCell>
                     <CTableDataCell>{item?.panne}</CTableDataCell>
                     <CTableDataCell>{item?.ni_m}</CTableDataCell>
-                    <CTableDataCell>{item?.ni_a}</CTableDataCell>
+                    {/* <CTableDataCell>{item?.ni_a}</CTableDataCell> */}
                     <CTableDataCell>{item?.him_m}</CTableDataCell>
-                    <CTableDataCell>{item?.him_a}</CTableDataCell>
+                    {/* <CTableDataCell>{item?.him_a}</CTableDataCell> */}
                   </CTableRow>
                 ))}
               </CTableBody>

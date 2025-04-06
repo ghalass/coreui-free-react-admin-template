@@ -122,5 +122,6 @@ export const API_PATHS = {
         GENERATE_ANALYSE_LUB_PERIOD_PARC: "/rapports/getAnalyseSpcPeriodParcTypeConsomm",
         GENERATE_ANALYSE_INDISPO_PARC_PERIODE: "/rapports/getIndispoParcPeriode",
         GENERATE_ANALYSE_INDISPO_ENGINS_PERIODE: "/rapports/getIndispoEnginsPeriode",
+        GENERATE_ANALYSE_PERFORMANCES_ENGINS_PERIODE: "/rapports/getPerormancesEnginsPeriode",
     }
 };

@@ -4,17 +4,15 @@
   [] Prévoir des fiches de vie engins (saisie et consultation: Engin, date interv, cause, compteur, travaux effectués)
   [] Prévoir déclenchement des RG - VP en prévoyant un lien aux kits RG nécessaires
   [] Un suivi des analyses d'huile
-  [] En fin faire essai d'impression pour vérifier l'état de sortie
+  [x] En fin faire essai d'impression pour vérifier l'état de sortie
 
 - DEINA
   [x] avoir le suivi de consommation des huiles par cause (ou code) de consommation comme l'exemple ci-joint
   [x] éclatement de pannes jusqu'à niveau de causes racines: fuites, pièces, usures, ... en effet, cet éclatement va nous permettre d'assurer l'analyse approfondie par cause de pannes.
-  [] possibilité d'analyser les pannes par engins, par NI, ... (comme indiqué dans le deuxième exemple ci-joint).
-  []
-  []
+  [x] possibilité d'analyser les pannes par engins, par NI, ... (comme indiqué dans le deuxième exemple ci-joint).
 
 - GHALASS
   [x] Ventilation lub par mois
-  [] Analyse indipo pour un période (par parc, par engin)
-  [] Analyse performances pour un période (par parc, par engin)
+  [x] Analyse indipo pour un période (par parc, par engin)
+  [x] Analyse performances (dispo, mtbf, util) pour un période (par parc, par engin)
   [] rajouter les objectifs

@@ -14,11 +14,14 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import { getIndispoParcPeriodeOptions } from '../../../hooks/useRapports'
+import {
+  getIndispoEnginsPeriodeOptions,
+  getPerformancesEnginsPeriodeOptions,
+} from '../../../hooks/useRapports'
 import { toast } from 'react-toastify'
 import { exportExcel } from '../../../utils/func'
 
-const IndispoParcPeriode = () => {
+const PerformancePeriode = () => {
   const [dateDu, setDateDu] = useState(new Date().toISOString().split('T')[0])
   const [dateAu, setDateAu] = useState(new Date().toISOString().split('T')[0])
   const [selectedParc, setSelectedParc] = useState('')
@@ -26,7 +29,9 @@ const IndispoParcPeriode = () => {
 
   const getAllParcsQuery = useQuery(useParcs())
 
-  const getIndispoParcPeriode = useQuery(getIndispoParcPeriodeOptions(selectedParc, dateDu, dateAu))
+  const getIndispoEnginsPeriode = useQuery(
+    getPerformancesEnginsPeriodeOptions(selectedParc, dateDu, dateAu),
+  )
 
   const [error, setError] = useState(null)
 
@@ -37,7 +42,7 @@ const IndispoParcPeriode = () => {
       toast.warn('Attention la date Du doit être >= dateAu')
       return
     }
-    getIndispoParcPeriode.refetch()
+    getIndispoEnginsPeriode.refetch()
   }
 
   return (
@@ -45,9 +50,11 @@ const IndispoParcPeriode = () => {
       <div className="row text-center">
         <div className="col-sm mb-2">
           <CButton
-            disabled={getIndispoParcPeriode.isFetching || !!getIndispoParcPeriode?.data !== true}
+            disabled={
+              getIndispoEnginsPeriode.isFetching || !!getIndispoEnginsPeriode?.data !== true
+            }
             onClick={() =>
-              exportExcel('tbl_indispo_parc_periode', "Analyse D'indisponibilité par parc")
+              exportExcel('tbl_performances_engin_periode', "Analyse D'indisponibilité par engin")
             }
             size="sm"
             color="success"
@@ -91,7 +98,7 @@ const IndispoParcPeriode = () => {
             placeholder="Date"
             value={dateDu}
             onChange={(e) => setDateDu(e.target.value)}
-            disabled={getIndispoParcPeriode.isFetching}
+            disabled={getIndispoEnginsPeriode.isFetching}
           />
         </div>
 
@@ -104,14 +111,14 @@ const IndispoParcPeriode = () => {
             placeholder="Date"
             value={dateAu}
             onChange={(e) => setDateAu(e.target.value)}
-            disabled={getIndispoParcPeriode.isFetching}
+            disabled={getIndispoEnginsPeriode.isFetching}
           />
         </div>
 
         <div className="col-sm mb-2">
           <CButton
             disabled={
-              getIndispoParcPeriode.isFetching ||
+              getIndispoEnginsPeriode.isFetching ||
               selectedParc === '' ||
               dateDu === '' ||
               dateAu === ''
@@ -123,7 +130,7 @@ const IndispoParcPeriode = () => {
             className="rounded-pill"
           >
             <div className="d-flex gap-1 align-items-center">
-              {getIndispoParcPeriode.isFetching && <CSpinner size="sm" />}
+              {getIndispoEnginsPeriode.isFetching && <CSpinner size="sm" />}
               <div> Générer le rapport</div>
             </div>
           </CButton>
@@ -138,11 +145,11 @@ const IndispoParcPeriode = () => {
         </div>
       )}
 
-      {!getIndispoParcPeriode.isFetching &&
+      {!getIndispoEnginsPeriode.isFetching &&
         !error &&
         selectedParc !== '' &&
-        getIndispoParcPeriode?.data &&
-        getIndispoParcPeriode?.data?.length > 0 && (
+        getIndispoEnginsPeriode?.data &&
+        getIndispoEnginsPeriode?.data?.length > 0 && (
           <div>
             <CTable
               responsive
@@ -150,12 +157,12 @@ const IndispoParcPeriode = () => {
               hover
               size="sm"
               className="text-center text-uppercase"
-              id="tbl_indispo_parc_periode"
+              id="tbl_performances_engin_periode"
             >
               <CTableHead>
                 <CTableRow>
                   <CTableDataCell colSpan={6} className="text-start">
-                    anlayse d'indispo pour le parc {selectedParcName} du{' '}
+                    anlayse des performances par engin pour le parc {selectedParcName} du{' '}
                     {dateDu.split('-').reverse().join('-')} au{' '}
                     {dateAu.split('-').reverse().join('-')}
                   </CTableDataCell>
@@ -163,22 +170,26 @@ const IndispoParcPeriode = () => {
               </CTableHead>
               <CTableBody className="text-start">
                 <CTableRow>
-                  <CTableHeaderCell>TypePanne</CTableHeaderCell>
-                  <CTableHeaderCell>Panne</CTableHeaderCell>
-                  <CTableHeaderCell>NI</CTableHeaderCell>
-                  {/* <CTableHeaderCell>NI_A</CTableHeaderCell> */}
+                  <CTableHeaderCell>Engin</CTableHeaderCell>
+                  <CTableHeaderCell>NHO</CTableHeaderCell>
+                  <CTableHeaderCell>HRM</CTableHeaderCell>
                   <CTableHeaderCell>HIM</CTableHeaderCell>
-                  {/* <CTableHeaderCell>HIM_A</CTableHeaderCell> */}
+                  <CTableHeaderCell>NI</CTableHeaderCell>
+                  <CTableHeaderCell>DISPO</CTableHeaderCell>
+                  <CTableHeaderCell>MTBF</CTableHeaderCell>
+                  <CTableHeaderCell>UTIL</CTableHeaderCell>
                 </CTableRow>
 
-                {getIndispoParcPeriode?.data?.map((item, index) => (
+                {getIndispoEnginsPeriode?.data?.map((item, index) => (
                   <CTableRow key={index}>
-                    <CTableDataCell>{item?.typepanne}</CTableDataCell>
-                    <CTableDataCell>{item?.panne}</CTableDataCell>
-                    <CTableDataCell>{item?.ni_m}</CTableDataCell>
-                    {/* <CTableDataCell>{item?.ni_a}</CTableDataCell> */}
-                    <CTableDataCell>{item?.him_m}</CTableDataCell>
-                    {/* <CTableDataCell>{item?.him_a}</CTableDataCell> */}
+                    <CTableDataCell>{item?.engin}</CTableDataCell>
+                    <CTableDataCell>{item?.nho}</CTableDataCell>
+                    <CTableDataCell>{item?.hrm}</CTableDataCell>
+                    <CTableDataCell>{item?.him}</CTableDataCell>
+                    <CTableDataCell>{item?.ni}</CTableDataCell>
+                    <CTableDataCell>{item?.dispo}</CTableDataCell>
+                    <CTableDataCell>{item?.mtbf}</CTableDataCell>
+                    <CTableDataCell>{item?.util}</CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>
@@ -186,18 +197,20 @@ const IndispoParcPeriode = () => {
           </div>
         )}
 
-      {!getIndispoParcPeriode.isFetching && getIndispoParcPeriode?.data?.length === 0 && !error && (
-        <>
-          <div className="text-center text-primary">
-            Aucune données n'est enregistrée pour ce parc à cette période.
-          </div>
-        </>
-      )}
+      {!getIndispoEnginsPeriode.isFetching &&
+        getIndispoEnginsPeriode?.data?.length === 0 &&
+        !error && (
+          <>
+            <div className="text-center text-primary">
+              Aucune données n'est enregistrée pour ce parc à cette période.
+            </div>
+          </>
+        )}
 
-      {getIndispoParcPeriode.isFetching && (
+      {getIndispoEnginsPeriode.isFetching && (
         <>
           <div className="text-center text-primary">
-            {getIndispoParcPeriode.isFetching && (
+            {getIndispoEnginsPeriode.isFetching && (
               <div>
                 <CSpinner size="sm" /> Chargement...
               </div>
@@ -209,4 +222,4 @@ const IndispoParcPeriode = () => {
   )
 }
 
-export default IndispoParcPeriode
+export default PerformancePeriode

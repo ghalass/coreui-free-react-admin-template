@@ -25,6 +25,7 @@ const SpeByParcByLubByTypeConsomm = React.lazy(() => import('./pages/analyses/lu
 const Ventilation = React.lazy(() => import('./pages/analyses/lubrifiants/Ventilation'))
 const IndispoParcPeriode = React.lazy(() => import('./pages/analyses/performances/IndispoParcPeriode'))
 const IndispoEnginPeriode = React.lazy(() => import('./pages/analyses/performances/IndispoEnginPeriode'))
+const PerformancePeriode = React.lazy(() => import('./pages/analyses/performances/PerformancePeriode'))
 
 const routes = [
   { path: '/', name: 'Home', element: Home },
@@ -59,6 +60,7 @@ const routes = [
 
   { path: '/analyse/indispo_parc_periode', name: 'Indispo Parc Période', element: IndispoParcPeriode },
   { path: '/analyse/indispo_engin_periode', name: 'Indispo Engin Période', element: IndispoEnginPeriode },
+  { path: '/analyse/performances_engin_periode', name: 'Performances Engin Période', element: PerformancePeriode },
 
 ]
 

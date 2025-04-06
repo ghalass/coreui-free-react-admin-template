@@ -46,3 +46,7 @@ export const getIndispoEnginsPeriode = async (selectedParc, dateDu, dateAu) => {
     return await apiRequest(API_PATHS.RAPPORTS.GENERATE_ANALYSE_INDISPO_ENGINS_PERIODE, "POST", { parcId: selectedParc, dateDu, dateAu });
 };
 
+export const getPerformancesEnginsPeriode = async (selectedParc, dateDu, dateAu) => {
+    return await apiRequest(API_PATHS.RAPPORTS.GENERATE_ANALYSE_PERFORMANCES_ENGINS_PERIODE, "POST", { parcId: selectedParc, dateDu, dateAu });
+};
+
