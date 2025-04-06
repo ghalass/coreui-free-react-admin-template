@@ -44,6 +44,12 @@ const About = () => {
             (& his frameworks) · IoT · Robotics
             <br />
             💡 Always learning, always creating.
+            <br />
+            Email: msghalas@gmail.com
+            <br />
+            <a target="_blank" href="https://www.ghalass.com">
+              https://www.ghalass.com
+            </a>
           </CCardText>
         </CCardBody>
       </CCard>
