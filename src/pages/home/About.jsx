@@ -7,7 +7,7 @@ const About = () => {
   return (
     <div className="d-flex text-center ">
       <CCard textColor="secondary" className={`mb-3 border-secondary mx-auto`}>
-        <CCardHeader>ING. GHALASS MOHAMED SALEM</CCardHeader>
+        <CCardHeader>ENG. GHALASS MOHAMED SALEM</CCardHeader>
         <CCardBody>
           <CAvatar
             src={avatar8}
