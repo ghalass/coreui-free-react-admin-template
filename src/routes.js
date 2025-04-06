@@ -23,6 +23,8 @@ const Pannes = React.lazy(() => import('./pages/configs/Pannes'))
 const Typeconsommationlubs = React.lazy(() => import('./pages/configs/Typeconsommationlubs'))
 const SpeByParcByLubByTypeConsomm = React.lazy(() => import('./pages/analyses/lubrifiants/SpeByParcByLubByTypeConsomm'))
 const Ventilation = React.lazy(() => import('./pages/analyses/lubrifiants/Ventilation'))
+const IndispoParcPeriode = React.lazy(() => import('./pages/analyses/performances/IndispoParcPeriode'))
+const IndispoEnginPeriode = React.lazy(() => import('./pages/analyses/performances/IndispoEnginPeriode'))
 
 const routes = [
   { path: '/', name: 'Home', element: Home },
@@ -54,6 +56,9 @@ const routes = [
   { path: '/rapport/rapport-speclub', name: 'Spéc Lub', element: RapportSpecLub },
   { path: '/rapport/pareto-indispo', name: 'Paretos indispo', element: ParetosInDispo },
   { path: '/rapport/rapport-ventilation', name: 'Ventilation Lub', element: Ventilation },
+
+  { path: '/analyse/indispo_parc_periode', name: 'Indispo Parc Période', element: IndispoParcPeriode },
+  { path: '/analyse/indispo_engin_periode', name: 'Indispo Engin Période', element: IndispoEnginPeriode },
 
 ]
 

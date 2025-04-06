@@ -179,7 +179,7 @@ const SpeByParcByLubByTypeConsomm = () => {
         getAnalyse?.data?.length > 0 && (
           <div className="row">
             <div className="col-md">
-              <CTablemx-automx-auto
+              <CTable
                 responsive
                 striped
                 hover
@@ -210,7 +210,7 @@ const SpeByParcByLubByTypeConsomm = () => {
                     </CTableRow>
                   ))}
                 </CTableBody>
-              </CTablemx-automx-auto>
+              </CTable>
             </div>
             <div className="col-md">
               {!getAnalyse.isFetching &&

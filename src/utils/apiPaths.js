@@ -120,5 +120,6 @@ export const API_PATHS = {
         GENERATE_PARETO_INDISPO_PARC: "/rapports/getParetoIndispoParc",
         GENERATE_PARETO_MTBF_PARC: "/rapports/getParetoMtbfParc",
         GENERATE_ANALYSE_LUB_PERIOD_PARC: "/rapports/getAnalyseSpcPeriodParcTypeConsomm",
+        GENERATE_ANALYSE_INDISPO_PARC_PERIODE: "/rapports/getIndispoParcPeriode",
     }
 };
