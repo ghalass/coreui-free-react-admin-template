@@ -45,6 +45,7 @@ const About = () => {
             <br />
             💡 Always learning, always creating.
             <br />
+            <hr className="w-25 mx-auto my-1" />
             Email: msghalas@gmail.com
             <br />
             <a target="_blank" href="https://www.ghalass.com">
