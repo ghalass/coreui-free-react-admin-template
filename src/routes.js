@@ -1,5 +1,6 @@
 import React from 'react'
 const Home = React.lazy(() => import('./pages/home/Home'))
+const About = React.lazy(() => import('./pages/home/About'))
 const Sites = React.lazy(() => import('./pages/configs/Sites'))
 const Typeparcs = React.lazy(() => import('./pages/configs/Typeparcs'))
 const Parcs = React.lazy(() => import('./pages/configs/Parcs'))
@@ -29,6 +30,7 @@ const PerformancePeriode = React.lazy(() => import('./pages/analyses/performance
 
 const routes = [
   { path: '/', name: 'Home', element: Home },
+  { path: '/about', name: 'About', element: About },
   { path: '/*', name: 'Page404', element: Page404 },
 
   { path: '/user/profile', name: 'Profile', element: Profile },

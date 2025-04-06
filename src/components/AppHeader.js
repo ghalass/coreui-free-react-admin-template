@@ -9,17 +9,22 @@ import {
   CHeader,
   CHeaderNav,
   CHeaderToggler,
+  CNavItem,
+  CNavLink,
   useColorModes,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {
+  cilBadge,
   cilContrast,
+  cilInfo,
   cilMenu,
   cilMoon,
   cilSun,
 } from '@coreui/icons'
 
 import { AppHeaderDropdown } from './header/index'
+import { NavLink } from 'react-router-dom'
 
 const AppHeader = () => {
   const headerRef = useRef()
@@ -44,6 +49,18 @@ const AppHeader = () => {
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
+
+
+
+        <CHeaderNav className="d-none d-md-flex me-auto" >
+          <CNavItem >
+            <CNavLink to="/about" as={NavLink} className="text-primary">
+              <CIcon icon={cilBadge} size="lg" /> A propos
+            </CNavLink>
+          </CNavItem>
+        </CHeaderNav>
+
+
 
         <CHeaderNav>
 
