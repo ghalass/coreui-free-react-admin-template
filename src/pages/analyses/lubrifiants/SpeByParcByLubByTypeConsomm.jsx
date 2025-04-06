@@ -1,4 +1,5 @@
 import {
+  CAlert,
   CButton,
   CFormInput,
   CFormSelect,
@@ -16,6 +17,7 @@ import { getAnalyseSpcPeriodParcTypeConsommOptions } from '../../../hooks/useRap
 import { useParcs } from '../../../hooks/useParcs'
 import { useTypelubrifiants } from '../../../hooks/useTypelubrifiants'
 import ChartCustom from '../../../components/ChartCustom'
+import { toast } from 'react-toastify'
 
 const SpeByParcByLubByTypeConsomm = () => {
   const [dateDu, setDateDu] = useState(new Date().toISOString().split('T')[0])
@@ -29,8 +31,9 @@ const SpeByParcByLubByTypeConsomm = () => {
   const getAnalyse = useQuery(
     getAnalyseSpcPeriodParcTypeConsommOptions(selectedParc, dateDu, dateAu, selectedTypelubrifiant),
   )
-
+  const [error, setError] = useState(null)
   const handleClick = () => {
+    setError(null)
     const data = {
       dateDu,
       dateAu,
@@ -39,10 +42,12 @@ const SpeByParcByLubByTypeConsomm = () => {
     }
 
     if (dateDu > dateAu) {
-      console.log('attention')
+      setError('Attention la date Du doit être >= dateAu')
+      toast.warn('Attention la date Du doit être >= dateAu')
+      getAnalyse.reset()
+      return
     }
     // console.log(data)
-
     getAnalyse.refetch()
   }
 
@@ -159,77 +164,90 @@ const SpeByParcByLubByTypeConsomm = () => {
         </div>
       </div>
 
-      <div className="row">
-        <div className="col-md">
-          <CTable
-            responsive
-            striped
-            hover
-            size="sm"
-            className="text-center text-uppercase"
-            id="tbl_heures_chassis"
-          >
-            <CTableHead>
-              <CTableRow>
-                <CTableDataCell colSpan={6} className="text-start">
-                  anlayse causes de consommation lub du {dateDu.split('-').reverse().join('-')} au{' '}
-                  {dateAu.split('-').reverse().join('-')}
-                </CTableDataCell>
-              </CTableRow>
-            </CTableHead>
-            <CTableBody className="text-start">
-              <CTableRow>
-                <CTableHeaderCell>Code</CTableHeaderCell>
-                <CTableHeaderCell>Qté</CTableHeaderCell>
-                <CTableHeaderCell>%</CTableHeaderCell>
-              </CTableRow>
+      {error && (
+        <div className="d-flex justify-content-center">
+          <CAlert color="danger" className="text-center py-2">
+            {error}
+          </CAlert>
+        </div>
+      )}
 
-              {!getAnalyse.isFetching &&
-                getAnalyse?.data?.map((item, index) => (
-                  <CTableRow key={index}>
-                    <CTableDataCell>{item?.name}</CTableDataCell>
-                    <CTableDataCell>{item?.sum}</CTableDataCell>
-                    <CTableDataCell>{item?.percentage}</CTableDataCell>
+      {!getAnalyse.isFetching &&
+        !error &&
+        selectedParc !== '' &&
+        getAnalyse?.data &&
+        getAnalyse?.data?.length > 0 && (
+          <div className="row">
+            <div className="col-md">
+              <CTablemx-automx-auto
+                responsive
+                striped
+                hover
+                size="sm"
+                className="text-center text-uppercase"
+                id="tbl_heures_chassis"
+              >
+                <CTableHead>
+                  <CTableRow>
+                    <CTableDataCell colSpan={6} className="text-start">
+                      anlayse causes de consommation lub du {dateDu.split('-').reverse().join('-')}{' '}
+                      au {dateAu.split('-').reverse().join('-')}
+                    </CTableDataCell>
                   </CTableRow>
-                ))}
+                </CTableHead>
+                <CTableBody className="text-start">
+                  <CTableRow>
+                    <CTableHeaderCell>Code</CTableHeaderCell>
+                    <CTableHeaderCell>Qté</CTableHeaderCell>
+                    <CTableHeaderCell>%</CTableHeaderCell>
+                  </CTableRow>
 
-              {!getAnalyse.isFetching && getAnalyse?.data?.length === 0 && (
-                <CTableRow>
-                  <CTableDataCell colSpan={3} className="text-center text-primary">
-                    Aucune consommation n'est enregistrée pour ce parc à cette période.
-                  </CTableDataCell>
-                </CTableRow>
-              )}
+                  {getAnalyse?.data?.map((item, index) => (
+                    <CTableRow key={index}>
+                      <CTableDataCell>{item?.name}</CTableDataCell>
+                      <CTableDataCell>{item?.sum}</CTableDataCell>
+                      <CTableDataCell>{item?.percentage}</CTableDataCell>
+                    </CTableRow>
+                  ))}
+                </CTableBody>
+              </CTablemx-automx-auto>
+            </div>
+            <div className="col-md">
+              {!getAnalyse.isFetching &&
+                !error &&
+                selectedParc !== '' &&
+                getAnalyse?.data &&
+                getAnalyse?.data?.length > 0 && (
+                  <ChartCustom
+                    data={getAnalyse?.data}
+                    xDataKey={'name'}
+                    barDataKey={'percentage'}
+                    type="bar"
+                  />
+                )}
+            </div>
+          </div>
+        )}
 
-              {getAnalyse.isFetching && (
-                <CTableRow>
-                  <CTableDataCell colSpan={3} className="text-center text-primary">
-                    {getAnalyse.isFetching && (
-                      <div>
-                        <CSpinner size="sm" /> Chargement...
-                      </div>
-                    )}
-                  </CTableDataCell>
-                </CTableRow>
-              )}
-            </CTableBody>
-          </CTable>
-        </div>
-        <div className="col-md">
-          {' '}
-          {!getAnalyse.isFetching &&
-            selectedParc !== '' &&
-            getAnalyse?.data &&
-            getAnalyse?.data?.length > 0 && (
-              <ChartCustom
-                data={getAnalyse?.data}
-                xDataKey={'name'}
-                barDataKey={'percentage'}
-                type="bar"
-              />
+      {!getAnalyse.isFetching && getAnalyse?.data?.length === 0 && !error && (
+        <>
+          <div className="text-center text-primary">
+            Aucune consommation n'est enregistrée pour ce parc à cette période.
+          </div>
+        </>
+      )}
+
+      {getAnalyse.isFetching && (
+        <>
+          <div className="text-center text-primary">
+            {getAnalyse.isFetching && (
+              <div>
+                <CSpinner size="sm" /> Chargement...
+              </div>
             )}
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }

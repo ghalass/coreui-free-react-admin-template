@@ -1,6 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
+  cilBarChart,
   cilChartLine,
   cilDrop,
   cilKeyboard,
@@ -47,7 +48,7 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'Performances',
+    name: 'Mensuel (RM)',
     icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
     items: [
       {
@@ -75,6 +76,23 @@ const _nav = [
         component: CNavItem,
         name: 'Paretos indispo',
         to: '/rapport/pareto-indispo',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Analyse performance',
+    icon: <CIcon icon={cilBarChart} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Indispo Parc-Période',
+        to: '/analyse/indispo_parc_periode',
+      },
+      {
+        component: CNavItem,
+        name: 'Indispo Engin-Période',
+        to: '/analyse/indispo_engin_periode',
       },
     ],
   },
