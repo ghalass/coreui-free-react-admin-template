@@ -13,14 +13,13 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import { useGetAllSaisieLubrifiantByMonth } from '../../../hooks/useSaisieLubrifiant'
+import { exportExcel } from '../../../utils/func'
 
 const Ventilation = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 7))
   const getVentilationLub = useQuery(useGetAllSaisieLubrifiantByMonth({ date: `${date}-01` }))
 
   const handleClick = () => {
-    console.log(`${date}-01`)
-
     getVentilationLub.refetch()
   }
 
@@ -42,6 +41,19 @@ const Ventilation = () => {
   return (
     <div>
       <div className="d-flex gap-1 align-items-center">
+        <div className="">
+          <CButton
+            // disabled={getAnalyse.isFetching || !!getAnalyse?.data !== true}
+            onClick={() => exportExcel('tbl_rapport_ventilation', 'Ventilation lubrifiants')}
+            size="sm"
+            color="success"
+            variant="outline"
+            className="rounded-pill mb-3"
+          >
+            Excel
+          </CButton>
+        </div>
+
         <div className="">
           <CFormInput
             type="month"
@@ -130,7 +142,7 @@ const Ventilation = () => {
           hover
           size="sm"
           className="text-center text-uppercase"
-          id="tbl_heures_chassis"
+          id="tbl_rapport_ventilation"
         >
           <CTableHead>
             <CTableRow>
@@ -154,7 +166,7 @@ const Ventilation = () => {
             {!getVentilationLub.isFetching &&
               filteredData?.map((item, index) => (
                 <CTableRow key={index}>
-                  <CTableDataCell>{item?.date?.split('-').reverse().join('-')}</CTableDataCell>
+                  <CTableDataCell>{item?.date}</CTableDataCell>
                   <CTableDataCell>{item?.engin}</CTableDataCell>
                   <CTableDataCell>{item?.parc}</CTableDataCell>
                   <CTableDataCell>{item?.type_lubrifiant}</CTableDataCell>
