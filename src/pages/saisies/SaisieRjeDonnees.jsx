@@ -5,7 +5,7 @@ import { CButton, CFormInput, CSpinner, CTable } from '@coreui/react'
 import { exportExcel } from '../../utils/func'
 
 const SaisieRjeDonnees = () => {
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0])
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 7))
   const getSaisieHrmDay = useQuery(useGetSaisieHrmDay(date))
 
   const [searchByTypeparc, setSearchByTypeparc] = useState('')
@@ -43,7 +43,7 @@ const SaisieRjeDonnees = () => {
 
         <div className="col-sm mb-2 ">
           <CFormInput
-            type="date"
+            type="month"
             id="floatingInputDate"
             floatingClassName=""
             floatingLabel="Date de saisie"
@@ -145,7 +145,7 @@ const SaisieRjeDonnees = () => {
           {!getSaisieHrmDay.isFetching &&
             filteredData?.map((r, i) => (
               <tr key={i}>
-                <td>{r?.date}</td>
+                <td>{r?.date.split('-').reverse().join('-')}</td>
                 <td>{r?.typeparc}</td>
                 <td>{r?.parc}</td>
                 <td>{r?.engin}</td>

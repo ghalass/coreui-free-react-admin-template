@@ -15,4 +15,5 @@
   [x] Ventilation lub par mois
   [x] Analyse indipo pour un période (par parc, par engin)
   [x] Analyse performances (dispo, mtbf, util) pour un période (par parc, par engin)
+  [] données saisie entre deux dates
   [] rajouter les objectifs
