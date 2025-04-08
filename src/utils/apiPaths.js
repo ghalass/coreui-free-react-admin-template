@@ -78,6 +78,9 @@ export const API_PATHS = {
         UPDATE_LUBRIFIANT: (lubrifiantId) => `/lubrifiants/${lubrifiantId}`,
         DELETE_LUBRIFIANT: (lubrifiantId) => `/lubrifiants/${lubrifiantId}`,
         DOWNLOAD_LUBRIFIANTS: "/lubrifiants/downloadexcel",
+        // AFFECT PARC TO CODE
+        ADD_PARC_TO_LUBRIFIANT: "/lubrifiants/affectparctolubrifiant",
+        DELETE_PARC_TO_LUBRIFIANT: "/lubrifiants/affectparctolubrifiant/delete",
 
     },
     TYPECONSOMMATIONLUBS: {

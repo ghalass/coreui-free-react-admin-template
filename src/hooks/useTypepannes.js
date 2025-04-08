@@ -66,6 +66,7 @@ export const useCreateAffectParcToTypepanne = () => {
         },
     });
 };
+
 export const useDeleteAffectParcToTypepanne = () => {
     const queryClient = useQueryClient();
     return useMutation({
@@ -79,6 +80,7 @@ export const useDeleteAffectParcToTypepanne = () => {
         },
     });
 };
+
 export const useGetAllTypepannesByParcId = (parcId) => {
     return queryOptions({
         queryKey: ["typepannesbyparc", parcId], // Clé de requête

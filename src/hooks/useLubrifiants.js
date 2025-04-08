@@ -1,6 +1,6 @@
 // hooks/useSites.js
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createLubrifiant, deleteLubrifiant, fetchLubrifiants, getAllTypeconsommationlubsByParcId, updateLubrifiant } from '../api/lubrifiantApi';
+import { createAffectParcToLubrifiant, createLubrifiant, deleteAffectParcToLubrifiant, deleteLubrifiant, fetchLubrifiants, getAllTypeconsommationlubsByParcId, updateLubrifiant } from '../api/lubrifiantApi';
 
 export const fecthLubrifiantsQuery = () => {
     return queryOptions({
@@ -48,3 +48,32 @@ export const useGetAllTypeconsommationlubsByParcId = (parcId) => {
     });
 };
 
+
+// /************** AFFECTATION DE PARC AU LUBRIFIANT *********************** */
+export const useCreateAffectParcToLubrifiant = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: createAffectParcToLubrifiant,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['parclubrifiant']); // Rafraîchir la liste des typeparcs
+            // toast.success('Typeparc ajouté avec succès !'); // Notification de succès
+        },
+        onError: () => {
+            // toast.error('Erreur lors de l\'ajout du affectparctocode.'); // Notification d'erreur
+        },
+    });
+};
+
+export const useDeleteAffectParcToLubrifiant = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: deleteAffectParcToLubrifiant,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['parclubrifiant']);
+            // toast.success('Typeparc supprimé avec succès !'); // Notification de succès
+        },
+        onError: () => {
+            // toast.error('Erreur lors de la suppression du typeconsommationlubs.'); // Notification d'erreur
+        },
+    });
+};

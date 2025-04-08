@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import {
   CAlert,
   CBadge,
+  CCard,
+  CCardBody,
   CFormInput,
   CFormSelect,
   CPagination,
@@ -19,15 +21,17 @@ import { cilCloudDownload, cilPenNib, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import { exportExcel, getMultiplesOf } from '../../utils/func'
 import {
   fecthLubrifiantsQuery,
+  useCreateAffectParcToLubrifiant,
   useCreateLubrifiant,
+  useDeleteAffectParcToLubrifiant,
   useDeleteLubrifiant,
   useUpdateLubrifiant,
 } from '../../hooks/useLubrifiants'
 import { useTypelubrifiants } from '../../hooks/useTypelubrifiants'
 import TableHead from './TableHead'
+import { useParcs } from '../../hooks/useParcs'
 
 const Lubrifiants = () => {
   const getAllTypelubrifiantsQuery = useQuery(useTypelubrifiants())
@@ -122,6 +126,66 @@ const Lubrifiants = () => {
   // Calculate total pages
   const totalPages = Math.ceil(filteredEntitys?.length / entitysPerPage)
 
+  //
+  //
+  //***************** PARC => LUBRIFIANT *********************************************************** */
+  //
+  const getAllParcsQuery = useQuery(useParcs())
+  const [selectedParc, setSelectedParc] = useState('')
+  const [selectedParcsByLubrifiant, setSelectedParcsByLubrifiant] = useState(null)
+  const [visibleListParcs, setVisibleListParcs] = useState(false)
+
+  const affectParcLubrifiantMutation = useCreateAffectParcToLubrifiant()
+  const deleteAffectParcToLubrifiantMutation = useDeleteAffectParcToLubrifiant()
+
+  const handleAffecter = () => {
+    handleResetAllAffectModal()
+    const data = {
+      parc_id: selectedParc,
+      lubrifiant_id: selectedParcsByLubrifiant?.id,
+    }
+    affectParcLubrifiantMutation.mutate(data, {
+      onSuccess: (newData) => {
+        toast.success('Affecté avec succès.')
+        // console.log(newData)
+        const newParc = {
+          id: newData?.parc?.id,
+          name: newData?.parc?.name,
+        }
+        // Update state immutably
+        setSelectedParcsByLubrifiant((prev) => ({
+          ...prev,
+          parcs: [...prev.parcs, newParc], // Add new parc to existing array
+        }))
+      },
+    })
+  }
+
+  const handleDeleteAffecter = (affectation) => {
+    handleResetAllAffectModal()
+
+    const data = {
+      parc_id: affectation?.id,
+      lubrifiant_id: selectedParcsByLubrifiant?.id,
+    }
+
+    deleteAffectParcToLubrifiantMutation.mutate(data, {
+      onSuccess: () => {
+        toast.success('Supprimé avec succès.')
+        const updatedData = {
+          ...selectedParcsByLubrifiant,
+          parcs: selectedParcsByLubrifiant.parcs.filter((parc) => parc.id !== affectation?.id),
+        }
+        setSelectedParcsByLubrifiant(updatedData)
+      },
+    })
+  }
+
+  const handleResetAllAffectModal = () => {
+    affectParcLubrifiantMutation.reset()
+    deleteAffectParcToLubrifiantMutation.reset()
+  }
+
   return (
     <div>
       <TableHead
@@ -151,6 +215,7 @@ const Lubrifiants = () => {
           <CTableRow>
             <CTableHeaderCell scope="col">Nom du lubrifiant</CTableHeaderCell>
             <CTableHeaderCell scope="col">Type de lubrifiant</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Parcs</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
@@ -187,7 +252,25 @@ const Lubrifiants = () => {
                   {item?.name}
                 </CTableDataCell>
 
-                <CTableDataCell> {item?.Typelubrifiant?.name}</CTableDataCell>
+                <CTableDataCell> {item?.typelubrifiant?.name}</CTableDataCell>
+
+                <CTableDataCell>
+                  <CButton
+                    size="sm"
+                    color="primary"
+                    variant="outline"
+                    className="rounded-pill"
+                    onClick={() => {
+                      setSelectedParcsByLubrifiant(item)
+                      setVisibleListParcs(!visibleListParcs)
+                    }}
+                  >
+                    <CIcon icon={cilPenNib} />
+                  </CButton>{' '}
+                  {item?.parcs &&
+                    item?.parcs?.length > 0 &&
+                    item?.parcs?.map((p, i) => <span key={i}>{p?.name} | </span>)}
+                </CTableDataCell>
               </CTableRow>
             ))
           ) : (
@@ -217,7 +300,7 @@ const Lubrifiants = () => {
             floatingClassName="mb-3"
             floatingLabel="Choisir un type de lubrifiant"
             aria-label="Floating label select example"
-            value={entity.typelubrifiantId}
+            value={entity?.typelubrifiant?.id}
             onChange={(e) => setEntity({ ...entity, typelubrifiantId: e.target.value })}
             disabled={
               createMutation.isPending ||
@@ -304,6 +387,113 @@ const Lubrifiants = () => {
             </CButton>
           )}
         </CModalFooter>
+      </CModal>
+
+      {/* PARC => CODE */}
+      <CModal
+        backdrop="static"
+        visible={visibleListParcs}
+        onClose={() => {
+          setVisibleListParcs(false)
+          handleResetAllAffectModal()
+        }}
+        aria-labelledby="StaticBackdropExampleLabel"
+        size="lg"
+      >
+        <CModalHeader>
+          <CModalTitle id="StaticBackdropExampleLabel">
+            Gestion des lubrifiants par parc
+          </CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <p className="text-center text-info">{selectedParcsByLubrifiant?.name}</p>
+
+          <div className="row">
+            <div className="col-4">
+              <div className="">
+                <CFormSelect
+                  id="floatingSelect"
+                  floatingClassName="mb-3"
+                  floatingLabel="Choisir un parc"
+                  aria-label="Floating label select example"
+                  value={selectedParc}
+                  onChange={(e) => {
+                    setSelectedParc(e.target.value)
+                  }}
+                  // disabled={getParetoIndispParc.isFetching}
+                >
+                  <option value="">Liste des parc</option>
+                  {getAllParcsQuery.data?.map((item, index) => (
+                    <option key={index} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </CFormSelect>
+              </div>
+              <div className="">
+                <CButton
+                  disabled={
+                    affectParcLubrifiantMutation.isPending ||
+                    deleteAffectParcToLubrifiantMutation.isPending ||
+                    affectParcLubrifiantMutation.isPending
+                  }
+                  onClick={handleAffecter}
+                  size="sm"
+                  color="success"
+                  variant="outline"
+                >
+                  <div className="d-flex gap-1 align-items-center justify-content-end">
+                    {(affectParcLubrifiantMutation.isPending ||
+                      deleteAffectParcToLubrifiantMutation.isPending) && <CSpinner size="sm" />}
+                    <span>Affecter</span>
+                  </div>
+                </CButton>
+              </div>
+            </div>
+
+            <div className="col-8">
+              <div className="d-flex flex-wrap gap-2 align-content-start">
+                {selectedParcsByLubrifiant?.parcs &&
+                selectedParcsByLubrifiant?.parcs?.length > 0 ? (
+                  selectedParcsByLubrifiant?.parcs?.map((item, index) => (
+                    <CCard key={index}>
+                      <CCardBody className="py-1 px-2">
+                        <div className="d-flex gap-2">
+                          {item?.name}{' '}
+                          <i
+                            className="bi bi-trash3 text-danger"
+                            role="button"
+                            onClick={() => handleDeleteAffecter(item)}
+                          ></i>
+                        </div>
+                      </CCardBody>
+                    </CCard>
+                  ))
+                ) : (
+                  <p>Aucune donnée trouvée.</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {affectParcLubrifiantMutation.isError && (
+            <CAlert color="danger" className="mb-0 mt-2 py-2">
+              {affectParcLubrifiantMutation.error.message}
+            </CAlert>
+          )}
+
+          {updateMutation.isError && (
+            <CAlert color="danger" className="mb-0 mt-2 py-2">
+              {updateMutation.error.message}
+            </CAlert>
+          )}
+
+          {deleteAffectParcToLubrifiantMutation.isError && (
+            <CAlert color="danger" className="mb-0 mt-2 py-2">
+              {deleteAffectParcToLubrifiantMutation.error.message}
+            </CAlert>
+          )}
+        </CModalBody>
       </CModal>
     </div>
   )
