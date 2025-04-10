@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 import {
-  fecthLubrifiantsQuery,
-  useGetAllTypeconsommationlubsByParcId,
+  fetchGetAllLubrifiantsByParcId,
+  fetchGetAllTypeconsommationlubsByParcId,
 } from '../../hooks/useLubrifiants'
 import {
   useCreateSaisieLubrifiant,
@@ -48,9 +48,9 @@ const SaisieRjeCreateLubrifiantModal = () => {
   const [qte, setQte] = useState('')
   const [obs, setObs] = useState('')
 
-  const getAllLubrifiantsQuery = useQuery(fecthLubrifiantsQuery())
+  const getAllLubrifiantsQuery = useQuery(fetchGetAllLubrifiantsByParcId(selectedFields?.parcId))
   const getAllTypeconsommationlubsByParcId = useQuery(
-    useGetAllTypeconsommationlubsByParcId(selectedFields?.parcId),
+    fetchGetAllTypeconsommationlubsByParcId(selectedFields?.parcId),
   )
 
   const createSaisieLubrifiant = useCreateSaisieLubrifiant()

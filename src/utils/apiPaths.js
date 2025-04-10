@@ -81,6 +81,8 @@ export const API_PATHS = {
         // AFFECT PARC TO CODE
         ADD_PARC_TO_LUBRIFIANT: "/lubrifiants/affectparctolubrifiant",
         DELETE_PARC_TO_LUBRIFIANT: "/lubrifiants/affectparctolubrifiant/delete",
+        // 
+        GET_ALL_LUBRIFIANTS_BY_PARCID: (id) => `/lubrifiants/affectparctolubrifiant/byparcid/${id}`,
 
     },
     TYPECONSOMMATIONLUBS: {

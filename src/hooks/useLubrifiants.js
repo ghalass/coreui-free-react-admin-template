@@ -1,6 +1,6 @@
 // hooks/useSites.js
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createAffectParcToLubrifiant, createLubrifiant, deleteAffectParcToLubrifiant, deleteLubrifiant, fetchLubrifiants, getAllTypeconsommationlubsByParcId, updateLubrifiant } from '../api/lubrifiantApi';
+import { createAffectParcToLubrifiant, createLubrifiant, deleteAffectParcToLubrifiant, deleteLubrifiant, fetchLubrifiants, getAllLubrifiantsByParcId, getAllTypeconsommationlubsByParcId, updateLubrifiant } from '../api/lubrifiantApi';
 
 export const fecthLubrifiantsQuery = () => {
     return queryOptions({
@@ -40,10 +40,18 @@ export const useDeleteLubrifiant = () => {
 };
 
 
-export const useGetAllTypeconsommationlubsByParcId = (parcId) => {
+export const fetchGetAllTypeconsommationlubsByParcId = (parcId) => {
     return queryOptions({
         queryKey: ["typeconsommationlubs", parcId], // Clé de requête
         queryFn: () => getAllTypeconsommationlubsByParcId(parcId),
+        enabled: !!(parcId !== "") && !!(parcId !== undefined)
+    });
+};
+
+export const fetchGetAllLubrifiantsByParcId = (parcId) => {
+    return queryOptions({
+        queryKey: ["lubbyparc", parcId], // Clé de requête
+        queryFn: () => getAllLubrifiantsByParcId(parcId),
         enabled: !!(parcId !== "") && !!(parcId !== undefined)
     });
 };
