@@ -27,6 +27,7 @@ const Ventilation = React.lazy(() => import('./pages/analyses/lubrifiants/Ventil
 const IndispoParcPeriode = React.lazy(() => import('./pages/analyses/performances/IndispoParcPeriode'))
 const IndispoEnginPeriode = React.lazy(() => import('./pages/analyses/performances/IndispoEnginPeriode'))
 const PerformancePeriode = React.lazy(() => import('./pages/analyses/performances/PerformancePeriode'))
+const Objectifs = React.lazy(() => import('./pages/configs/Objectifs'))
 
 const routes = [
   { path: '/', name: 'Home', element: Home },
@@ -45,6 +46,7 @@ const routes = [
   { path: '/configs/typelubrifiants', name: 'Typelubrifiants', element: Typelubrifiants },
   { path: '/configs/lubrifiants', name: 'lubrifiants', element: Lubrifiants },
   { path: '/configs/typeconsommationlubs', name: 'typeconsommationlubs', element: Typeconsommationlubs },
+  { path: '/configs/objectifs', name: 'objectifs', element: Objectifs },
 
   { path: '/analyse/speclub_par_parc_periode', name: 'analyse_speclub_par_parc_periode', element: SpeByParcByLubByTypeConsomm },
 

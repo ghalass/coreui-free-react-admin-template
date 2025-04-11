@@ -139,28 +139,32 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Sites',
-        to: '/configs/sites',
+        name: 'Engins',
+        to: '/configs/engins',
+      }, {
+        component: CNavItem,
+        name: 'Objectifs',
+        to: '/configs/objectifs',
+      }, {
+        component: CNavItem,
+        name: 'Pannes',
+        to: '/configs/pannes',
+      }, {
+        component: CNavItem,
+        name: 'Parcs',
+        to: '/configs/parcs',
       }, {
         component: CNavItem,
         name: 'Typeparcs',
         to: '/configs/typeparcs',
       }, {
         component: CNavItem,
-        name: 'Parcs',
-        to: '/configs/parcs',
-      }, , {
-        component: CNavItem,
-        name: 'Engins',
-        to: '/configs/engins',
-      }, {
-        component: CNavItem,
         name: 'Typepannes',
         to: '/configs/typepannes',
       }, {
         component: CNavItem,
-        name: 'Pannes',
-        to: '/configs/pannes',
+        name: 'Lubrifiants',
+        to: '/configs/lubrifiants',
       }, {
         component: CNavItem,
         name: 'Types des lubrifiants',
@@ -171,8 +175,8 @@ const _nav = [
         to: '/configs/typeconsommationlubs',
       }, {
         component: CNavItem,
-        name: 'Lubrifiants',
-        to: '/configs/lubrifiants',
+        name: 'Sites',
+        to: '/configs/sites',
       }, {
         component: CNavItem,
         name: 'Utilisateurs',

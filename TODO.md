@@ -5,6 +5,7 @@
   [] Prévoir déclenchement des RG - VP en prévoyant un lien aux kits RG nécessaires
   [] Un suivi des analyses d'huile
   [x] En fin faire essai d'impression pour vérifier l'état de sortie
+  [] ajouter site au rje
 
 - DEINA
   [x] avoir le suivi de consommation des huiles par cause (ou code) de consommation comme l'exemple ci-joint
@@ -15,5 +16,5 @@
   [x] Ventilation lub par mois
   [x] Analyse indipo pour un période (par parc, par engin)
   [x] Analyse performances (dispo, mtbf, util) pour un période (par parc, par engin)
-  [] données saisie entre deux dates
+  [x] données saisie par mois
   [] rajouter les objectifs
